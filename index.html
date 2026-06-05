@@ -34,7 +34,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Styles & CDNs -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
@@ -52,12 +55,12 @@
             --bg-card-hover: rgba(20, 20, 20, 0.85);
             --bg-glass: rgba(10, 10, 10, 0.45);
 
-            /* Brands & Accents */
+            /* Brands & Accents - SOLID COLORS ONLY */
             --raindeer-blue: #4a7cff;
             --raindeer-cyan: #38d9ff;
             --raindeer-violet: #8b6cff;
-            --slay-green: #17CB96; /* Slay Health Green */
-            --hoblix-orange: #E95D24; /* Hoblix Orange */
+            --slay-green: #17CB96;
+            --hoblix-orange: #E95D24;
 
             /* Neutral Text */
             --text-white: #ffffff;
@@ -70,13 +73,18 @@
             --border-card: rgba(255, 255, 255, 0.04);
             --border-hover: rgba(255, 255, 255, 0.12);
 
-            /* Typography */
-            --font-display: 'Syne', sans-serif;
-            --font-sans: 'Outfit', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+            /* Typography - Single Modern Font */
+            --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'SF Mono', 'Monaco', 'Cascadia Code', 'Courier New', monospace;
 
-            /* Transitions */
-            --ease-cubic: cubic-bezier(0.16, 1, 0.3, 1);
+            /* Transitions - Smoother Animations */
+            --ease-cubic: cubic-bezier(0.22, 0.61, 0.36, 1);
+            
+            /* Border Radius - Consistent 5-10px */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 10px;
         }
 
         /* ==============================================================
@@ -87,7 +95,7 @@
         }
 
         html {
-            scroll-behavior: initial;
+            scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             background-color: var(--bg-pure);
@@ -96,8 +104,8 @@
         body {
             font-family: var(--font-sans);
             background-color: var(--bg-pure);
-            background-image: radial-gradient(rgba(140, 140, 140, 0.08) 1.2px, transparent 1.2px);
-            background-size: 28px 28px;
+            background-image: radial-gradient(rgba(150, 150, 150, 0.045) 1px, transparent 1px);
+            background-size: 24px 24px;
             color: var(--text-silver);
             overflow-x: hidden;
             line-height: 1.5;
@@ -109,6 +117,10 @@
             transition: color 0.3s ease;
         }
         button { font-family: var(--font-sans); }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+        }
 
         /* Custom focus styles for keyboard navigation */
         a:focus-visible, 
@@ -130,7 +142,7 @@
             color: var(--text-white);
             padding: 10px 20px;
             z-index: 9999;
-            border-radius: 100px;
+            border-radius: 8px;
             font-size: 0.85rem;
             font-weight: 600;
             box-shadow: 0 10px 30px rgba(74, 124, 255, 0.3);
@@ -159,17 +171,18 @@
            LAYOUT
            ============================================================= */
         .container {
-            max-width: 1280px;
+            max-width: 1600px;
+            width: 96vw;
             margin: 0 auto;
-            padding: 0 clamp(20px, 5vw, 64px);
+            padding: 0 clamp(16px, 2vw, 32px);
             position: relative;
             z-index: 10;
         }
 
         .container-narrow {
-            max-width: 900px;
+            max-width: 980px;
             margin: 0 auto;
-            padding: 0 clamp(20px, 5vw, 64px);
+            padding: 0 clamp(16px, 3vw, 48px);
             position: relative;
             z-index: 10;
         }
@@ -223,11 +236,11 @@
             top: 24px; left: 50%;
             transform: translateX(-50%);
             width: calc(100% - 48px);
-            max-width: 1200px;
+            max-width: 1600px;
             z-index: 1000;
             background: var(--bg-glass);
             border: 1px solid var(--border-card);
-            border-radius: 100px;
+            border-radius: var(--radius-md);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 12px 24px;
@@ -308,7 +321,7 @@
             background: var(--text-white);
             color: var(--bg-pure);
             border: none;
-            border-radius: 100px;
+            border-radius: var(--radius-md);
             font-size: 0.82rem;
             font-weight: 600;
             cursor: pointer;
@@ -362,7 +375,7 @@
             padding: 6px 14px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 100px;
+            border-radius: var(--radius-md);
             font-family: var(--font-mono);
             font-size: 0.7rem;
             color: var(--text-zinc);
@@ -389,19 +402,14 @@
             color: var(--text-white);
             max-width: 980px;
             margin-bottom: 24px;
-            opacity: 0;
-            transform: translateY(30px);
         }
 
         .hero-headline .accent-line {
-            background: linear-gradient(135deg, var(--text-white) 30%, var(--text-zinc) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-white);
         }
 
         .hero-headline .glow-blue {
             color: var(--raindeer-blue);
-            text-shadow: 0 0 40px rgba(74, 124, 255, 0.2);
         }
 
         .hero-subtitle {
@@ -430,20 +438,21 @@
             justify-content: center;
             text-decoration: none;
             padding: 16px 36px;
-            background: linear-gradient(to right, var(--raindeer-blue), var(--raindeer-violet));
+            background: var(--raindeer-blue);
             color: var(--text-white);
             border: none;
-            border-radius: 100px;
+            border-radius: var(--radius-md);
             font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: box-shadow 0.3s, border-color 0.3s, background-color 0.3s, transform 0.3s var(--ease-cubic);
-            box-shadow: 0 4px 30px rgba(74, 124, 255, 0.25);
+            box-shadow: 0 4px 30px rgba(74, 124, 255, 0.15);
         }
 
         .btn-hero-filled:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 40px rgba(74, 124, 255, 0.4);
+            box-shadow: 0 8px 40px rgba(74, 124, 255, 0.3);
+            background-color: #608eff;
             color: var(--text-white);
         }
 
@@ -456,7 +465,7 @@
             background: rgba(255, 255, 255, 0.02);
             color: var(--text-white);
             border: 1px solid var(--border-card);
-            border-radius: 100px;
+            border-radius: var(--radius-md);
             font-size: 0.95rem;
             font-weight: 500;
             cursor: pointer;
@@ -474,7 +483,7 @@
            ============================================================== */
         .product-preview {
             width: 100%;
-            max-width: 1120px;
+            max-width: 1400px;
             margin: 0 auto;
             position: relative;
             z-index: 10;
@@ -485,7 +494,7 @@
         .dashboard-frame {
             background: #0a0a0a;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
+            border-radius: var(--radius-md);
             box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.02);
             overflow: hidden;
             display: flex;
@@ -645,7 +654,7 @@
             padding: 6px 12px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 100px;
+            border-radius: 8px;
             font-size: 0.7rem;
             font-family: var(--font-mono);
             color: var(--text-zinc);
@@ -664,7 +673,7 @@
         .workflow-visualizer-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 20px;
         }
 
@@ -681,7 +690,7 @@
             left: 10%;
             right: 10%;
             height: 1px;
-            background: linear-gradient(to right, var(--raindeer-blue), var(--raindeer-cyan), var(--raindeer-violet));
+            background: var(--raindeer-blue);
             z-index: 1;
             opacity: 0.4;
         }
@@ -689,7 +698,7 @@
         .workflow-step {
             background: #0e0e0e;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 14px;
             position: relative;
             z-index: 2;
@@ -748,7 +757,7 @@
         .mock-post-creator {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -798,7 +807,7 @@
 
         .mock-img-placeholder {
             aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #0e0e0e 0%, #1c1c28 100%);
+            background: #0f0f13;
             border: 1px dashed rgba(255, 255, 255, 0.08);
             border-radius: 8px;
             display: flex;
@@ -821,7 +830,7 @@
         .mock-analytics-panel {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -989,7 +998,7 @@
         .pain-item {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-card);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 16px;
             display: flex;
             gap: 16px;
@@ -1024,7 +1033,7 @@
         .problem-visualizer {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
+            border-radius: 8px;
             padding: 40px 24px;
             display: flex;
             flex-direction: column;
@@ -1042,7 +1051,7 @@
         .tile-cloud-item {
             background: #0d0d0d;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 16px 8px;
             text-align: center;
             font-size: 0.72rem;
@@ -1079,7 +1088,7 @@
         .bento-card {
             background: var(--bg-card);
             border: 1px solid var(--border-card);
-            border-radius: 20px;
+            border-radius: var(--radius-md);
             padding: 32px;
             transition: border-color 0.4s var(--ease-cubic), box-shadow 0.4s var(--ease-cubic), background-color 0.4s var(--ease-cubic);
             display: flex;
@@ -1103,7 +1112,7 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(74, 124, 255, 0.25), transparent);
+            background: var(--raindeer-blue);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
@@ -1116,7 +1125,7 @@
             width: 48px; height: 48px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1146,7 +1155,7 @@
            ============================================================== */
         .calm-table {
             border: 1px solid var(--border-card);
-            border-radius: 16px;
+            border-radius: var(--radius-md);
             overflow: hidden;
             background: var(--bg-card);
             margin-top: 48px;
@@ -1217,7 +1226,7 @@
         .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border-card);
-            border-radius: 16px;
+            border-radius: var(--radius-md);
             padding: 36px 24px;
             text-align: center;
             opacity: 0;
@@ -1236,9 +1245,6 @@
             font-weight: 800;
             line-height: 1;
             color: var(--text-white);
-            background: linear-gradient(135deg, var(--text-white) 40%, var(--text-zinc) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .stat-label {
@@ -1261,7 +1267,7 @@
         .price-card {
             background: var(--bg-card);
             border: 1px solid var(--border-card);
-            border-radius: 24px;
+            border-radius: var(--radius-md);
             padding: 40px;
             display: flex;
             flex-direction: column;
@@ -1280,7 +1286,7 @@
 
         .price-card.featured {
             border-color: var(--raindeer-blue);
-            background: linear-gradient(180deg, rgba(74, 124, 255, 0.03) 0%, rgba(10, 10, 10, 0.7) 100%);
+            background: rgba(12, 12, 14, 0.85);
         }
 
         .price-card.featured::after {
@@ -1293,7 +1299,7 @@
             font-family: var(--font-mono);
             font-size: 0.62rem;
             padding: 4px 10px;
-            border-radius: 100px;
+            border-radius: 4px;
             font-weight: 600;
             letter-spacing: 0.05em;
         }
@@ -1358,7 +1364,7 @@
             text-decoration: none;
             width: 100%;
             padding: 14px;
-            border-radius: 100px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 0.88rem;
             cursor: pointer;
@@ -1474,7 +1480,7 @@
             margin: 0 auto 56px;
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid var(--border-card);
-            border-radius: 20px;
+            border-radius: 8px;
             padding: 32px;
             text-align: left;
         }
@@ -1514,7 +1520,7 @@
             gap: 12px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 100px;
+            border-radius: 8px;
             padding: 6px;
         }
 
@@ -1538,7 +1544,7 @@
             border: none;
             outline: none;
             padding: 12px 28px;
-            border-radius: 100px;
+            border-radius: 8px;
             font-size: 0.88rem;
             font-weight: 600;
             cursor: pointer;
@@ -1560,7 +1566,7 @@
 
         .success-icon {
             width: 64px; height: 64px;
-            border-radius: 50%;
+            border-radius: 8px;
             background: rgba(23, 203, 150, 0.08);
             border: 1px solid var(--slay-green);
             display: flex;
@@ -1675,7 +1681,7 @@
                 right: 0;
                 background: #0a0a0a;
                 border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: 16px;
+                border-radius: 8px;
                 padding: 24px;
                 gap: 16px;
                 z-index: 999;
@@ -1807,7 +1813,7 @@
         .waitlist-form-stacked {
             background: var(--bg-card);
             border: 1px solid var(--border-card);
-            border-radius: 20px;
+            border-radius: 8px;
             padding: 36px;
             display: flex;
             flex-direction: column;
@@ -1876,6 +1882,458 @@
             border-color: var(--raindeer-blue);
             box-shadow: 0 0 0 2px rgba(74, 124, 255, 0.15);
         }
+
+        /* ==============================================================
+           V3 PREMIUM MOTION SYSTEM STYLES
+           ============================================================== */
+        
+        /* Spotlight Glow Effect for Hero & Mockup */
+        .spotlight-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .spotlight-glow::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                200px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+                rgba(74, 124, 255, 0.12),
+                transparent 60%
+            );
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .spotlight-glow:hover::after {
+            opacity: 1;
+        }
+        .spotlight-glow > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Mockup Dashboard Split Layout */
+        .workflow-split-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1.8fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .workflow-mesh-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 16px;
+            height: 100%;
+        }
+
+        .mockup-svg-mesh {
+            width: 100%;
+            height: auto;
+            max-width: 180px;
+        }
+
+        .workflow-steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .workflow-steps-list .workflow-step {
+            transition: border-color 0.4s var(--ease-cubic), box-shadow 0.4s var(--ease-cubic), opacity 0.4s;
+        }
+
+        /* Mockup SVG styles */
+        .mockup-center-core {
+            animation: pulse-core 2.5s infinite alternate ease-in-out;
+            transform-origin: center;
+        }
+        .mock-sat-node {
+            transition: transform 0.4s var(--ease-cubic), filter 0.4s var(--ease-cubic);
+            transform-origin: center;
+        }
+        .mock-sat-node.active {
+            transform: scale(1.25);
+            filter: drop-shadow(0 0 6px var(--raindeer-blue));
+        }
+
+        @keyframes pulse-core {
+            0% { transform: scale(0.9) rotate(0deg); opacity: 0.5; filter: drop-shadow(0 0 2px rgba(74, 124, 255, 0.3)); }
+            100% { transform: scale(1.1) rotate(180deg); opacity: 0.9; filter: drop-shadow(0 0 10px var(--raindeer-blue)); }
+        }
+
+        /* Agent Mesh SVG styling */
+        .visual-agent-mesh-wrapper {
+            background: #000;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .visual-agent-mesh-svg {
+            width: 100%;
+            height: auto;
+            max-width: 580px;
+        }
+        .agent-mesh-line {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            transition: stroke 0.4s, stroke-width 0.4s;
+        }
+        .agent-mesh-node {
+            transition: transform 0.4s var(--ease-cubic), filter 0.4s var(--ease-cubic);
+            transform-origin: center;
+        }
+        .agent-mesh-node:hover, .agent-mesh-node.active {
+            transform: scale(1.12);
+            filter: drop-shadow(0 0 10px rgba(74, 124, 255, 0.6));
+        }
+
+        /* Onboarding Timeline Rail Progress */
+        .timeline-line-progress {
+            position: absolute;
+            left: 19px;
+            top: 10px;
+            bottom: 10px;
+            width: 3px;
+            background: var(--raindeer-cyan);
+            z-index: 1;
+            transform-origin: top;
+            transform: scaleY(0);
+        }
+
+        /* Timeline Card Logs Widget */
+        .timeline-terminal {
+            background: #050507;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--raindeer-cyan);
+            margin-top: 14px;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.8);
+            line-height: 1.4;
+            min-height: 68px;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 4px;
+        }
+
+        .terminal-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+        }
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-title {
+            color: var(--text-muted);
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-left: 4px;
+        }
+
+        .terminal-body {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .terminal-output {
+            white-space: pre-wrap;
+            flex: 1;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 5px;
+            height: 10px;
+            background: var(--raindeer-cyan);
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            from, to { background-color: transparent }
+            50% { background-color: var(--raindeer-cyan) }
+        }
+
+        /* Collapsible Debug Console for Under the Hood */
+        .debug-console-container {
+            background: #060608;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+            margin: 48px auto 0;
+        }
+
+        .debug-console-header {
+            background: rgba(255, 255, 255, 0.015);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .debug-console-title {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-zinc);
+            margin-left: 8px;
+        }
+
+        .debug-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background 0.3s;
+        }
+        .debug-row:last-child {
+            border-bottom: none;
+        }
+        .debug-row:hover {
+            background: rgba(255, 255, 255, 0.005);
+        }
+
+        .debug-row-header {
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .debug-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-green {
+            background: var(--slay-green);
+            box-shadow: 0 0 10px var(--slay-green);
+            animation: pulse-dot-glow 1.5s infinite alternate;
+        }
+        .status-blue {
+            background: var(--raindeer-cyan);
+            box-shadow: 0 0 10px var(--raindeer-cyan);
+            animation: pulse-dot-glow 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-dot-glow {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            100% { transform: scale(1.15); opacity: 1; }
+        }
+
+        .debug-cmd {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-white);
+        }
+
+        .debug-chevron {
+            color: var(--text-zinc);
+            font-size: 0.65rem;
+            transition: transform 0.3s;
+        }
+        .debug-row.active .debug-chevron {
+            transform: rotate(180deg);
+        }
+
+        .debug-row-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .debug-row-content {
+            padding: 0 24px 24px 48px;
+        }
+
+        .debug-desc {
+            font-size: 0.88rem;
+            color: var(--text-zinc);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .debug-pipeline {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+        
+        .pipeline-node {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            color: var(--text-zinc);
+            white-space: nowrap;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .pipeline-node.highlight {
+            border-color: rgba(74, 124, 255, 0.3);
+            color: var(--raindeer-cyan);
+            background: rgba(74, 124, 255, 0.02);
+        }
+
+        .pipeline-arrow {
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.75rem;
+            animation: arrow-slide 1.5s infinite linear;
+        }
+
+        /* Featured Card Breathing Halo */
+        @keyframes breathing-halo {
+            0% {
+                border-color: rgba(74, 124, 255, 0.12);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(74, 124, 255, 0.05);
+            }
+            50% {
+                border-color: rgba(74, 124, 255, 0.3);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(74, 124, 255, 0.18);
+            }
+            100% {
+                border-color: rgba(74, 124, 255, 0.12);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(74, 124, 255, 0.05);
+            }
+        }
+        .price-card.featured {
+            animation: breathing-halo 6s infinite ease-in-out;
+        }
+
+        /* Waitlist loading spinner styles */
+        .btn-spinner {
+            width: 14px; height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid var(--text-white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile specific style overrides */
+        @media (max-width: 768px) {
+            .workflow-split-layout {
+                grid-template-columns: 1fr;
+            }
+            .workflow-mesh-visual {
+                display: none;
+            }
+        }
+
+        /* V4 Futuristic Redesign Styles */
+        .kinetic-line {
+            display: block;
+            overflow: hidden;
+            line-height: 1.15;
+            padding-bottom: 4px;
+        }
+        .kinetic-word {
+            display: inline-block;
+            transform: translateY(120%) rotate(4deg);
+            opacity: 0;
+            transform-origin: left bottom;
+            will-change: transform, opacity;
+        }
+        .kinetic-word.glow-blue {
+            color: var(--raindeer-blue);
+            text-shadow: 0 0 40px rgba(74, 124, 255, 0.2);
+        }
+
+        .floating-widget {
+            position: absolute;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-zinc);
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 180px;
+        }
+        .widget-trend-scan {
+            top: 22%;
+            left: 5%;
+        }
+        .widget-brand-ground {
+            bottom: 25%;
+            left: 8%;
+        }
+        .widget-scheduler {
+            top: 32%;
+            right: 5%;
+        }
+        .widget-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 4px;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+        .widget-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--raindeer-cyan);
+            box-shadow: 0 0 6px var(--raindeer-cyan);
+        }
+        .widget-log {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 1024px) {
+            .floating-widget {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1895,7 +2353,7 @@
     <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
         <div class="nav-inner">
             <a href="#" class="nav-brand" aria-label="raindeer.social home">
-                <img src="assets/logo.png" alt="raindeer.social" class="nav-logo-img" onerror="this.onerror=null; this.outerHTML='<svg class=\'nav-logo-svg\' viewBox=\'0 0 32 32\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' style=\'width: 32px; height: 32px; color: var(--raindeer-blue);\'><path d=\'M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5\' /><path d=\'M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8\' /><path d=\'M7 13L16 28L25 13\' /><path d=\'M7 13L16 17L25 13\' /><path d=\'M16 17V23\' /><circle cx=\'12\' cy=\'15\' r=\'1\' fill=\'currentColor\'/><circle cx=\'20\' cy=\'15\' r=\'1\' fill=\'currentColor\'/></svg>'">
+                <svg class="nav-logo-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 32px; height: 32px; color: var(--raindeer-blue);"><path d="M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5" /><path d="M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8" /><path d="M7 13L16 28L25 13" /><path d="M7 13L16 17L25 13" /><path d="M16 17V23" /><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="20" cy="15" r="1" fill="currentColor"/></svg>
                 <span class="nav-title">raindeer<span>.social</span></span>
             </a>
             <ul class="nav-menu">
@@ -1916,6 +2374,34 @@
 
     <!-- ===== HERO SECTION ===== -->
     <header class="hero" id="hero-header">
+        <!-- Parallax floating panels / terminal widgets -->
+        <div class="floating-widget widget-trend-scan parallax-mid" style="opacity: 0; transform: translateY(30px);">
+            <div class="widget-header">
+                <span class="widget-dot"></span>
+                <span>trend_scan.sh</span>
+            </div>
+            <div class="widget-log" style="color: var(--raindeer-cyan);">Scanning Reddit...</div>
+            <div class="widget-log" style="color: var(--text-zinc);">Found: "CrewAI replacing agencies"</div>
+        </div>
+
+        <div class="floating-widget widget-brand-ground parallax-fg" style="opacity: 0; transform: translateY(30px);">
+            <div class="widget-header">
+                <span class="widget-dot" style="background: var(--raindeer-violet); box-shadow: 0 0 6px var(--raindeer-violet);"></span>
+                <span>brand_ground.py</span>
+            </div>
+            <div class="widget-log" style="color: var(--raindeer-violet);">Grounding vectors...</div>
+            <div class="widget-log" style="color: var(--text-zinc);">Qdrant query returned 100% match</div>
+        </div>
+
+        <div class="floating-widget widget-scheduler parallax-bg" style="opacity: 0; transform: translateY(30px);">
+            <div class="widget-header">
+                <span class="widget-dot" style="background: var(--slay-green); box-shadow: 0 0 6px var(--slay-green);"></span>
+                <span>bayes_schedule.bin</span>
+            </div>
+            <div class="widget-log" style="color: var(--slay-green);">Optimizing slots...</div>
+            <div class="widget-log" style="color: var(--text-zinc);">Optimal slot: Friday 5:30 PM</div>
+        </div>
+
         <div class="container">
             <div class="hero-tagline">
                 <span class="indicator"></span>
@@ -1923,25 +2409,33 @@
             </div>
 
             <h1 class="hero-headline">
-                <span class="accent-line">Replace your social media</span><br>
-                <span>team with <span class="glow-blue">10 AI agents.</span></span>
+                <span class="kinetic-line">
+                    <span class="kinetic-word">Replace</span>
+                    <span class="kinetic-word">your</span>
+                    <span class="kinetic-word">social</span>
+                    <span class="kinetic-word">media</span>
+                </span>
+                <span class="kinetic-line">
+                    <span class="kinetic-word">team</span>
+                    <span class="kinetic-word">with</span>
+                    <span class="kinetic-word glow-blue">10 AI agents.</span>
+                </span>
             </h1>
 
             <p class="hero-subtitle">
                 A single autonomous operating system that researches trends, designs visuals, writes copy, and schedules posts — on autopilot. Built for builders, creators, and SMBs.
             </p>
-
             <div class="hero-cta-group">
-                <a href="#waitlist" class="btn-hero-filled">Join Waitlist</a>
-                <a href="#how-it-works" class="btn-hero-outline">See How It Works</a>
+                <a href="#waitlist" class="btn-hero-filled spotlight-glow">Join Waitlist</a>
+                <a href="#how-it-works" class="btn-hero-outline spotlight-glow">See How It Works</a>
             </div>
 
             <div class="hero-social-proof" style="margin-top: -16px; margin-bottom: 48px; font-size: 0.85rem; color: var(--text-zinc); display: flex; align-items: center; justify-content: center; gap: 8px; opacity: 0; transform: translateY(20px);">
-                <span style="font-size: 1.1rem; filter: grayscale(1);">👥</span> Join 1,248+ builders and creators on the waitlist. Only 12 spots left in this week's cohort.
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; color: var(--raindeer-blue); display: inline-block; vertical-align: middle;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Join 1,248+ builders and creators on the waitlist. Only 12 spots left in this week's cohort.
             </div>
 
             <!-- Interactive CSS Product Preview Mockup -->
-            <div class="product-preview" id="product-mockup">
+            <div class="product-preview spotlight-glow" id="product-mockup">
                 <div class="dashboard-frame">
                     <div class="dashboard-header">
                         <div class="window-controls">
@@ -1958,7 +2452,7 @@
                         <!-- Left Sidebar -->
                         <aside class="dashboard-sidebar">
                             <div class="sidebar-brand">
-                                <img src="assets/logo.png" alt="Raindeer" onerror="this.onerror=null; this.outerHTML='<svg class=\'nav-logo-svg\' viewBox=\'0 0 32 32\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' style=\'width: 20px; height: 20px; color: var(--raindeer-blue);\'><path d=\'M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5\' /><path d=\'M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8\' /><path d=\'M7 13L16 28L25 13\' /><path d=\'M7 13L16 17L25 13\' /><path d=\'M16 17V23\' /><circle cx=\'12\' cy=\'15\' r=\'1\' fill=\'currentColor\'/><circle cx=\'20\' cy=\'15\' r=\'1\' fill=\'currentColor\'/></svg>'">
+                                <svg class="nav-logo-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--raindeer-blue);"><path d="M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5" /><path d="M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8" /><path d="M7 13L16 28L25 13" /><path d="M7 13L16 17L25 13" /><path d="M16 17V23" /><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="20" cy="15" r="1" fill="currentColor"/></svg>
                                 <span>raindeer.social</span>
                             </div>
                             <ul class="sidebar-nav">
@@ -1986,42 +2480,81 @@
 
                             <!-- Interactive step sequence inside mockup -->
                             <div class="workflow-visualizer-card">
-                                <div class="workflow-steps-grid">
-                                    <div class="workflow-connector-line"></div>
-                                    <div class="workflow-step active" id="step-card-1">
-                                        <div class="step-header">
-                                            <span class="step-icon">📡</span>
-                                            <span class="step-badge done">Done</span>
-                                        </div>
-                                        <div class="step-title">Trend Scan</div>
-                                        <div class="step-desc">Trend: "CrewAI replacing marketing agencies" found on Reddit</div>
+                                <div class="workflow-split-layout">
+                                    <!-- Orbiting SVG Mesh Diagram (Left) -->
+                                    <div class="workflow-mesh-visual">
+                                        <svg viewBox="0 0 200 200" class="mockup-svg-mesh">
+                                            <!-- Central Core -->
+                                            <circle cx="100" cy="100" r="15" fill="rgba(74, 124, 255, 0.15)" stroke="var(--raindeer-blue)" stroke-width="1.5" class="mockup-center-core" />
+                                            <circle cx="100" cy="100" r="6" fill="var(--raindeer-blue)" />
+                                            
+                                            <!-- Orbiting Dashed Ring -->
+                                            <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" stroke-dasharray="3 3" />
+                                            
+                                            <!-- Connection Lines -->
+                                            <line x1="100" y1="100" x2="160" y2="100" stroke="rgba(255,255,255,0.08)" stroke-width="1.2" id="mock-line-1" />
+                                            <line x1="100" y1="100" x2="100" y2="160" stroke="rgba(255,255,255,0.08)" stroke-width="1.2" id="mock-line-2" />
+                                            <line x1="100" y1="100" x2="40" y2="100" stroke="rgba(255,255,255,0.08)" stroke-width="1.2" id="mock-line-3" />
+                                            <line x1="100" y1="100" x2="100" y2="40" stroke="rgba(255,255,255,0.08)" stroke-width="1.2" id="mock-line-4" />
+
+                                            <!-- Satellites -->
+                                            <g class="mock-sat-node" id="mock-sat-1">
+                                                <circle cx="160" cy="100" r="9" fill="#080808" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                                                <circle cx="160" cy="100" r="3" fill="var(--raindeer-cyan)" />
+                                            </g>
+                                            <g class="mock-sat-node" id="mock-sat-2">
+                                                <circle cx="100" cy="160" r="9" fill="#080808" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                                                <circle cx="100" cy="160" r="3" fill="var(--raindeer-violet)" />
+                                            </g>
+                                            <g class="mock-sat-node" id="mock-sat-3">
+                                                <circle cx="40" cy="100" r="9" fill="#080808" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                                                <circle cx="40" cy="100" r="3" fill="var(--raindeer-blue)" />
+                                            </g>
+                                            <g class="mock-sat-node" id="mock-sat-4">
+                                                <circle cx="100" cy="40" r="9" fill="#080808" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                                                <circle cx="100" cy="40" r="3" fill="var(--slay-green)" />
+                                            </g>
+                                        </svg>
                                     </div>
-                                    <div class="workflow-step" id="step-card-2">
-                                        <div class="step-header">
-                                            <span class="step-icon">🧠</span>
-                                            <span class="step-badge done">Done</span>
+
+                                    <!-- Vertical Steps List (Right) -->
+                                    <div class="workflow-steps-list">
+                                        <div class="workflow-step active" id="step-card-1">
+                                            <div class="step-header">
+                                                <span class="step-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--raindeer-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22V14"/></svg></span>
+                                                <span class="step-badge done">Done</span>
+                                            </div>
+                                            <div class="step-title">Trend Scan</div>
+                                            <div class="step-desc">Trend: "CrewAI replacing marketing agencies" found on Reddit</div>
                                         </div>
-                                        <div class="step-title">Brand Grounding</div>
-                                        <div class="step-desc">retrieved tone: "bold, contrarian, developer-focused"</div>
-                                    </div>
-                                    <div class="workflow-step animate-pulse" id="step-card-3">
-                                        <div class="step-header">
-                                            <span class="step-icon">✍️</span>
-                                            <span class="step-badge running">Active</span>
+                                        <div class="workflow-step" id="step-card-2">
+                                            <div class="step-header">
+                                                <span class="step-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--raindeer-violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7"/></svg></span>
+                                                <span class="step-badge done">Done</span>
+                                            </div>
+                                            <div class="step-title">Brand Grounding</div>
+                                            <div class="step-desc">retrieved tone: "bold, contrarian, developer-focused"</div>
                                         </div>
-                                        <div class="step-title">Content Crew</div>
-                                        <div class="step-desc">Drafting caption and choosing visual layout parameters...</div>
-                                    </div>
-                                    <div class="workflow-step" id="step-card-4">
-                                        <div class="step-header">
-                                            <span class="step-icon">📤</span>
-                                            <span class="step-badge todo">Todo</span>
+                                        <div class="workflow-step" id="step-card-3">
+                                            <div class="step-header">
+                                                <span class="step-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--raindeer-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
+                                                <span class="step-badge running">Active</span>
+                                            </div>
+                                            <div class="step-title">Content Crew</div>
+                                            <div class="step-desc">Drafting caption and choosing visual layout parameters...</div>
                                         </div>
-                                        <div class="step-title">Bayes Schedule</div>
-                                        <div class="step-desc">Optimal slot: Friday, 5:30 PM computed for maximum reach</div>
+                                        <div class="workflow-step" id="step-card-4">
+                                            <div class="step-header">
+                                                <span class="step-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--slay-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+                                                <span class="step-badge todo">Todo</span>
+                                            </div>
+                                            <div class="step-title">Bayes Schedule</div>
+                                            <div class="step-desc">Optimal slot: Friday, 5:30 PM computed for maximum reach</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
 
                             <!-- Workspace Preview details -->
                             <div class="workspace-grid">
@@ -2073,37 +2606,37 @@
                 <div class="logos-row">
                     <!-- Hoblix Logo -->
                     <div class="partner-logo logo-hoblix">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 32">
-                            <rect x="5" y="6" width="8" height="20" rx="2" fill="currentColor"/>
-                            <rect x="18" y="6" width="8" height="10" rx="2" fill="currentColor"/>
-                            <rect x="18" y="20" width="8" height="6" rx="2" fill="currentColor"/>
+                        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--hoblix-orange); margin-right: 4px;">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 27l10 5 10-5"/>
                         </svg>
-                        <span class="partner-name">Hoblix</span>
+                        <span class="partner-name" style="font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;">Hoblix</span>
                     </div>
 
                     <!-- Stealth Care Logo -->
                     <div class="partner-logo logo-stealth">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 32">
-                            <path d="M10 6 L20 10 L20 20 C20 25 15 28 10 30 C5 28 0 25 0 20 L0 10 Z" fill="currentColor"/>
-                            <path d="M7 15 H13 M10 12 V18" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--raindeer-cyan); margin-right: 4px;">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <circle cx="12" cy="11" r="2"/>
+                            <path d="M12 13v3"/>
                         </svg>
-                        <span class="partner-name">Stealth Care</span>
+                        <span class="partner-name" style="font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;">Stealth Care</span>
                     </div>
 
                     <!-- NST / NSUT College Logo -->
                     <div class="partner-logo logo-nsut">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 32">
-                            <circle cx="12" cy="16" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <polygon points="12,10 17,20 7,20" fill="currentColor"/>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--raindeer-blue); margin-right: 4px;">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
+                            <circle cx="12" cy="10" r="2" fill="currentColor"/>
                         </svg>
-                        <span class="partner-name">NST Marketing</span>
+                        <span class="partner-name" style="font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;">NST Delhi</span>
                     </div>
                 </div>
 
                 <!-- Testimonials Grid -->
                 <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; width: 100%;">
                     <!-- Testimonial 1 (Hoblix) -->
-                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
+                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
                         <div class="testimonial-stars" style="color: var(--raindeer-cyan); font-size: 0.85rem;">★★★★★</div>
                         <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-silver); font-style: italic;">
                             "raindeer.social replaced our entire content agency workflow. We save over ₹40,000/mo and get highly engaging posts designed and published on autopilot."
@@ -2117,7 +2650,7 @@
                         </div>
                     </div>
                     <!-- Testimonial 2 (Slay Health) -->
-                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
+                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
                         <div class="testimonial-stars" style="color: var(--raindeer-cyan); font-size: 0.85rem;">★★★★★</div>
                         <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-silver); font-style: italic;">
                             "Managing premarital health campaigns requires extremely precise, grounded copy. The Brand Brain feature ensures our tone is perfectly aligned with zero hallucinations."
@@ -2131,7 +2664,7 @@
                         </div>
                     </div>
                     <!-- Testimonial 3 (NST Marketing) -->
-                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
+                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
                         <div class="testimonial-stars" style="color: var(--raindeer-cyan); font-size: 0.85rem;">★★★★★</div>
                         <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-silver); font-style: italic;">
                             "Our student outreach campaigns saw a 2.5x engagement boost when we let the Bayesian scheduler decide publishing times. It knows exactly when our audience is active."
@@ -2160,6 +2693,7 @@
 
             <div class="timeline-wrapper">
                 <div class="timeline-line"></div>
+                <div class="timeline-line-progress"></div>
 
                 <div class="timeline-item timeline-step-1">
                     <div class="timeline-dot">1</div>
@@ -2167,6 +2701,19 @@
                         <h4>Scan & Ingest</h4>
                         <p>Our Trend Intelligence Agent continuously monitors google trends, RSS feeds, Reddit, and X to discover what your target audience is talking about right now.</p>
                         <div class="timeline-time">Completed in 30s</div>
+                        <!-- Micro Terminal Console Log -->
+                        <div class="timeline-terminal" style="opacity: 0; transform: translateY(10px);">
+                            <div class="terminal-header">
+                                <span class="terminal-dot red"></span>
+                                <span class="terminal-dot yellow"></span>
+                                <span class="terminal-dot green"></span>
+                                <span class="terminal-title">live_agent_log</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="terminal-output" id="terminal-log-1"></div>
+                                <span class="terminal-cursor">_</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2176,6 +2723,19 @@
                         <h4>Ground on Brand Brain</h4>
                         <p>We consult your unique Brand Knowledge Graph in Qdrant, retrieving voice coordinates, target personas, and regulatory constraints so the output is perfectly on-brand.</p>
                         <div class="timeline-time">Completed in 15s</div>
+                        <!-- Micro Terminal Console Log -->
+                        <div class="timeline-terminal" style="opacity: 0; transform: translateY(10px);">
+                            <div class="terminal-header">
+                                <span class="terminal-dot red"></span>
+                                <span class="terminal-dot yellow"></span>
+                                <span class="terminal-dot green"></span>
+                                <span class="terminal-title">live_agent_log</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="terminal-output" id="terminal-log-2"></div>
+                                <span class="terminal-cursor">_</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2185,6 +2745,19 @@
                         <h4>Collaborative Generation</h4>
                         <p>Specialized agents coordinate using LangGraph and CrewAI to write copy, design visual posts (via Flux.1), and assemble multi-page carousels automatically.</p>
                         <div class="timeline-time">Completed in 90s</div>
+                        <!-- Micro Terminal Console Log -->
+                        <div class="timeline-terminal" style="opacity: 0; transform: translateY(10px);">
+                            <div class="terminal-header">
+                                <span class="terminal-dot red"></span>
+                                <span class="terminal-dot yellow"></span>
+                                <span class="terminal-dot green"></span>
+                                <span class="terminal-title">live_agent_log</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="terminal-output" id="terminal-log-3"></div>
+                                <span class="terminal-cursor">_</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2194,6 +2767,19 @@
                         <h4>Bayesian Scheduling & Publish</h4>
                         <p>The Scheduling Agent calculates the mathematically optimal time slot for your post, while the Publisher Agent pushes it live via safe MCP connectors.</p>
                         <div class="timeline-time">Completed in 5s</div>
+                        <!-- Micro Terminal Console Log -->
+                        <div class="timeline-terminal" style="opacity: 0; transform: translateY(10px);">
+                            <div class="terminal-header">
+                                <span class="terminal-dot red"></span>
+                                <span class="terminal-dot yellow"></span>
+                                <span class="terminal-dot green"></span>
+                                <span class="terminal-title">live_agent_log</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="terminal-output" id="terminal-log-4"></div>
+                                <span class="terminal-cursor">_</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2213,8 +2799,102 @@
                 <!-- Giant Visual Agent Mesh Network Card -->
                 <div class="bento-card col-span-3 spotlight-card" style="align-items: center; justify-content: center; padding: 40px 24px; background: rgba(10, 10, 10, 0.45);">
                     <div class="visual-agent-mesh-wrapper" style="width: 100%; max-width: 640px; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: #000;">
-                        <img src="assets/agent-flow.png" alt="Raindeer AI Agent Network" style="width: 100%; height: auto; display: block; filter: drop-shadow(0 0 20px rgba(74, 124, 255, 0.15));">
-                        <div class="visual-pulse-glow" style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(74, 124, 255, 0.08) 0%, transparent 60%); pointer-events: none; mix-blend-mode: screen; animation: pulse-glow-anim 4s infinite alternate;"></div>
+                        <svg viewBox="0 0 600 360" class="visual-agent-mesh-svg">
+                            <defs>
+                                <radialGradient id="meshCoreGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="var(--raindeer-cyan)" stop-opacity="0.3" />
+                                    <stop offset="100%" stop-color="var(--raindeer-cyan)" stop-opacity="0" />
+                                </radialGradient>
+                                <filter id="meshNodeGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="6" result="blur" />
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                </filter>
+                            </defs>
+
+                            <!-- Ambient glow behind orchestrator core -->
+                            <circle cx="300" cy="180" r="70" fill="url(#meshCoreGlow)" pointer-events="none" />
+
+                            <!-- Curved connection lines (animated via stroke-dashoffset) -->
+                            <!-- Path 1: Trend Scan (top left) -->
+                            <path d="M 300 180 Q 210 135 120 90" fill="none" stroke="rgba(74, 124, 255, 0.15)" stroke-width="2.5" stroke-linecap="round" class="agent-mesh-line" id="mesh-line-trend" />
+                            <!-- Path 2: Brand Brain (bottom left) -->
+                            <path d="M 300 180 Q 210 225 120 270" fill="none" stroke="rgba(74, 124, 255, 0.15)" stroke-width="2.5" stroke-linecap="round" class="agent-mesh-line" id="mesh-line-brand" />
+                            <!-- Path 3: Content Crew (top right) -->
+                            <path d="M 300 180 Q 390 135 480 90" fill="none" stroke="rgba(74, 124, 255, 0.15)" stroke-width="2.5" stroke-linecap="round" class="agent-mesh-line" id="mesh-line-content" />
+                            <!-- Path 4: Visuals Agent (middle right) -->
+                            <path d="M 300 180 L 520 180" fill="none" stroke="rgba(74, 124, 255, 0.15)" stroke-width="2.5" stroke-linecap="round" class="agent-mesh-line" id="mesh-line-visuals" />
+                            <!-- Path 5: Bayes Schedule (bottom right) -->
+                            <path d="M 300 180 Q 390 225 480 270" fill="none" stroke="rgba(74, 124, 255, 0.15)" stroke-width="2.5" stroke-linecap="round" class="agent-mesh-line" id="mesh-line-scheduler" />
+
+                            <!-- Satellite Nodes -->
+                            <!-- 1. Trend Intelligence -->
+                            <g class="agent-mesh-node" id="mesh-node-trend" style="opacity: 0; transform: scale(0.5); transform-origin: 120px 90px;">
+                                <circle cx="120" cy="90" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+                                <circle cx="120" cy="90" r="14" fill="rgba(56, 217, 255, 0.05)" />
+                                <g transform="translate(112, 82) scale(0.66)" stroke="var(--raindeer-cyan)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22V14"/>
+                                </g>
+                                <text x="120" y="122" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Trend Intel</text>
+                            </g>
+                            <!-- 2. Brand Brain -->
+                            <g class="agent-mesh-node" id="mesh-node-brand" style="opacity: 0; transform: scale(0.5); transform-origin: 120px 270px;">
+                                <circle cx="120" cy="270" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+                                <circle cx="120" cy="270" r="14" fill="rgba(139, 108, 255, 0.05)" />
+                                <g transform="translate(112, 262) scale(0.66)" stroke="var(--raindeer-violet)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+                                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+                                    <line x1="6" y1="6" x2="6.01" y2="6"/>
+                                    <line x1="6" y1="18" x2="6.01" y2="18"/>
+                                </g>
+                                <text x="120" y="302" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Brand Brain</text>
+                            </g>
+                            <!-- 3. Content Creation Crew -->
+                            <g class="agent-mesh-node" id="mesh-node-content" style="opacity: 0; transform: scale(0.5); transform-origin: 480px 90px;">
+                                <circle cx="480" cy="90" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+                                <circle cx="480" cy="90" r="14" fill="rgba(74, 124, 255, 0.05)" />
+                                <g transform="translate(472, 82) scale(0.66)" stroke="var(--raindeer-blue)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                </g>
+                                <text x="480" y="122" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Writer Crew</text>
+                            </g>
+                            <!-- 4. Visual Content Agent -->
+                            <g class="agent-mesh-node" id="mesh-node-visuals" style="opacity: 0; transform: scale(0.5); transform-origin: 520px 180px;">
+                                <circle cx="520" cy="180" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+                                <circle cx="520" cy="180" r="14" fill="rgba(139, 108, 255, 0.05)" />
+                                <g transform="translate(512, 172) scale(0.66)" stroke="var(--raindeer-violet)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                                </g>
+                                <text x="520" y="212" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Visual Agent</text>
+                            </g>
+                            <!-- 5. Bayesian Scheduler -->
+                            <g class="agent-mesh-node" id="mesh-node-scheduler" style="opacity: 0; transform: scale(0.5); transform-origin: 480px 270px;">
+                                <circle cx="480" cy="270" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+                                <circle cx="480" cy="270" r="14" fill="rgba(23, 203, 150, 0.05)" />
+                                <g transform="translate(472, 262) scale(0.66)" stroke="var(--slay-green)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </g>
+                                <text x="480" y="302" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Scheduler</text>
+                            </g>
+
+                            <!-- Orchestrator Core (Center) -->
+                            <g class="agent-mesh-node active" id="mesh-node-orchestrator" style="filter: drop-shadow(0 0 12px var(--raindeer-blue));">
+                                <circle cx="300" cy="180" r="28" fill="#0c0c0e" stroke="var(--raindeer-blue)" stroke-width="2" />
+                                <circle cx="300" cy="180" r="24" fill="rgba(74, 124, 255, 0.06)" />
+                                <!-- Integrated geometric deer logo (Scaled & Centered) -->
+                                <g transform="translate(288, 168) scale(0.75)" stroke="var(--raindeer-cyan)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5" />
+                                    <path d="M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8" />
+                                    <path d="M7 13L16 28L25 13" />
+                                    <path d="M7 13L16 17L25 13" />
+                                    <path d="M16 17V23" />
+                                </g>
+                                <text x="300" y="222" font-family="var(--font-mono)" font-size="9.5" fill="var(--text-white)" font-weight="600" text-anchor="middle">Orchestrator</text>
+                            </g>
+                        </svg>
                     </div>
                     <div style="text-align: center; max-width: 580px; margin-top: 24px;">
                         <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--raindeer-cyan); letter-spacing: 0.1em; text-transform: uppercase;">Central Orchestrator Core</span>
@@ -2224,8 +2904,8 @@
                 </div>
 
                 <!-- Card 1 -->
-                <div class="bento-card col-span-2 spotlight-card tilt-card">
-                    <div class="bento-icon">🧠</div>
+                <div class="bento-card col-span-2 spotlight-card tilt-card" id="bento-orchestrator">
+                    <div class="bento-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--raindeer-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7"/></svg></div>
                     <div class="bento-info">
                         <h3>Master Orchestrator</h3>
                         <p>Coordinates all other agents using LangGraph state graphs. Routes jobs based on complexity, manages fallback workflows, and enforces safety constraints before any post is published.</p>
@@ -2233,8 +2913,8 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bento-card spotlight-card tilt-card">
-                    <div class="bento-icon">📡</div>
+                <div class="bento-card spotlight-card tilt-card" id="bento-trend">
+                    <div class="bento-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--raindeer-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22V14"/></svg></div>
                     <div class="bento-info">
                         <h3>Trend Intelligence</h3>
                         <p>Monitors high-velocity keywords on Google Trends, X, and Reddit. Scores ideas based on relevance to your brand core.</p>
@@ -2242,8 +2922,8 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bento-card spotlight-card tilt-card">
-                    <div class="bento-icon">🎯</div>
+                <div class="bento-card spotlight-card tilt-card" id="bento-brand">
+                    <div class="bento-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--raindeer-violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
                     <div class="bento-info">
                         <h3>Brand Brain</h3>
                         <p>Constructs and queries your Brand Knowledge Graph using Qdrant vector memory. Prevents your brand voice from drifting over time.</p>
@@ -2251,8 +2931,8 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="bento-card col-span-2 spotlight-card tilt-card">
-                    <div class="bento-icon">✍️</div>
+                <div class="bento-card col-span-2 spotlight-card tilt-card" id="bento-content">
+                    <div class="bento-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--raindeer-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
                     <div class="bento-info">
                         <h3>Content Creation Crew</h3>
                         <p>A multi-agent pipeline using CrewAI: Researcher $\to$ Copywriter $\to$ Editor $\to$ Quality Assurance. Writes captions tailored for LinkedIn, X, and Instagram separately.</p>
@@ -2260,8 +2940,8 @@
                 </div>
 
                 <!-- Card 5 -->
-                <div class="bento-card spotlight-card tilt-card">
-                    <div class="bento-icon">🎨</div>
+                <div class="bento-card spotlight-card tilt-card" id="bento-visuals">
+                    <div class="bento-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--raindeer-violet)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
                     <div class="bento-info">
                         <h3>Visual Content Agent</h3>
                         <p>Generates custom canvas layouts, structured infographics, and on-brand image elements using Flux.1 models.</p>
@@ -2269,8 +2949,8 @@
                 </div>
 
                 <!-- Card 6 -->
-                <div class="bento-card col-span-2 spotlight-card tilt-card">
-                    <div class="bento-icon">📊</div>
+                <div class="bento-card col-span-2 spotlight-card tilt-card" id="bento-scheduler">
+                    <div class="bento-icon" style="display: flex; align-items: center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--slay-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
                     <div class="bento-info">
                         <h3>Bayesian Scheduler</h3>
                         <p>Learns from your historical engagement trends. Calculates the exact minute a post should go live to maximize reach and bypass algorithms.</p>
@@ -2289,41 +2969,119 @@
                 <p class="section-desc scroll-reveal">What you see on the dashboard vs. what the agent system does behind the scenes.</p>
             </div>
 
-            <div class="calm-table">
-                <div class="calm-table-header">
-                    <div>What You See</div>
-                    <div>What Raindeer Does</div>
+            <div class="debug-console-container">
+                <div class="debug-console-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="debug-console-title">raindeer_social_backend_stream</span>
                 </div>
-                <div class="calm-table-row">
-                    <div class="calm-column-left">
-                        <span class="dot-status"></span>"Scanning your brand..."
+                
+                <!-- Row 1: Brand Grounding -->
+                <div class="debug-row active" id="debug-row-1">
+                    <div class="debug-row-header" onclick="toggleDebugRow(1)">
+                        <div class="debug-header-left">
+                            <span class="pulse-dot status-green"></span>
+                            <span class="debug-cmd">[SYS_OK] scan_brand_identity --ground=vector</span>
+                        </div>
+                        <div class="debug-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px; display: block;"><polyline points="6 9 12 15 18 9"/></svg></div>
                     </div>
-                    <div class="calm-column-right">
-                        Retrieves your unique brand voice guidelines, target customer personas, and style rules from memory so the output is always on-brand.
+                    <div class="debug-row-body">
+                        <div class="debug-row-content">
+                            <p class="debug-desc">Retrieves your unique brand voice guidelines, target customer personas, and style rules from memory so the output is always on-brand.</p>
+                            
+                            <!-- Pipeline Visual Diagram -->
+                            <div class="debug-pipeline">
+                                <div class="pipeline-node">Brand Book</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node highlight">Qdrant DB</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node highlight">Vector Retrieval</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node">Mesh Grounding</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="calm-table-row">
-                    <div class="calm-column-left">
-                        <span class="dot-status"></span>"Trend detected"
+
+                <!-- Row 2: Trend Ingestion -->
+                <div class="debug-row" id="debug-row-2">
+                    <div class="debug-row-header" onclick="toggleDebugRow(2)">
+                        <div class="debug-header-left">
+                            <span class="pulse-dot status-blue"></span>
+                            <span class="debug-cmd">[SYS_OK] fetch_reddit_x_trends --interval=30s</span>
+                        </div>
+                        <div class="debug-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px; display: block;"><polyline points="6 9 12 15 18 9"/></svg></div>
                     </div>
-                    <div class="calm-column-right">
-                        Continuously scans social feeds and search engines for hot topics relevant to your business domain.
+                    <div class="debug-row-body">
+                        <div class="debug-row-content">
+                            <p class="debug-desc">Continuously scans social feeds and search engines for hot topics relevant to your business domain.</p>
+                            
+                            <!-- Pipeline Visual Diagram -->
+                            <div class="debug-pipeline">
+                                <div class="pipeline-node">Social API</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node highlight">Trend Filtering</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node highlight">Velocity Scoring</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node">Campaign Trigger</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="calm-table-row">
-                    <div class="calm-column-left">
-                        <span class="dot-status"></span>"Creating post drafts..."
+
+                <!-- Row 3: Content Drafting -->
+                <div class="debug-row" id="debug-row-3">
+                    <div class="debug-row-header" onclick="toggleDebugRow(3)">
+                        <div class="debug-header-left">
+                            <span class="pulse-dot status-blue"></span>
+                            <span class="debug-cmd">[SYS_OK] coordinate_crewai_mesh --nodes=10</span>
+                        </div>
+                        <div class="debug-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px; display: block;"><polyline points="6 9 12 15 18 9"/></svg></div>
                     </div>
-                    <div class="calm-column-right">
-                        Coordinates writer, designer, and editor agents to generate matching caption drafts and custom graphic visuals.
+                    <div class="debug-row-body">
+                        <div class="debug-row-content">
+                            <p class="debug-desc">Coordinates writer, designer, and editor agents to generate matching caption drafts and custom graphic visuals.</p>
+                            
+                            <!-- Pipeline Visual Diagram -->
+                            <div class="debug-pipeline">
+                                <div class="pipeline-node">Copywriter</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node highlight">Flux.1 Layout</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node highlight">QA Agent Check</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node">Approved Draft</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="calm-table-row">
-                    <div class="calm-column-left">
-                        <span class="dot-status"></span>"Publish scheduled"
+
+                <!-- Row 4: Bayesian Scheduler -->
+                <div class="debug-row" id="debug-row-4">
+                    <div class="debug-row-header" onclick="toggleDebugRow(4)">
+                        <div class="debug-header-left">
+                            <span class="pulse-dot status-green"></span>
+                            <span class="debug-cmd">[SYS_OK] calculate_optimal_post_time --algo=bayes</span>
+                        </div>
+                        <div class="debug-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px; display: block;"><polyline points="6 9 12 15 18 9"/></svg></div>
                     </div>
-                    <div class="calm-column-right">
-                        Calculates the exact minute your audience is most active and automatically publishes the post to your social profiles.
+                    <div class="debug-row-body">
+                        <div class="debug-row-content">
+                            <p class="debug-desc">Calculates the exact minute your audience is most active and automatically publishes the post to your social profiles.</p>
+                            
+                            <!-- Pipeline Visual Diagram -->
+                            <div class="debug-pipeline">
+                                <div class="pipeline-node">History Ingest</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node highlight">Prior Probabilities</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node highlight">Posterior Optimization</div>
+                                <div class="pipeline-arrow">➔</div>
+                                <div class="pipeline-node">Auto Publish</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2493,7 +3251,7 @@
             <!-- Authentic Student Founder Narrative Card -->
             <div class="founder-story-card">
                 <div class="founder-header">
-                    <div class="avatar-placeholder">🎓</div>
+                    <div class="avatar-placeholder" style="display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--raindeer-blue);"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg></div>
                     <div class="founder-meta">
                         <h4>Built by Student Innovators</h4>
                         <p>Origin: NSUT Delhi</p>
@@ -2530,8 +3288,10 @@
                         Join the Waitlist
                     </button>
                 </form>
-                <div class="waitlist-success-message" id="waitlist-success-box" style="display: none; background: var(--bg-card); border: 1px solid var(--slay-green); border-radius: 20px; padding: 40px 32px; flex-direction: column; align-items: center; gap: 16px;">
-                    <div class="success-icon" style="width: 64px; height: 64px; border-radius: 50%; background: rgba(23, 203, 150, 0.08); border: 1px solid var(--slay-green); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--slay-green); animation: success-pop 0.4s var(--ease-cubic);">✓</div>
+                <div class="waitlist-success-message" id="waitlist-success-box" style="display: none; background: var(--bg-card); border: 1px solid var(--slay-green); border-radius: 8px; padding: 40px 32px; flex-direction: column; align-items: center; gap: 16px;">
+                    <div class="success-icon" style="width: 64px; height: 64px; border-radius: 8px; background: rgba(23, 203, 150, 0.08); border: 1px solid var(--slay-green); display: flex; align-items: center; justify-content: center; color: var(--slay-green); animation: success-pop 0.4s var(--ease-cubic);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 28px; height: 28px;"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
                     <h4 style="font-size: 1.5rem; font-weight: 700; color: var(--text-white); margin: 0;">You are on the list!</h4>
                     <p style="font-size: 0.9rem; color: var(--text-zinc); margin: 0; text-align: center;">We will email you with your cohort details shortly.</p>
                     <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--raindeer-cyan); margin-top: 12px; background: rgba(56, 217, 255, 0.05); padding: 8px 16px; border-radius: 8px; border: 1px solid rgba(56, 217, 255, 0.15); width: 100%; text-align: center;">
@@ -2547,7 +3307,7 @@
         <div class="container">
             <div class="footer-inner">
                 <a href="#" class="footer-logo">
-                    <img src="assets/logo.png" alt="raindeer.social" onerror="this.onerror=null; this.outerHTML='<svg class=\'nav-logo-svg\' viewBox=\'0 0 32 32\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' style=\'width: 24px; height: 24px; color: var(--raindeer-blue);\'><path d=\'M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5\' /><path d=\'M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8\' /><path d=\'M7 13L16 28L25 13\' /><path d=\'M7 13L16 17L25 13\' /><path d=\'M16 17V23\' /><circle cx=\'12\' cy=\'15\' r=\'1\' fill=\'currentColor\'/><circle cx=\'20\' cy=\'15\' r=\'1\' fill=\'currentColor\'/></svg>'">
+                    <svg class="nav-logo-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; color: var(--raindeer-blue);"><path d="M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5" /><path d="M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8" /><path d="M7 13L16 28L25 13" /><path d="M7 13L16 17L25 13" /><path d="M16 17V23" /><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="20" cy="15" r="1" fill="currentColor"/></svg>
                     <span>raindeer.social</span>
                 </a>
                 <ul class="footer-nav">
@@ -2579,7 +3339,7 @@
         let lenis = null;
         if (!prefersReducedMotion) {
             lenis = new Lenis({
-                duration: 1.2,
+                duration: 1.5,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 orientation: 'vertical',
                 smoothWheel: true
@@ -2618,8 +3378,8 @@
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
+                this.vx = (Math.random() - 0.5) * 0.06;
+                this.vy = (Math.random() - 0.5) * 0.06;
                 this.r = Math.random() * 1.5 + 0.5;
                 this.baseAlpha = Math.random() * 0.3 + 0.1;
                 this.alpha = this.baseAlpha;
@@ -2727,11 +3487,12 @@
         const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
         heroTL
             .to('.hero-tagline', { opacity: 1, y: 0, duration: 0.8 }, 0.2)
-            .to('.hero-headline', { opacity: 1, y: 0, duration: 0.8 }, 0.4)
-            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8 }, 0.6)
-            .to('.hero-cta-group', { opacity: 1, y: 0, duration: 0.8 }, 0.8)
-            .to('.hero-social-proof', { opacity: 1, y: 0, duration: 0.8 }, 0.9)
-            .to('.product-preview', { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power4.out' }, 1.0);
+            .to('.kinetic-word', { opacity: 1, y: '0%', rotate: 0, duration: 0.8, stagger: 0.08, ease: 'power4.out' }, 0.4)
+            .to('.floating-widget', { opacity: 1, y: 0, duration: 1.0, stagger: 0.15, ease: 'power3.out' }, 0.6)
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8 }, 0.8)
+            .to('.hero-cta-group', { opacity: 1, y: 0, duration: 0.8 }, 1.0)
+            .to('.hero-social-proof', { opacity: 1, y: 0, duration: 0.8 }, 1.1)
+            .to('.product-preview', { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power4.out' }, 1.2);
 
         // Interactive dashboard mockup animation triggers
         // Step Cards transition logic
@@ -2773,34 +3534,21 @@
 
         // Simulating Agent workflows inside Dashboard Mockup
         function rotateMockupSteps() {
-            // Randomly flash steps to simulate live agent actions
             const states = [
                 () => {
-                    step1.className = "workflow-step active";
-                    step2.className = "workflow-step";
-                    step3.className = "workflow-step";
-                    step4.className = "workflow-step";
+                    setActiveStep(1);
                     imageStatus.innerText = "Listening to X/Google trends...";
                 },
                 () => {
-                    step1.className = "workflow-step";
-                    step2.className = "workflow-step active";
-                    step3.className = "workflow-step";
-                    step4.className = "workflow-step";
+                    setActiveStep(2);
                     imageStatus.innerText = "Grounding prompts with vector memory...";
                 },
                 () => {
-                    step1.className = "workflow-step";
-                    step2.className = "workflow-step";
-                    step3.className = "workflow-step active animate-pulse";
-                    step4.className = "workflow-step";
+                    setActiveStep(3);
                     imageStatus.innerText = "Drafting canvas layouts via Flux...";
                 },
                 () => {
-                    step1.className = "workflow-step";
-                    step2.className = "workflow-step";
-                    step3.className = "workflow-step";
-                    step4.className = "workflow-step active";
+                    setActiveStep(4);
                     imageStatus.innerText = "Asset generated & enqueued for Friday.";
                 }
             ];
@@ -2809,8 +3557,70 @@
             states[randomStateIndex]();
         }
 
+        function setActiveStep(stepNum) {
+            for (let i = 1; i <= 4; i++) {
+                const card = document.getElementById(`step-card-${i}`);
+                const satNode = document.getElementById(`mock-sat-${i}`);
+                const connectionLine = document.getElementById(`mock-line-${i}`);
+                if (i === stepNum) {
+                    if (card) {
+                        card.classList.add('active');
+                        card.style.opacity = '1';
+                    }
+                    if (satNode) satNode.classList.add('active');
+                    if (connectionLine) {
+                        connectionLine.style.stroke = 'var(--raindeer-blue)';
+                        connectionLine.style.strokeWidth = '2.2px';
+                        connectionLine.style.opacity = '1';
+                    }
+                } else {
+                    if (card) {
+                        card.classList.remove('active');
+                        card.style.opacity = '0.45';
+                    }
+                    if (satNode) satNode.classList.remove('active');
+                    if (connectionLine) {
+                        connectionLine.style.stroke = 'rgba(255,255,255,0.08)';
+                        connectionLine.style.strokeWidth = '1.2px';
+                        connectionLine.style.opacity = '0.4';
+                    }
+                }
+            }
+        }
+
         // Initiate typing animation when ready
         setTimeout(typeCaption, 1500);
+
+        // Collapsible Debug Console toggle function
+        window.toggleDebugRow = function(rowNum) {
+            const rows = document.querySelectorAll('.debug-row');
+            rows.forEach((row, idx) => {
+                const currentNum = idx + 1;
+                const body = row.querySelector('.debug-row-body');
+                if (currentNum === rowNum) {
+                    const isActive = row.classList.contains('active');
+                    if (isActive) {
+                        row.classList.remove('active');
+                        if (body) body.style.maxHeight = '0px';
+                    } else {
+                        row.classList.add('active');
+                        if (body) body.style.maxHeight = body.scrollHeight + 'px';
+                    }
+                } else {
+                    row.classList.remove('active');
+                    if (body) body.style.maxHeight = '0px';
+                }
+            });
+        };
+
+        // Initialize the first debug row as open on page load
+        const firstDebugRow = document.getElementById('debug-row-1');
+        if (firstDebugRow) {
+            const body = firstDebugRow.querySelector('.debug-row-body');
+            if (body) {
+                body.style.maxHeight = body.scrollHeight + 'px';
+            }
+        }
 
         // 5. GSAP ScrollTrigger Animations
         // Bento grid animation
@@ -2827,14 +3637,14 @@
             });
         });
 
-        // Calm Table reveal
-        gsap.from('.calm-table', {
+        // Debug Console reveal (replaces Calm Table)
+        gsap.from('.debug-console-container', {
             opacity: 0,
             y: 40,
             duration: 0.8,
             ease: 'power3.out',
             scrollTrigger: {
-                trigger: '.calm-table',
+                trigger: '.debug-console-container',
                 start: 'top 85%'
             }
         });
@@ -2851,22 +3661,177 @@
             }
         });
 
-        // Timeline steps reveal
+        // Timeline Scroll Progress Rail
+        if (!prefersReducedMotion) {
+            gsap.to('.timeline-line-progress', {
+                scaleY: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.timeline-wrapper',
+                    start: 'top 65%',
+                    end: 'bottom 60%',
+                    scrub: 1.2
+                }
+            });
+        }
+
+        // Timeline steps spotlight and log typewriters
+        const terminalLogs = {
+            1: [
+                "> raindeer scan_trends --target=all",
+                "[OK] Ingested 14 Reddit submissions",
+                "[OK] Trend found: \"CrewAI replaces agencies\""
+            ],
+            2: [
+                "> raindeer brand_ground --brand=raindeer",
+                "[OK] Retrieved vector nodes (Qdrant)",
+                "[OK] Constraints loaded: \"bold, contrarian\""
+            ],
+            3: [
+                "> raindeer generate_content --mesh=active",
+                "[OK] Caption: \"Don't hire a social...\"",
+                "[OK] Artwork layout designed via Flux.1"
+            ],
+            4: [
+                "> raindeer publish_post --schedule=bayes",
+                "[OK] Optimal slot: Friday, 5:30 PM",
+                "[OK] Enqueued for automated publish"
+            ]
+        };
+
+        const activeTypewriters = {};
+        function startTypewriter(stepId) {
+            if (activeTypewriters[stepId]) return;
+            activeTypewriters[stepId] = true;
+            
+            const logEl = document.getElementById(`terminal-log-${stepId}`);
+            if (!logEl) return;
+            
+            const terminalWidget = logEl.closest('.timeline-terminal');
+            if (terminalWidget) {
+                terminalWidget.style.opacity = '1';
+                terminalWidget.style.transform = 'translateY(0)';
+            }
+            
+            const lines = terminalLogs[stepId];
+            let lineIdx = 0;
+            let charIdx = 0;
+            logEl.innerText = "";
+            
+            function typeChar() {
+                if (lineIdx < lines.length) {
+                    const currentLine = lines[lineIdx];
+                    if (charIdx < currentLine.length) {
+                        logEl.innerText += currentLine[charIdx];
+                        charIdx++;
+                        setTimeout(typeChar, 18);
+                    } else {
+                        logEl.innerText += "\n";
+                        charIdx = 0;
+                        lineIdx++;
+                        setTimeout(typeChar, 250); // delay before next line
+                    }
+                }
+            }
+            typeChar();
+        }
+
         gsap.utils.toArray('.timeline-item').forEach((item, index) => {
+            const stepId = index + 1;
+            
+            // Initial slide-up reveal
             gsap.to(item, {
-                opacity: 1,
                 y: 0,
                 duration: 0.6,
-                ease: 'power2.out',
                 scrollTrigger: {
                     trigger: item,
-                    start: 'top 85%'
-                },
-                onComplete: () => {
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // Focus and typing triggers linked to scroll position
+            ScrollTrigger.create({
+                trigger: item,
+                start: 'top 65%',
+                end: 'bottom 45%',
+                onEnter: () => {
                     item.classList.add('active-step');
+                    startTypewriter(stepId);
+                },
+                onEnterBack: () => {
+                    item.classList.add('active-step');
+                    startTypewriter(stepId);
+                },
+                onLeave: () => {
+                    item.classList.remove('active-step');
+                },
+                onLeaveBack: () => {
+                    item.classList.remove('active-step');
                 }
             });
         });
+
+        // Agent Mesh Scrollytelling boot simulation
+        if (!prefersReducedMotion) {
+            const agentMeshTL = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#agents',
+                    start: 'top 65%',
+                    end: 'bottom 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // 1. Draw connecting lines
+            agentMeshTL.fromTo('.agent-mesh-line', 
+                { strokeDashoffset: 300 }, 
+                { strokeDashoffset: 0, duration: 1.2, ease: 'power1.inOut', stagger: 0.15 }
+            );
+
+            // 2. Stagger reveal satellite nodes
+            agentMeshTL.to('.agent-mesh-node:not(.active)', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.4,
+                stagger: 0.1,
+                ease: 'back.out(1.5)'
+            }, 0.5);
+
+            // 3. Coordinate bento grid card highlights with node boot
+            const bentoTargets = [
+                { nodeId: '#mesh-node-orchestrator', cardId: '#bento-orchestrator' },
+                { nodeId: '#mesh-node-trend', cardId: '#bento-trend' },
+                { nodeId: '#mesh-node-brand', cardId: '#bento-brand' },
+                { nodeId: '#mesh-node-content', cardId: '#bento-content' },
+                { nodeId: '#mesh-node-visuals', cardId: '#bento-visuals' },
+                { nodeId: '#mesh-node-scheduler', cardId: '#bento-scheduler' }
+            ];
+
+            bentoTargets.forEach((target, i) => {
+                const node = document.querySelector(target.nodeId);
+                const card = document.querySelector(target.cardId);
+                if (node && card) {
+                    agentMeshTL.to(node, {
+                        keyframes: [
+                            { scale: 1.25, filter: 'drop-shadow(0 0 12px var(--raindeer-blue))', duration: 0.3 },
+                            { scale: 1, filter: 'none', duration: 0.3 }
+                        ]
+                    }, 0.8 + i * 0.2);
+
+                    agentMeshTL.to(card, {
+                        keyframes: [
+                            { borderColor: 'var(--raindeer-blue)', boxShadow: '0 0 20px rgba(74, 124, 255, 0.25)', duration: 0.3 },
+                            { borderColor: 'rgba(255, 255, 255, 0.04)', boxShadow: 'none', duration: 0.3 }
+                        ]
+                    }, 0.8 + i * 0.2);
+                }
+            });
+        } else {
+            // Instant visibility when prefers-reduced-motion is active
+            gsap.set('.agent-mesh-node', { opacity: 1, scale: 1 });
+            gsap.set('.agent-mesh-line', { strokeDashoffset: 0 });
+        }
 
         // Market Counters Animation
         const statCounters = [
@@ -2951,8 +3916,8 @@
             }
             
             const submitBtn = document.getElementById('waitlist-submit-btn');
-            const originalText = submitBtn.innerText;
-            submitBtn.innerText = 'Reserving Spot...';
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'Reserving Spot... <span class="btn-spinner"></span>';
             submitBtn.disabled = true;
             
             // POST request to httpbin
@@ -2999,14 +3964,14 @@
             })
             .catch(error => {
                 console.error('Submission error:', error);
-                submitBtn.innerText = originalText;
+                submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 alert('Something went wrong. Please check your connection and try again.');
             });
         });
 
         // 7. Spotlight Card Mouse Move listener
-        const spotlightCards = document.querySelectorAll('.spotlight-card');
+        const spotlightCards = document.querySelectorAll('.spotlight-card, .spotlight-glow');
         spotlightCards.forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
@@ -3044,6 +4009,71 @@
             });
         });
 
+        // 8b. Magnetic Hover Effects on CTA Buttons
+        if (!prefersReducedMotion) {
+            const magneticButtons = document.querySelectorAll('.btn-hero-filled, .btn-hero-outline, .btn-nav-cta');
+            magneticButtons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const btnX = rect.left + rect.width / 2;
+                    const btnY = rect.top + rect.height / 2;
+                    const mouseX = e.clientX;
+                    const mouseY = e.clientY;
+                    
+                    const x = (mouseX - btnX) * 0.35;
+                    const y = (mouseY - btnY) * 0.35;
+                    
+                    gsap.to(btn, {
+                        x: x,
+                        y: y,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.6,
+                        ease: 'elastic.out(1.1, 0.4)'
+                    });
+                });
+            });
+
+            // 8c. Cursor-Reactive Depth Parallax (widgets, dashboard mockup)
+            window.addEventListener('mousemove', (e) => {
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const moveX = e.clientX - centerX;
+                const moveY = e.clientY - centerY;
+                
+                // Foreground widgets move faster (multiplier 0.05)
+                gsap.to('.parallax-fg', {
+                    x: moveX * 0.05,
+                    y: moveY * 0.05,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+                // Midground mockup dashboard and widgets move at medium speed (multiplier 0.02)
+                gsap.to('.parallax-mid, #product-mockup .dashboard-frame', {
+                    x: moveX * 0.02,
+                    y: moveY * 0.02,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+                // Background widgets move slower (multiplier 0.01)
+                gsap.to('.parallax-bg', {
+                    x: moveX * 0.01,
+                    y: moveY * 0.01,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
+            });
+        }
+
         // 9. Extra ScrollTrigger Parallax Animations
         // Interactive Dashboard Rotation entry on scroll
         gsap.fromTo('#product-mockup', 
@@ -3055,22 +4085,22 @@
                     trigger: '#hero-header',
                     start: 'top top',
                     end: 'bottom top',
-                    scrub: true
+                    scrub: 1.2
                 }
             }
         );
 
         // Visual Agent Mesh Network rotation and scaling on scroll
-        gsap.fromTo('.visual-agent-mesh-wrapper img',
-            { rotation: -3, scale: 0.98 },
+        gsap.fromTo('.visual-agent-mesh-wrapper',
+            { rotation: -1, scale: 0.98 },
             {
-                rotation: 3, scale: 1.04,
+                rotation: 1, scale: 1.02,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: '#agents',
                     start: 'top bottom',
                     end: 'bottom top',
-                    scrub: true
+                    scrub: 1.2
                 }
             }
         );
@@ -3091,7 +4121,7 @@
                     trigger: el,
                     start: 'top 85%',
                     end: 'bottom 60%',
-                    scrub: true
+                    scrub: 1.2
                 }
             });
         });
@@ -3173,7 +4203,7 @@
         // 12. Prefers Reduced Motion immediate overrides for GSAP
         if (prefersReducedMotion) {
             // Set immediate visibility on elements reveal-animated by GSAP
-            gsap.set('.bento-card, .calm-table, .comparison-wrapper, .timeline-item, .price-card, .stat-card, .product-preview, .hero-tagline, .hero-headline, .hero-subtitle, .hero-cta-group, .hero-social-proof', {
+            gsap.set('.bento-card, .debug-console-container, .comparison-wrapper, .timeline-item, .price-card, .stat-card, .product-preview, .hero-tagline, .hero-headline, .hero-subtitle, .hero-cta-group, .hero-social-proof', {
                 opacity: 1,
                 y: 0,
                 scale: 1,
