@@ -1430,6 +1430,7 @@
             padding-bottom: 40px;
             opacity: 0;
             transform: translateY(20px);
+            z-index: 2;
         }
 
         .timeline-item:last-child {
@@ -1999,11 +2000,13 @@
             transition: stroke 0.4s, stroke-width 0.4s;
         }
         .agent-mesh-node {
-            transition: transform 0.4s var(--ease-cubic), filter 0.4s var(--ease-cubic);
+            transform: scale(calc(var(--agent-scale, 1) * var(--hover-scale, 1)));
             transform-origin: center;
+            transition: transform 0.4s var(--ease-cubic), filter 0.4s var(--ease-cubic);
+            --hover-scale: 1;
         }
         .agent-mesh-node:hover, .agent-mesh-node.active {
-            transform: scale(1.12);
+            --hover-scale: 1.12;
             filter: drop-shadow(0 0 10px rgba(74, 124, 255, 0.6));
         }
 
@@ -2829,7 +2832,7 @@
 
                             <!-- Satellite Nodes -->
                             <!-- 1. Trend Intelligence -->
-                            <g class="agent-mesh-node" id="mesh-node-trend" style="opacity: 0; transform: scale(0.5); transform-origin: 120px 90px;">
+                            <g class="agent-mesh-node" id="mesh-node-trend" style="opacity: 0; --agent-scale: 0.5;">
                                 <circle cx="120" cy="90" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
                                 <circle cx="120" cy="90" r="14" fill="rgba(56, 217, 255, 0.05)" />
                                 <g transform="translate(112, 82) scale(0.66)" stroke="var(--raindeer-cyan)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -2838,7 +2841,7 @@
                                 <text x="120" y="122" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Trend Intel</text>
                             </g>
                             <!-- 2. Brand Brain -->
-                            <g class="agent-mesh-node" id="mesh-node-brand" style="opacity: 0; transform: scale(0.5); transform-origin: 120px 270px;">
+                            <g class="agent-mesh-node" id="mesh-node-brand" style="opacity: 0; --agent-scale: 0.5;">
                                 <circle cx="120" cy="270" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
                                 <circle cx="120" cy="270" r="14" fill="rgba(139, 108, 255, 0.05)" />
                                 <g transform="translate(112, 262) scale(0.66)" stroke="var(--raindeer-violet)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -2850,7 +2853,7 @@
                                 <text x="120" y="302" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Brand Brain</text>
                             </g>
                             <!-- 3. Content Creation Crew -->
-                            <g class="agent-mesh-node" id="mesh-node-content" style="opacity: 0; transform: scale(0.5); transform-origin: 480px 90px;">
+                            <g class="agent-mesh-node" id="mesh-node-content" style="opacity: 0; --agent-scale: 0.5;">
                                 <circle cx="480" cy="90" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
                                 <circle cx="480" cy="90" r="14" fill="rgba(74, 124, 255, 0.05)" />
                                 <g transform="translate(472, 82) scale(0.66)" stroke="var(--raindeer-blue)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -2860,7 +2863,7 @@
                                 <text x="480" y="122" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Writer Crew</text>
                             </g>
                             <!-- 4. Visual Content Agent -->
-                            <g class="agent-mesh-node" id="mesh-node-visuals" style="opacity: 0; transform: scale(0.5); transform-origin: 520px 180px;">
+                            <g class="agent-mesh-node" id="mesh-node-visuals" style="opacity: 0; --agent-scale: 0.5;">
                                 <circle cx="520" cy="180" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
                                 <circle cx="520" cy="180" r="14" fill="rgba(139, 108, 255, 0.05)" />
                                 <g transform="translate(512, 172) scale(0.66)" stroke="var(--raindeer-violet)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -2869,7 +2872,7 @@
                                 <text x="520" y="212" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Visual Agent</text>
                             </g>
                             <!-- 5. Bayesian Scheduler -->
-                            <g class="agent-mesh-node" id="mesh-node-scheduler" style="opacity: 0; transform: scale(0.5); transform-origin: 480px 270px;">
+                            <g class="agent-mesh-node" id="mesh-node-scheduler" style="opacity: 0; --agent-scale: 0.5;">
                                 <circle cx="480" cy="270" r="18" fill="#0c0c0e" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
                                 <circle cx="480" cy="270" r="14" fill="rgba(23, 203, 150, 0.05)" />
                                 <g transform="translate(472, 262) scale(0.66)" stroke="var(--slay-green)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -2880,19 +2883,13 @@
                                 </g>
                                 <text x="480" y="302" font-family="var(--font-mono)" font-size="9" fill="var(--text-zinc)" text-anchor="middle">Scheduler</text>
                             </g>
-
+ 
                             <!-- Orchestrator Core (Center) -->
                             <g class="agent-mesh-node active" id="mesh-node-orchestrator" style="filter: drop-shadow(0 0 12px var(--raindeer-blue));">
                                 <circle cx="300" cy="180" r="28" fill="#0c0c0e" stroke="var(--raindeer-blue)" stroke-width="2" />
                                 <circle cx="300" cy="180" r="24" fill="rgba(74, 124, 255, 0.06)" />
-                                <!-- Integrated geometric deer logo (Scaled & Centered) -->
-                                <g transform="translate(288, 168) scale(0.75)" stroke="var(--raindeer-cyan)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5" />
-                                    <path d="M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8" />
-                                    <path d="M7 13L16 28L25 13" />
-                                    <path d="M7 13L16 17L25 13" />
-                                    <path d="M16 17V23" />
-                                </g>
+                                <!-- Integrated geometric deer logo (assets/logo.png) (Scaled & Centered) -->
+                                <image href="assets/logo.png" x="282" y="162" width="36" height="36" />
                                 <text x="300" y="222" font-family="var(--font-mono)" font-size="9.5" fill="var(--text-white)" font-weight="600" text-anchor="middle">Orchestrator</text>
                             </g>
                         </svg>
@@ -3750,6 +3747,7 @@
             
             // Initial slide-up reveal
             gsap.to(item, {
+                opacity: 1,
                 y: 0,
                 duration: 0.6,
                 scrollTrigger: {
@@ -3801,12 +3799,12 @@
             // 2. Stagger reveal satellite nodes
             agentMeshTL.to('.agent-mesh-node:not(.active)', {
                 opacity: 1,
-                scale: 1,
+                '--agent-scale': 1,
                 duration: 0.4,
                 stagger: 0.1,
                 ease: 'back.out(1.5)'
             }, 0.5);
-
+ 
             // 3. Coordinate bento grid card highlights with node boot
             const bentoTargets = [
                 { nodeId: '#mesh-node-orchestrator', cardId: '#bento-orchestrator' },
@@ -3816,18 +3814,18 @@
                 { nodeId: '#mesh-node-visuals', cardId: '#bento-visuals' },
                 { nodeId: '#mesh-node-scheduler', cardId: '#bento-scheduler' }
             ];
-
+ 
             bentoTargets.forEach((target, i) => {
                 const node = document.querySelector(target.nodeId);
                 const card = document.querySelector(target.cardId);
                 if (node && card) {
                     agentMeshTL.to(node, {
                         keyframes: [
-                            { scale: 1.25, filter: 'drop-shadow(0 0 12px var(--raindeer-blue))', duration: 0.3 },
-                            { scale: 1, filter: 'none', duration: 0.3 }
+                            { '--agent-scale': 1.25, filter: 'drop-shadow(0 0 12px var(--raindeer-blue))', duration: 0.3 },
+                            { '--agent-scale': 1, filter: 'none', duration: 0.3 }
                         ]
                     }, 0.8 + i * 0.2);
-
+ 
                     agentMeshTL.to(card, {
                         keyframes: [
                             { borderColor: 'var(--raindeer-blue)', boxShadow: '0 0 20px rgba(74, 124, 255, 0.25)', duration: 0.3 },
@@ -3838,7 +3836,7 @@
             });
         } else {
             // Instant visibility when prefers-reduced-motion is active
-            gsap.set('.agent-mesh-node', { opacity: 1, scale: 1 });
+            gsap.set('.agent-mesh-node', { opacity: 1, '--agent-scale': 1 });
             gsap.set('.agent-mesh-line', { strokeDashoffset: 0 });
         }
 
