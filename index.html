@@ -3926,8 +3926,12 @@
             submitBtn.innerHTML = 'Reserving Spot... <span class="btn-spinner"></span>';
             submitBtn.disabled = true;
             
-            // POST request to local registration API
-            fetch('/api/register', {
+            // POST request to registration API
+            const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? ''
+                : 'https://raindeer-social-backend.onrender.com';
+            
+            fetch(`${apiBase}/api/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

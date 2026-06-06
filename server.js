@@ -12,6 +12,17 @@ const DB_FILE = path.join(DATA_DIR, 'registrations.json');
 
 app.use(express.json());
 
+// Enable CORS for Vercel frontend requests
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
+
 // Serve static files from the project root
 app.use(express.static(__dirname));
 
