@@ -1,0 +1,228 @@
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const app = express();
+
+const PORT = process.env.PORT || 3000;
+const DATA_DIR = process.env.DATA_DIR || (fs.existsSync('/data') ? '/data' : __dirname);
+if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+const DB_FILE = path.join(DATA_DIR, 'registrations.json');
+
+app.use(express.json());
+
+// Serve static files from the project root
+app.use(express.static(__dirname));
+
+// Route to register a user
+app.post('/api/register', (req, res) => {
+    const { name, email, companySize } = req.body;
+
+    if (!name || !email) {
+        return res.status(400).json({ error: 'Name and email are required' });
+    }
+
+    // Read current registrations
+    let registrations = [];
+    if (fs.existsSync(DB_FILE)) {
+        try {
+            const data = fs.readFileSync(DB_FILE, 'utf8');
+            registrations = JSON.parse(data || '[]');
+        } catch (err) {
+            console.error('Error reading registrations file:', err);
+        }
+    }
+
+    // Add new registration with timestamp
+    const newRegistration = {
+        name,
+        email,
+        companySize: companySize || 'N/A',
+        timestamp: new Date().toISOString()
+    };
+    registrations.push(newRegistration);
+
+    // Save back to JSON file
+    try {
+        fs.writeFileSync(DB_FILE, JSON.stringify(registrations, null, 2), 'utf8');
+    } catch (err) {
+        console.error('Error writing to registrations file:', err);
+        return res.status(500).json({ error: 'Failed to save registration' });
+    }
+
+    console.log(`Registered user: ${name} (${email})`);
+    
+    // Return dummy response structure matching httpbin to keep frontend response mapping happy
+    return res.status(200).json({
+        json: newRegistration,
+        success: true
+    });
+});
+
+// Endpoint to view all registrations
+app.get('/api/registrations', (req, res) => {
+    let registrations = [];
+    if (fs.existsSync(DB_FILE)) {
+        try {
+            const data = fs.readFileSync(DB_FILE, 'utf8');
+            registrations = JSON.parse(data || '[]');
+        } catch (err) {
+            console.error('Error reading registrations file:', err);
+            return res.status(500).json({ error: 'Failed to retrieve registrations' });
+        }
+    }
+    res.json(registrations);
+});
+
+// Serve landing page by default
+app.get('/registrations', (req, res) => {
+    let registrations = [];
+    if (fs.existsSync(DB_FILE)) {
+        try {
+            const data = fs.readFileSync(DB_FILE, 'utf8');
+            registrations = JSON.parse(data || '[]');
+        } catch (err) {
+            console.error('Error reading registrations file:', err);
+        }
+    }
+    
+    // Sort registrations: newest first
+    registrations.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    let rowsHtml = '';
+    registrations.forEach((u) => {
+        const dateStr = new Date(u.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+        rowsHtml += `
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.04); transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+                <td style="padding: 16px; color: #fff; font-weight: 500;">${u.name}</td>
+                <td style="padding: 16px; color: #38d9ff; font-family: monospace;">${u.email}</td>
+                <td style="padding: 16px; color: #a1a1aa;">${u.companySize}</td>
+                <td style="padding: 16px; color: #71717a; font-size: 0.85rem;">${dateStr}</td>
+            </tr>
+        `;
+    });
+
+    if (registrations.length === 0) {
+        rowsHtml = `
+            <tr>
+                <td colspan="4" style="padding: 40px; text-align: center; color: #71717a;">No registrations yet.</td>
+            </tr>
+        `;
+    }
+
+    const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>raindeer.social — Registrations Dashboard</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+        <style>
+            :root {
+                --bg-pure: #050507;
+                --raindeer-blue: #4a7cff;
+                --raindeer-cyan: #38d9ff;
+            }
+            body {
+                background: var(--bg-pure);
+                color: #e4e4e7;
+                font-family: 'Outfit', sans-serif;
+                margin: 0;
+                padding: 40px 24px;
+                min-height: 100vh;
+                background-image: radial-gradient(circle, rgba(74, 124, 255, 0.1) 1.2px, transparent 1.2px);
+                background-size: 40px 40px;
+            }
+            .dashboard {
+                max-width: 900px;
+                margin: 0 auto;
+                background: rgba(10, 10, 12, 0.7);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 16px;
+                padding: 32px;
+                backdrop-filter: blur(12px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            }
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                padding-bottom: 24px;
+                margin-bottom: 24px;
+            }
+            h1 {
+                margin: 0;
+                font-size: 1.8rem;
+                font-weight: 700;
+                background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .stats {
+                font-family: 'Space Mono', monospace;
+                font-size: 0.85rem;
+                color: var(--raindeer-cyan);
+                background: rgba(56, 217, 255, 0.05);
+                border: 1px solid rgba(56, 217, 255, 0.15);
+                padding: 6px 12px;
+                border-radius: 8px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                text-align: left;
+            }
+            th {
+                padding: 16px;
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: #71717a;
+                font-weight: 600;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="dashboard">
+            <div class="header">
+                <div>
+                    <h1>raindeer.social</h1>
+                    <div style="color: #71717a; font-size: 0.9rem; margin-top: 4px;">Waitlist Signups Dashboard</div>
+                </div>
+                <div class="stats">${registrations.length} Signups</div>
+            </div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Company Size</th>
+                            <th>Signed Up At (IST)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rowsHtml}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
+    res.send(html);
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});

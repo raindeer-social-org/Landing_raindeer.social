@@ -3926,8 +3926,8 @@
             submitBtn.innerHTML = 'Reserving Spot... <span class="btn-spinner"></span>';
             submitBtn.disabled = true;
             
-            // POST request to httpbin
-            fetch('https://httpbin.org/post', {
+            // POST request to local registration API
+            fetch('/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

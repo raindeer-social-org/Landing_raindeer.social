@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: raindeer-social-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: DATA_DIR
+        value: /data
+    disk:
+      name: registrations-data
+      mountPath: /data
+      sizeGB: 1
