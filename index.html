@@ -108,7 +108,7 @@
             font-family: var(--font-sans);
             background-color: var(--bg-pure);
             background-image: 
-                radial-gradient(circle, rgba(74, 124, 255, 0.3) 2px, transparent 2px);
+                radial-gradient(circle, rgba(74, 124, 255, 0.2) 1.2px, transparent 1.2px);
             background-size: 48px 48px;
             background-position: 0 0;
             color: var(--text-silver);
@@ -373,11 +373,7 @@
             align-items: center;
             position: relative;
             z-index: 1;
-            /* Enhanced BRIGHT dot grid for hero */
-            background-image: 
-                radial-gradient(circle, rgba(74, 124, 255, 0.4) 2px, transparent 2px);
-            background-size: 48px 48px;
-            background-position: center center;
+            /* Rely on body's subtle background dot grid */
         }
 
         .hero-tagline {
@@ -2813,6 +2809,9 @@
                                     <feGaussianBlur stdDeviation="6" result="blur" />
                                     <feComposite in="SourceGraphic" in2="blur" operator="over" />
                                 </filter>
+                                <clipPath id="orchestratorClip">
+                                    <circle cx="300" cy="180" r="24" />
+                                </clipPath>
                             </defs>
 
                             <!-- Ambient glow behind orchestrator core -->
@@ -2889,7 +2888,7 @@
                                 <circle cx="300" cy="180" r="28" fill="#0c0c0e" stroke="var(--raindeer-blue)" stroke-width="2" />
                                 <circle cx="300" cy="180" r="24" fill="rgba(74, 124, 255, 0.06)" />
                                 <!-- Integrated geometric deer logo (assets/logo.png) (Scaled & Centered) -->
-                                <image href="assets/logo.png" x="282" y="162" width="36" height="36" />
+                                <image href="assets/logo.png" x="276" y="156" width="48" height="48" clip-path="url(#orchestratorClip)" />
                                 <text x="300" y="222" font-family="var(--font-mono)" font-size="9.5" fill="var(--text-white)" font-weight="600" text-anchor="middle">Orchestrator</text>
                             </g>
                         </svg>
