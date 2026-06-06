@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://raindeer-social-backend.onrender.com/api/:path*"
+    },
+    {
+      "source": "/registrations",
+      "destination": "https://raindeer-social-backend.onrender.com/registrations"
+    },
+    {
+      "source": "/registration",
+      "destination": "https://raindeer-social-backend.onrender.com/registrations"
+    }
+  ]
+}
