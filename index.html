@@ -8,9 +8,9 @@
     <meta http-equiv="Expires" content="0">
     <title>raindeer.social — Replace Your Social Media Team with 10 AI Agents</title>
     <meta name="description" content="10 specialized AI agents that plan, write, design, publish, and optimize your entire social media presence. Built for SMBs, creators, and agencies. Starting at ₹999/month.">
-    <meta name="keywords" content="AI social media agency, social media automation, AI agents, content creation, social media OS, NSUT, Hoblix, Stealth Care">
+    <meta name="keywords" content="AI social media agency, social media automation, AI agents, content creation, social media OS, NST, Hoblix, Slay Health, Newton School of Technology">
     <meta property="og:title" content="raindeer.social — Replace Your Social Media Team with AI">
-    <meta property="og:description" content="10 specialized AI agents that research, create, publish, and optimize your social presence. Built by NSUT founders.">
+    <meta property="og:description" content="10 specialized AI agents that research, create, publish, and optimize your social presence. Built by Newton School of Technology founders.">
     <meta property="og:image" content="https://raindeer.social/assets/og-image.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://raindeer.social">
@@ -409,7 +409,8 @@
             letter-spacing: -0.04em;
             color: var(--text-white);
             max-width: 980px;
-            margin-bottom: 24px;
+            margin: 0 auto 24px;
+            text-align: center;
         }
 
         .hero-headline .accent-line {
@@ -425,17 +426,19 @@
             color: var(--text-zinc);
             max-width: 680px;
             line-height: 1.6;
-            margin-bottom: 40px;
+            margin: 0 auto 40px;
             font-weight: 400;
             opacity: 1;
             transform: translateY(0px);
+            text-align: center;
         }
 
         .hero-cta-group {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 16px;
-            margin-bottom: 64px;
+            margin: 0 auto 64px;
             opacity: 1;
             transform: translateY(0px);
         }
@@ -876,19 +879,24 @@
         /* ==============================================================
            PARTNER LOGOS (Social Proof)
            ============================================================== */
+        /* ==============================================================
+           PARTNER LOGOS & TESTIMONIALS (Social Proof)
+           ============================================================== */
         .partners-section {
-            padding: 40px 0;
-            border-y: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(255, 255, 255, 0.01);
+            padding: 80px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.002) 0%, rgba(255, 255, 255, 0.005) 100%);
             position: relative;
             z-index: 10;
+            overflow: hidden;
         }
 
         .partners-inner {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 24px;
+            gap: 40px;
         }
 
         .partners-title {
@@ -897,47 +905,309 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--text-muted);
+            font-weight: 500;
         }
 
-        .logos-row {
+        /* Infinite CSS Logo Marquee */
+        .logo-marquee-container {
+            overflow: hidden;
+            width: 100%;
+            padding: 16px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-marquee-container::before,
+        .logo-marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 15%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .logo-marquee-container::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-pure), transparent);
+        }
+
+        .logo-marquee-container::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-pure), transparent);
+        }
+
+        .logo-marquee-track {
+            display: flex;
+            width: max-content;
+            gap: 60px;
+            animation: marquee 25s linear infinite;
+        }
+
+        .logo-marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 30px)); } /* Accounts for half of duplicate items */
+        }
+
+        .partner-logo-card {
+            background: #ffffff; /* Solid white background for perfect blending in all states */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            padding: 8px 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(40px, 8vw, 100px);
-            flex-wrap: wrap;
-            opacity: 0.85;
+            height: 64px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 1;
+            opacity: 1; /* Always fully visible and colorful */
+            transform: scale(1);
+            overflow: hidden; /* Clips any image overlay/overlap beyond the rounded card boundary */
         }
 
-        .partner-logo {
+        .partner-logo-card:hover {
+            background: #ffffff;
+            transform: translateY(-4px) scale(1.04);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .partner-logo-img {
+            height: 38px;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Testimonial Bento Cards CSS */
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(20, 20, 25, 0.4) 0%, rgba(10, 10, 12, 0.6) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 36px 32px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(74, 124, 255, 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(74, 124, 255, 0.05);
+        }
+
+        .testimonial-card:hover::before {
+            opacity: 1;
+        }
+
+        .testimonial-stars {
+            color: var(--raindeer-cyan);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-quote {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-silver);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .testimonial-user {
             display: flex;
             align-items: center;
-            gap: 12px;
-            color: var(--text-zinc);
-            transition: all 0.3s ease;
+            gap: 14px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
         }
 
-        .partner-logo:hover {
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        .avatar-hoblix {
+            background: linear-gradient(135deg, var(--hoblix-orange) 0%, #ff8e5b 100%);
+        }
+
+        .avatar-slay {
+            background: linear-gradient(135deg, var(--slay-green) 0%, #17cb96 100%);
+            color: var(--bg-pure);
+        }
+
+        .avatar-nst {
+            background: linear-gradient(135deg, var(--raindeer-blue) 0%, #38d9ff 100%);
+        }
+
+        .testimonial-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .testimonial-name-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .testimonial-name {
+            font-size: 0.95rem;
+            font-weight: 600;
             color: var(--text-white);
-            transform: translateY(-2px);
         }
 
-        .partner-logo svg {
-            height: 32px;
-            width: auto;
-            fill: currentColor;
+        .linkedin-pronouns {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 400;
         }
 
-        .partner-name {
-            font-family: var(--font-sans);
-            font-weight: 800;
-            font-size: 1.25rem;
-            letter-spacing: -0.02em;
+        .linkedin-degree {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
-        /* Custom SVGs for partners */
+        .testimonial-headline {
+            font-size: 0.78rem;
+            color: var(--text-zinc);
+            line-height: 1.4;
+        }
+
+        /* Metric Highlight Pill */
+        .testimonial-metric {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s;
+        }
+
+        .metric-hoblix {
+            color: #ffaa85;
+            border-color: rgba(233, 93, 36, 0.15);
+            background: rgba(233, 93, 36, 0.03);
+        }
+        .testimonial-card:hover .metric-hoblix {
+            background: rgba(233, 93, 36, 0.08);
+            border-color: rgba(233, 93, 36, 0.3);
+            box-shadow: 0 0 15px rgba(233, 93, 36, 0.1);
+        }
+
+        .metric-slay {
+            color: #a7ffd8;
+            border-color: rgba(23, 203, 150, 0.15);
+            background: rgba(23, 203, 150, 0.03);
+        }
+        .testimonial-card:hover .metric-slay {
+            background: rgba(23, 203, 150, 0.08);
+            border-color: rgba(23, 203, 150, 0.3);
+            box-shadow: 0 0 15px rgba(23, 203, 150, 0.1);
+        }
+
+        .metric-nst {
+            color: #bce4ff;
+            border-color: rgba(74, 124, 255, 0.15);
+            background: rgba(74, 124, 255, 0.03);
+        }
+        .testimonial-card:hover .metric-nst {
+            background: rgba(74, 124, 255, 0.08);
+            border-color: rgba(74, 124, 255, 0.3);
+            box-shadow: 0 0 15px rgba(74, 124, 255, 0.1);
+        }
+
         .logo-hoblix { color: var(--hoblix-orange); }
-        .logo-stealth { color: var(--slay-green); }
-        .logo-nsut { color: var(--raindeer-blue); }
+        .logo-slayhealth { color: var(--slay-green); }
+        .logo-nst { color: var(--raindeer-blue); }
+
+        /* Specific logo image defaults for white-card blending */
+        .logo-hoblix .partner-logo-img {
+            filter: invert(1) hue-rotate(180deg); /* dark text, orange mark */
+            transform: scale(1.85);
+        }
+        .logo-slayhealth .partner-logo-img {
+            filter: none; /* Always colored */
+            mix-blend-mode: multiply; /* removes the gray background box */
+            transform: scale(1.6);
+        }
+        .logo-nst .partner-logo-img {
+            filter: none; /* Always colored */
+            transform: scale(1.1);
+        }
+
+        /* Hover glows & color restorations */
+        .partner-logo-card.logo-hoblix:hover {
+            box-shadow: 0 15px 35px rgba(233, 93, 36, 0.4), 0 0 25px rgba(233, 93, 36, 0.2);
+            border-color: var(--hoblix-orange);
+        }
+        .partner-logo-card.logo-hoblix:hover .partner-logo-img {
+            transform: scale(1.95);
+        }
+
+        .partner-logo-card.logo-slayhealth:hover {
+            box-shadow: 0 15px 35px rgba(23, 203, 150, 0.4), 0 0 25px rgba(23, 203, 150, 0.2);
+            border-color: var(--slay-green);
+        }
+        .partner-logo-card.logo-slayhealth:hover .partner-logo-img {
+            transform: scale(1.7);
+        }
+
+        .partner-logo-card.logo-nst:hover {
+            box-shadow: 0 15px 35px rgba(74, 124, 255, 0.4), 0 0 25px rgba(74, 124, 255, 0.2);
+            border-color: var(--raindeer-blue);
+        }
+        .partner-logo-card.logo-nst:hover .partner-logo-img {
+            transform: scale(1.15);
+        }
 
         /* ==============================================================
            SECTIONS GENERAL STRUCTURE
@@ -1548,21 +1818,48 @@
         }
 
         .waitlist-submit {
-            background: var(--text-white);
-            color: var(--bg-pure);
-            border: none;
+            background: linear-gradient(135deg, var(--raindeer-blue) 0%, #6366f1 100%);
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             outline: none;
-            padding: 12px 28px;
-            border-radius: var(--radius-md);
-            font-size: 0.88rem;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 4px 25px rgba(74, 124, 255, 0.25);
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .waitlist-submit::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: skewX(-25deg);
+            transition: 0.75s;
+        }
+
+        .waitlist-submit:hover::after {
+            left: 125%;
         }
 
         .waitlist-submit:hover {
-            background: #e4e4e7;
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, #5b8aff 0%, #7679f2 100%);
+            box-shadow: 0 8px 30px rgba(74, 124, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .waitlist-submit:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(74, 124, 255, 0.2);
         }
 
         .waitlist-success-message {
@@ -1677,6 +1974,13 @@
         }
 
         @media (max-width: 768px) {
+            .hero-headline {
+                font-size: clamp(2rem, 7vw, 2.8rem);
+                line-height: 1.15;
+            }
+            .kinetic-line {
+                overflow: visible;
+            }
             .nav-menu {
                 display: none;
             }
@@ -1820,76 +2124,100 @@
 
         /* Waitlist Stacked Form Styles */
         .waitlist-form-stacked {
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: var(--radius-md);
-            padding: 36px;
+            background: linear-gradient(180deg, rgba(12, 12, 16, 0.75) 0%, rgba(5, 5, 7, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
             text-align: left;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 0 50px rgba(74, 124, 255, 0.02);
             position: relative;
             overflow: hidden;
             width: 100%;
             max-width: 520px;
             margin: 0 auto;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .waitlist-form-stacked::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(74, 124, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .waitlist-field {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
         }
 
         .waitlist-field label {
             font-size: 0.75rem;
             font-family: var(--font-mono);
-            color: var(--text-zinc);
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .waitlist-field:focus-within label {
+            color: var(--raindeer-cyan);
         }
 
         .waitlist-input-styled {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.015);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-md);
-            padding: 12px 16px;
+            border-radius: 10px;
+            padding: 14px 18px;
             color: var(--text-white);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             outline: none;
             font-family: var(--font-sans);
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
         }
 
         .waitlist-input-styled:focus {
-            border-color: var(--raindeer-blue);
-            box-shadow: 0 0 0 2px rgba(74, 124, 255, 0.15);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(74, 124, 255, 0.6);
+            box-shadow: 0 0 20px rgba(74, 124, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
 
         .waitlist-select-styled {
-            background: #0e0e0e;
+            background: #0a0a0c;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-md);
-            padding: 12px 16px;
+            border-radius: 10px;
+            padding: 14px 18px;
             color: var(--text-white);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             outline: none;
             font-family: var(--font-sans);
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
             appearance: none;
             -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a1a1aa'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 16px center;
+            background-position: right 18px center;
             background-size: 16px;
-            padding-right: 40px;
+            padding-right: 44px;
             cursor: pointer;
         }
 
         .waitlist-select-styled:focus {
-            border-color: var(--raindeer-blue);
-            box-shadow: 0 0 0 2px rgba(74, 124, 255, 0.15);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(74, 124, 255, 0.6);
+            box-shadow: 0 0 20px rgba(74, 124, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
 
         /* ==============================================================
@@ -2308,15 +2636,15 @@
         }
         .widget-trend-scan {
             top: 22%;
-            left: 5%;
+            left: 2%;
         }
         .widget-brand-ground {
             bottom: 25%;
-            left: 8%;
+            left: 3%;
         }
         .widget-scheduler {
             top: 32%;
-            right: 5%;
+            right: 2%;
         }
         .widget-header {
             display: flex;
@@ -2340,7 +2668,7 @@
             text-overflow: ellipsis;
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1360px) {
             .floating-widget {
                 display: none;
             }
@@ -2364,7 +2692,7 @@
     <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
         <div class="nav-inner">
             <a href="#" class="nav-brand" aria-label="raindeer.social home">
-                <svg class="nav-logo-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 32px; height: 32px; color: var(--raindeer-blue);"><path d="M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5" /><path d="M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8" /><path d="M7 13L16 28L25 13" /><path d="M7 13L16 17L25 13" /><path d="M16 17V23" /><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="20" cy="15" r="1" fill="currentColor"/></svg>
+                <img class="nav-logo-img" src="assets/logo.png" alt="raindeer.social Logo" style="width: 32px; height: 32px; object-fit: contain;">
                 <span class="nav-title">raindeer<span>.social</span></span>
             </a>
             <ul class="nav-menu">
@@ -2429,7 +2757,7 @@
                 <span class="kinetic-line">
                     <span class="kinetic-word">team</span>
                     <span class="kinetic-word">with</span>
-                    <span class="kinetic-word glow-blue">10 AI agents.</span>
+                    <span id="rotating-word" class="kinetic-word glow-blue">10 AI agents.</span>
                 </span>
             </h1>
 
@@ -2463,7 +2791,7 @@
                         <!-- Left Sidebar -->
                         <aside class="dashboard-sidebar">
                             <div class="sidebar-brand">
-                                <svg class="nav-logo-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--raindeer-blue);"><path d="M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5" /><path d="M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8" /><path d="M7 13L16 28L25 13" /><path d="M7 13L16 17L25 13" /><path d="M16 17V23" /><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="20" cy="15" r="1" fill="currentColor"/></svg>
+                                <img src="assets/logo.png" alt="Logo" style="width: 20px; height: 20px; object-fit: contain;">
                                 <span>raindeer.social</span>
                             </div>
                             <ul class="sidebar-nav">
@@ -2613,67 +2941,110 @@
         <div class="container">
             <div class="partners-inner">
                 <span class="partners-title">Partnered & Trusted by Leaders</span>
-                <div class="logos-row">
-                    <!-- Hoblix Logo -->
-                    <div class="partner-logo logo-hoblix">
-                        <i data-lucide="layers" style="width: 24px; height: 24px; color: var(--hoblix-orange);"></i>
-                        <span class="partner-name" style="font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;">Hoblix</span>
-                    </div>
-
-                    <!-- Stealth Care Logo -->
-                    <div class="partner-logo logo-stealth">
-                        <i data-lucide="shield-check" style="width: 24px; height: 24px; color: var(--slay-green);"></i>
-                        <span class="partner-name" style="font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;">Stealth Care</span>
-                    </div>
-
-                    <!-- NST / NSUT College Logo -->
-                    <div class="partner-logo logo-nsut">
-                        <i data-lucide="graduation-cap" style="width: 24px; height: 24px; color: var(--raindeer-blue);"></i>
-                        <span class="partner-name" style="font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;">NST Delhi</span>
+                
+                <!-- Infinite Scrolling Logo Marquee -->
+                <div class="logo-marquee-container">
+                    <div class="logo-marquee-track">
+                        <!-- Group 1 -->
+                        <div class="partner-logo-card logo-hoblix">
+                            <img class="partner-logo-img" src="assets/hobblix_logo.png" alt="Hoblix Logo" style="filter: invert(1) hue-rotate(180deg);">
+                        </div>
+                        <div class="partner-logo-card logo-slayhealth">
+                            <img class="partner-logo-img" src="assets/slayhealth_image.png" alt="Slay Health Logo">
+                        </div>
+                        <div class="partner-logo-card logo-nst">
+                            <img class="partner-logo-img" src="assets/nst.png" alt="Newton School of Technology Logo">
+                        </div>
+                        <!-- Group 2 -->
+                        <div class="partner-logo-card logo-hoblix">
+                            <img class="partner-logo-img" src="assets/hobblix_logo.png" alt="Hoblix Logo" style="filter: invert(1) hue-rotate(180deg);">
+                        </div>
+                        <div class="partner-logo-card logo-slayhealth">
+                            <img class="partner-logo-img" src="assets/slayhealth_image.png" alt="Slay Health Logo">
+                        </div>
+                        <div class="partner-logo-card logo-nst">
+                            <img class="partner-logo-img" src="assets/nst.png" alt="Newton School of Technology Logo">
+                        </div>
+                        <!-- Group 3 -->
+                        <div class="partner-logo-card logo-hoblix">
+                            <img class="partner-logo-img" src="assets/hobblix_logo.png" alt="Hoblix Logo" style="filter: invert(1) hue-rotate(180deg);">
+                        </div>
+                        <div class="partner-logo-card logo-slayhealth">
+                            <img class="partner-logo-img" src="assets/slayhealth_image.png" alt="Slay Health Logo">
+                        </div>
+                        <div class="partner-logo-card logo-nst">
+                            <img class="partner-logo-img" src="assets/nst.png" alt="Newton School of Technology Logo">
+                        </div>
+                        <!-- Group 4 (Duplicate for seamless scroll) -->
+                        <div class="partner-logo-card logo-hoblix">
+                            <img class="partner-logo-img" src="assets/hobblix_logo.png" alt="Hoblix Logo" style="filter: invert(1) hue-rotate(180deg);">
+                        </div>
+                        <div class="partner-logo-card logo-slayhealth">
+                            <img class="partner-logo-img" src="assets/slayhealth_image.png" alt="Slay Health Logo">
+                        </div>
+                        <div class="partner-logo-card logo-nst">
+                            <img class="partner-logo-img" src="assets/nst.png" alt="Newton School of Technology Logo">
+                        </div>
                     </div>
                 </div>
 
                 <!-- Testimonials Grid -->
-                <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; width: 100%;">
-                    <!-- Testimonial 1 (Hoblix) -->
-                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
-                        <div class="testimonial-stars" style="color: var(--raindeer-cyan); font-size: 0.85rem;">★★★★★</div>
-                        <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-silver); font-style: italic;">
+                <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 48px; width: 100%;">
+                    <!-- Testimonial 1 (Hoblix - Sachin Sharma) -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-metric metric-hoblix">₹40,000/mo Saved</div>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">
                             "raindeer.social replaced our entire content agency workflow. We save over ₹40,000/mo and get highly engaging posts designed and published on autopilot."
                         </p>
-                        <div class="testimonial-user" style="display: flex; align-items: center; gap: 12px; margin-top: auto;">
-                            <div class="avatar-placeholder" style="background: var(--hoblix-orange); color: var(--text-white); font-weight: bold; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem;">AG</div>
-                            <div>
-                                <h5 style="font-size: 0.85rem; font-weight: 600; color: var(--text-white);">Aman Gupta</h5>
-                                <p style="font-size: 0.72rem; color: var(--text-zinc);">Co-founder, Hoblix</p>
+                        <div class="testimonial-user">
+                            <div class="testimonial-avatar avatar-hoblix">SS</div>
+                            <div class="testimonial-meta">
+                                <div class="testimonial-name-row">
+                                    <span class="testimonial-name">Sachin Sharma</span>
+                                    <span class="linkedin-pronouns">He/Him</span>
+                                    <span class="linkedin-degree">• 2nd</span>
+                                </div>
+                                <p class="testimonial-headline">CEO, Hoblix • 2x Founder | Slay Health</p>
                             </div>
                         </div>
                     </div>
-                    <!-- Testimonial 2 (Slay Health) -->
-                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
-                        <div class="testimonial-stars" style="color: var(--raindeer-cyan); font-size: 0.85rem;">★★★★★</div>
-                        <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-silver); font-style: italic;">
+                    
+                    <!-- Testimonial 2 (Slay Health - Sachin Verma) -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-metric metric-slay">Zero Hallucinations</div>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">
                             "Managing premarital health campaigns requires extremely precise, grounded copy. The Brand Brain feature ensures our tone is perfectly aligned with zero hallucinations."
                         </p>
-                        <div class="testimonial-user" style="display: flex; align-items: center; gap: 12px; margin-top: auto;">
-                            <div class="avatar-placeholder" style="background: var(--slay-green); color: var(--bg-pure); font-weight: bold; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem;">SM</div>
-                            <div>
-                                <h5 style="font-size: 0.85rem; font-weight: 600; color: var(--text-white);">Sanya Malhotra</h5>
-                                <p style="font-size: 0.72rem; color: var(--text-zinc);">Marketing Lead, Slay Health</p>
+                        <div class="testimonial-user">
+                            <div class="testimonial-avatar avatar-slay">SV</div>
+                            <div class="testimonial-meta">
+                                <div class="testimonial-name-row">
+                                    <span class="testimonial-name">Sachin Verma</span>
+                                    <span class="linkedin-pronouns">He/Him</span>
+                                    <span class="linkedin-degree">• 2nd</span>
+                                </div>
+                                <p class="testimonial-headline">Founder, Slay Health • 2x Founder</p>
                             </div>
                         </div>
                     </div>
-                    <!-- Testimonial 3 (NST Marketing) -->
-                    <div class="testimonial-card" style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: var(--radius-md); padding: 24px; display: flex; flex-direction: column; gap: 16px; transition: border-color 0.3s; cursor: default;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border-card)'">
-                        <div class="testimonial-stars" style="color: var(--raindeer-cyan); font-size: 0.85rem;">★★★★★</div>
-                        <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-silver); font-style: italic;">
+                    
+                    <!-- Testimonial 3 (NST - Newton School of Technology) -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-metric metric-nst">2.5x Engagement</div>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">
                             "Our student outreach campaigns saw a 2.5x engagement boost when we let the Bayesian scheduler decide publishing times. It knows exactly when our audience is active."
                         </p>
-                        <div class="testimonial-user" style="display: flex; align-items: center; gap: 12px; margin-top: auto;">
-                            <div class="avatar-placeholder" style="background: var(--raindeer-blue); color: var(--text-white); font-weight: bold; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem;">KP</div>
-                            <div>
-                                <h5 style="font-size: 0.85rem; font-weight: 600; color: var(--text-white);">Prof. R. K. Prasad</h5>
-                                <p style="font-size: 0.72rem; color: var(--text-zinc);">NST Delhi Marketing</p>
+                        <div class="testimonial-user">
+                            <div class="testimonial-avatar avatar-nst">NST</div>
+                            <div class="testimonial-meta">
+                                <div class="testimonial-name-row">
+                                    <span class="testimonial-name">Newton School of Technology</span>
+                                    <span class="linkedin-degree">• Partner</span>
+                                </div>
+                                <p class="testimonial-headline">Delhi NCR Campus Partnership</p>
                             </div>
                         </div>
                     </div>
@@ -3251,7 +3622,7 @@
                     <div class="avatar-placeholder" style="display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px; color: var(--raindeer-blue);"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg></div>
                     <div class="founder-meta">
                         <h4>Built by Student Innovators</h4>
-                        <p>Origin: NSUT Delhi</p>
+                        <p>Origin: Newton School of Technology, Delhi NCR</p>
                     </div>
                 </div>
                 <p class="founder-text">
@@ -3262,6 +3633,12 @@
             <!-- Waitlist Form -->
             <div class="waitlist-form-container">
                 <form id="waitlist-form-el" class="waitlist-form-stacked">
+                    <!-- Custom inline error alert -->
+                    <div id="waitlist-error-message" style="display: none; background: rgba(239, 68, 68, 0.08); border: 1px solid #ef4444; color: #fca5a5; font-size: 0.82rem; padding: 12px; border-radius: 8px; margin-bottom: 16px; align-items: center; gap: 8px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        <span id="waitlist-error-text">Please enter a valid email address.</span>
+                    </div>
+
                     <div class="waitlist-field">
                         <label for="waitlist-name">Your Name</label>
                         <input type="text" id="waitlist-name" class="waitlist-input-styled" placeholder="Aman Gupta" required>
@@ -3304,7 +3681,7 @@
         <div class="container">
             <div class="footer-inner">
                 <a href="#" class="footer-logo">
-                    <svg class="nav-logo-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; color: var(--raindeer-blue);"><path d="M10 6C9 4 6 3 4 5M22 6C23 4 26 3 28 5" /><path d="M12 10C11 7 8 6 6 8M20 10C21 7 24 6 26 8" /><path d="M7 13L16 28L25 13" /><path d="M7 13L16 17L25 13" /><path d="M16 17V23" /><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="20" cy="15" r="1" fill="currentColor"/></svg>
+                    <img src="assets/logo.png" alt="raindeer.social Logo" style="width: 24px; height: 24px; object-fit: contain;">
                     <span>raindeer.social</span>
                 </a>
                 <ul class="footer-nav">
@@ -3490,6 +3867,18 @@
 
         // 4. GSAP Timelines for Hero & Interactive Dashboard Mockup
         const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        
+        // Initialize elements to hidden/offset starting positions so GSAP .to() transitions them properly on load
+        if (!prefersReducedMotion) {
+            gsap.set('.hero-tagline', { opacity: 0, y: 20 });
+            gsap.set('.kinetic-word', { opacity: 0, y: '100%', rotate: 3 });
+            gsap.set('.floating-widget', { opacity: 0, y: 30 });
+            gsap.set('.hero-subtitle', { opacity: 0, y: 20 });
+            gsap.set('.hero-cta-group', { opacity: 0, y: 20 });
+            gsap.set('.hero-social-proof', { opacity: 0, y: 20 });
+            gsap.set('.product-preview', { opacity: 0, y: 40, scale: 0.96 });
+        }
+
         heroTL
             .to('.hero-tagline', { opacity: 1, y: 0, duration: 0.8 }, 0.2)
             .to('.kinetic-word', { opacity: 1, y: '0%', rotate: 0, duration: 0.8, stagger: 0.08, ease: 'power4.out' }, 0.4)
@@ -3916,10 +4305,16 @@
             
             // Email validation regex
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const errorMsgBox = document.getElementById('waitlist-error-message');
+            const errorText = document.getElementById('waitlist-error-text');
+            
             if (!emailRegex.test(email)) {
-                alert('Please enter a valid business email address.');
+                errorText.innerText = 'Please enter a valid business email address.';
+                errorMsgBox.style.display = 'flex';
+                gsap.fromTo(errorMsgBox, { opacity: 0, y: -5 }, { opacity: 1, y: 0, duration: 0.3 });
                 return;
             }
+            errorMsgBox.style.display = 'none';
             
             const submitBtn = document.getElementById('waitlist-submit-btn');
             const originalText = submitBtn.innerHTML;
@@ -3972,9 +4367,56 @@
                 console.error('Submission error:', error);
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
-                alert('Something went wrong. Please check your connection and try again.');
+                errorText.innerText = 'There was a problem reserving your spot. Please try again.';
+                errorMsgBox.style.display = 'flex';
+                gsap.fromTo(errorMsgBox, { opacity: 0, y: -5 }, { opacity: 1, y: 0, duration: 0.3 });
             });
         });
+
+        // 6.b Dynamic Headline Rotating Text (rotating between the 10 AI agents)
+        const agentWords = [
+            "10 AI agents.",
+            "a Copywriter.",
+            "a Designer.",
+            "a Researcher.",
+            "a Scheduler.",
+            "an Analyst.",
+            "an SEO Expert.",
+            "a QA Editor.",
+            "a Publisher.",
+            "a Strategist."
+        ];
+        let activeWordIndex = 0;
+        const rotatingWordEl = document.getElementById('rotating-word');
+        
+        if (rotatingWordEl) {
+            setInterval(() => {
+                if (prefersReducedMotion) return;
+                
+                // Fade and slide out upwards
+                gsap.to(rotatingWordEl, {
+                    y: -15,
+                    opacity: 0,
+                    duration: 0.35,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        activeWordIndex = (activeWordIndex + 1) % agentWords.length;
+                        rotatingWordEl.innerText = agentWords[activeWordIndex];
+                        
+                        // Set starting position for slide in from bottom
+                        gsap.set(rotatingWordEl, { y: 15, opacity: 0 });
+                        
+                        // Slide in and fade in
+                        gsap.to(rotatingWordEl, {
+                            y: 0,
+                            opacity: 1,
+                            duration: 0.45,
+                            ease: 'power2.out'
+                        });
+                    }
+                });
+            }, 2500); // changes every 2.5 seconds
+        }
 
         // 7. Spotlight Card Mouse Move listener
         const spotlightCards = document.querySelectorAll('.spotlight-card, .spotlight-glow');
@@ -4133,6 +4575,28 @@
         });
 
         // 11. Smooth Anchor scroll linking
+        const triggerWaitlistFocus = () => {
+            const nameInput = document.getElementById('waitlist-name');
+            const formEl = document.getElementById('waitlist-form-el');
+            if (nameInput) {
+                nameInput.focus();
+            }
+            if (formEl) {
+                // Pulse the glow box shadow of the form card
+                gsap.fromTo(formEl, 
+                    { boxShadow: '0 30px 60px rgba(0, 0, 0, 0.6), 0 0 50px rgba(74, 124, 255, 0.02)', borderColor: 'rgba(255, 255, 255, 0.06)' },
+                    { 
+                        boxShadow: '0 30px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(74, 124, 255, 0.35)', 
+                        borderColor: 'rgba(74, 124, 255, 0.4)',
+                        duration: 0.45, 
+                        yoyo: true, 
+                        repeat: 1,
+                        ease: 'power2.inOut'
+                    }
+                );
+            }
+        };
+
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -4149,11 +4613,19 @@
                     const target = document.querySelector(href);
                     if (target) {
                         if (lenis) {
-                            lenis.scrollTo(target, { offset: -100 });
+                            lenis.scrollTo(target, { 
+                                offset: -100,
+                                onComplete: () => {
+                                    if (href === '#waitlist') triggerWaitlistFocus();
+                                }
+                            });
                         } else {
                             const yOffset = -100;
                             const y = target.getBoundingClientRect().top + window.scrollY + yOffset;
                             window.scrollTo({ top: y, behavior: 'smooth' });
+                            if (href === '#waitlist') {
+                                setTimeout(triggerWaitlistFocus, 800);
+                            }
                         }
                     }
                 } catch (err) {
