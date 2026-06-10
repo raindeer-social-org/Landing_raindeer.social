@@ -6,21 +6,30 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>raindeer.social — Replace Your Social Media Team with 10 AI Agents</title>
+    <title>AI Social Media Agents | raindeer.social</title>
     <meta name="description" content="10 specialized AI agents that plan, write, design, publish, and optimize your entire social media presence. Built for SMBs, creators, and agencies. Starting at ₹999/month.">
     <meta name="keywords" content="AI social media agency, social media automation, AI agents, content creation, social media OS, NST, Hoblix, Slay Health, Newton School of Technology">
-    <meta property="og:title" content="raindeer.social — Replace Your Social Media Team with AI">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="AI Social Media Agents | raindeer.social">
     <meta property="og:description" content="10 specialized AI agents that research, create, publish, and optimize your social presence. Built by Newton School of Technology founders.">
     <meta property="og:image" content="https://raindeer.social/assets/og-image.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://raindeer.social">
+    
+    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <meta name="twitter:title" content="AI Social Media Agents | raindeer.social">
+    <meta name="twitter:description" content="10 specialized AI agents that research, create, publish, and optimize your social presence.">
+    <meta name="twitter:image" content="https://raindeer.social/assets/og-image.png">
+    <meta name="twitter:domain" content="raindeer.social">
+    
+    <link rel="icon" type="image/svg+xml" href="assets/Untitled.svg">
     <link rel="canonical" href="https://raindeer.social/">
 
     <!-- Structured Data (JSON-LD Schema) -->
     <script type="application/ld+json">
-    {
+    [{
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "raindeer.social",
@@ -31,7 +40,51 @@
         "price": "999",
         "priceCurrency": "INR"
       }
-    }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "raindeer.social",
+      "url": "https://raindeer.social",
+      "logo": "https://raindeer.social/assets/logo.png",
+      "sameAs": [
+        "https://twitter.com/raindeersocial",
+        "https://www.linkedin.com/company/raindeersocial"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What exactly does raindeer.social do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We provide you with 10 specialized AI agents that act as your dedicated social media team. They handle everything from content planning and copywriting to design, publishing, and trend analysis."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How much does it cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our plans start at just ₹999/month, making it an incredibly cost-effective way to manage your brand's presence compared to hiring a traditional agency."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Do I need any technical skills to use this?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not at all! The platform is designed for founders, creators, and SMBs. You simply provide your brand guidelines, and our AI agents take care of the heavy lifting."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What social media platforms do you support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our AI agents are optimized to create and schedule content across major platforms including LinkedIn, Twitter/X, Instagram, Facebook, and YouTube."
+        }
+      }]
+    }]
     </script>
 
     <!-- Fonts -->
@@ -2673,6 +2726,65 @@
                 display: none;
             }
         }
+
+        /* FAQ Section Styles */
+        .faq-section {
+            padding: 100px 0;
+            position: relative;
+        }
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .faq-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+        .faq-item:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .faq-question {
+            padding: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-white);
+            user-select: none;
+        }
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .faq-answer-inner {
+            padding: 0 24px 24px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -2791,7 +2903,7 @@
                         <!-- Left Sidebar -->
                         <aside class="dashboard-sidebar">
                             <div class="sidebar-brand">
-                                <img src="assets/logo.png" alt="Logo" style="width: 20px; height: 20px; object-fit: contain;">
+                                <img src="assets/logo.png" alt="raindeer.social AI Social Media Logo" style="width: 20px; height: 20px; object-fit: contain;">
                                 <span>raindeer.social</span>
                             </div>
                             <ul class="sidebar-nav">
@@ -3606,7 +3718,6 @@
             </div>
         </div>
     </section>
-
     <!-- ===== WAITLIST SECTION (FOUNDERS STORY & NARRATIVE) ===== -->
     <section class="section waitlist-section" id="waitlist">
         <div class="container">
@@ -3689,6 +3800,74 @@
                     </div>
                     <h4 style="font-size: 1.5rem; font-weight: 700; color: var(--text-white); margin: 0;">You are on the list!</h4>
                     <p style="font-size: 0.9rem; color: var(--text-zinc); margin: 0; text-align: center;">We will email you with your cohort details shortly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ SECTION ===== -->
+    <section class="section faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Got Questions?</span>
+                <h2 class="section-title scroll-reveal">Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item scroll-reveal">
+                    <div class="faq-question">
+                        What exactly does raindeer.social do?
+                        <div class="faq-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            We provide you with 10 specialized AI agents that act as your dedicated social media team. They handle everything from content planning and copywriting to design, publishing, and trend analysis.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item scroll-reveal">
+                    <div class="faq-question">
+                        How much does it cost?
+                        <div class="faq-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Our plans start at just ₹999/month, making it an incredibly cost-effective way to manage your brand's presence compared to hiring a traditional agency.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item scroll-reveal">
+                    <div class="faq-question">
+                        Do I need any technical skills to use this?
+                        <div class="faq-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Not at all! The platform is designed for founders, creators, and SMBs. You simply provide your brand guidelines, and our AI agents take care of the heavy lifting.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item scroll-reveal">
+                    <div class="faq-question">
+                        What social media platforms do you support?
+                        <div class="faq-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Our AI agents are optimized to create and schedule content across major platforms including LinkedIn, Twitter/X, Instagram, Facebook, and YouTube.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -4740,6 +4919,28 @@
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     }
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+                otherItem.querySelector('.faq-answer').style.maxHeight = null;
+            });
+            
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
+                const answer = item.querySelector('.faq-answer');
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+        });
+    });
     </script>
 </body>
 </html>
