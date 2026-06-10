@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true,
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "mails/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/register",       "destination": "/api/register" },
+    { "source": "/api/registrations",  "destination": "/api/registrations" },
+    { "source": "/registration",       "destination": "/api/dashboard" },
+    { "source": "/registrations",      "destination": "/api/dashboard" },
+    { "source": "/((?!api/).*)",       "destination": "/index.html" }
+  ]
+}

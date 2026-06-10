@@ -1,0 +1,15 @@
+{
+  "name": "raindeer.social-backend",
+  "version": "1.0.0",
+  "description": "Simple backend for raindeer.social waitlist registrations",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.19.2",
+    "nodemailer": "^8.0.10",
+    "react-phone-number-input": "^3.4.17"
+  }
+}

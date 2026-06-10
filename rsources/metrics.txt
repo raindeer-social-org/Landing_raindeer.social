@@ -1,0 +1,512 @@
+You're thinking about this the right way.
+
+Most founders make the mistake of building a landing page that looks cool.
+
+Investors, users, and early adopters don't care about cool.
+
+They care about:
+
+1. **What is this?**
+2. **Why does it matter?**
+3. **Why now?**
+4. **Why will this win?**
+5. **Can I trust these people?**
+6. **How do I get access?**
+
+A landing page should answer all 6 questions in under 60 seconds.
+
+---
+
+# The Direction I Would Take
+
+If this is an AI-social-media company, don't build another SaaS landing page.
+
+Don't copy:
+
+* Stripe
+* Linear
+* Vercel
+* Notion
+
+Everyone copies them.
+
+Instead combine:
+
+* cinematic storytelling from Apple
+* motion design from Rive
+* depth and 3D immersion from Spline
+* futuristic product reveals like OpenAI
+* scroll storytelling inspired by premium product launches
+
+---
+
+# Homepage Structure
+
+## Hero Section
+
+Full screen.
+
+Black background.
+
+Massive 3D scene.
+
+The AI network is visualized as:
+
+* floating nodes
+* conversations
+* creator profiles
+* engagement signals
+* AI intelligence layer
+
+Everything connected in real time.
+
+As user moves mouse:
+
+* particles react
+* camera subtly rotates
+* connections illuminate
+
+### Quote
+
+Top center.
+
+> "The future of social media isn't more content. It's better connections."
+
+or
+
+> "Attention is abundant. Understanding is rare."
+
+This immediately creates curiosity.
+
+---
+
+## Scroll Section 1
+
+# The Problem
+
+Instead of writing text.
+
+Animate it.
+
+Show:
+
+Millions of posts.
+
+Millions of notifications.
+
+Millions of distractions.
+
+Then zoom out.
+
+One user.
+
+Overwhelmed.
+
+Message:
+
+> Social media became louder. Not smarter.
+
+---
+
+## Scroll Section 2
+
+# The Vision
+
+Camera flies through chaos.
+
+Everything organizes.
+
+Connections form.
+
+AI starts filtering signal from noise.
+
+Show:
+
+* creators
+* communities
+* conversations
+* recommendations
+
+all connecting.
+
+Message:
+
+> Social media powered by intelligence, not algorithms.
+
+---
+
+## Scroll Section 3
+
+# How It Works
+
+Three giant animated cards.
+
+### Discover
+
+AI understands intent.
+
+### Connect
+
+AI finds meaningful people.
+
+### Grow
+
+AI amplifies valuable interactions.
+
+Cards should animate in 3D.
+
+Not static.
+
+---
+
+## Scroll Section 4
+
+# Product Reveal
+
+MacBook mockup.
+
+Phone mockup.
+
+Floating in 3D space.
+
+Use:
+
+* depth
+* lighting
+* reflections
+
+When scrolling:
+
+* phones rotate
+* screenshots change
+* features animate
+
+---
+
+## Scroll Section 5
+
+# Why We're Different
+
+Instead of features.
+
+Show comparisons visually.
+
+Traditional Social
+
+↓
+
+Noise
+
+↓
+
+Addiction
+
+↓
+
+Distraction
+
+Your Platform
+
+↓
+
+Intent
+
+↓
+
+Intelligence
+
+↓
+
+Connection
+
+---
+
+## Scroll Section 6
+
+# Market Opportunity
+
+Investors LOVE this section.
+
+Animated counters.
+
+* Social Media Market
+* Creator Economy
+* AI Market
+
+Numbers animate.
+
+Charts emerge.
+
+Visual only.
+
+Minimal text.
+
+---
+
+## Scroll Section 7
+
+# Community
+
+Real-time globe.
+
+Connections appearing worldwide.
+
+Particles representing users.
+
+Makes company feel larger than it is.
+
+---
+
+## Final CTA
+
+Massive.
+
+No distractions.
+
+Just:
+
+# Join the Future of Social Media
+
+Email field.
+
+Early Access button.
+
+Animated success state.
+
+Confetti.
+
+Checkmark.
+
+Progress bar.
+
+"2,314 people already joined"
+
+(if real)
+
+---
+
+# Three.js Effects I Would Use
+
+Not all animations are good.
+
+Use only high-impact animations.
+
+### Hero
+
+* Particle network
+* Dynamic lighting
+* Camera parallax
+
+### Scroll
+
+* GSAP ScrollTrigger
+* Camera movement
+* Scene transitions
+
+### Product Reveal
+
+* Floating devices
+* Reflective materials
+
+### Background
+
+* Neural network animation
+* Subtle particles
+
+### CTA
+
+* Morphing objects
+* Glow effects
+
+---
+
+# Tech Stack
+
+Don't over-engineer.
+
+Use:
+
+```txt
+Next.js
+React
+Three.js
+React Three Fiber
+Drei
+GSAP
+Framer Motion
+Lenis
+Tailwind
+```
+
+This is enough for a world-class landing page.
+
+---
+
+# Performance Strategy (Critical)
+
+Most founders destroy performance with Three.js.
+
+Google Analytics, SEO, Core Web Vitals, and conversions suffer.
+
+Rules:
+
+### Only One WebGL Canvas
+
+Never create multiple Three.js canvases.
+
+---
+
+### Lazy Load Everything
+
+```js
+dynamic(() => import("./HeroScene"))
+```
+
+---
+
+### LOD (Level Of Detail)
+
+Far objects use fewer polygons.
+
+---
+
+### Mobile Fallback
+
+Do NOT render full 3D scenes on mobile.
+
+Use:
+
+* videos
+* compressed animations
+* lightweight particles
+
+---
+
+### Image Optimization
+
+Use:
+
+```txt
+AVIF
+WebP
+Next Image
+```
+
+---
+
+### Target Metrics
+
+Aim for:
+
+```txt
+LCP < 2.5s
+CLS < 0.1
+INP < 200ms
+Performance > 90
+SEO > 95
+Accessibility > 95
+Best Practices > 95
+```
+
+---
+
+# Investor Psychology
+
+Landing page should make investors think:
+
+> "These people understand design."
+
+Then:
+
+> "These people understand product."
+
+Then:
+
+> "These people understand the market."
+
+Then:
+
+> "This could become something very large."
+
+Most landing pages stop at design.
+
+The best ones communicate a vision.
+
+---
+
+# Master Prompt For Cursor / Claude Code
+
+```txt
+Create a world-class, investor-grade AI social media landing page.
+
+Design philosophy:
+- Premium
+- Futuristic
+- Cinematic
+- Apple-level polish
+- OpenAI-level storytelling
+- High-end startup aesthetics
+
+Tech:
+- Next.js
+- React Three Fiber
+- Three.js
+- GSAP ScrollTrigger
+- Framer Motion
+- Tailwind CSS
+- Lenis smooth scrolling
+
+Requirements:
+
+1. Full-screen hero section with immersive 3D particle network.
+2. Dynamic mouse-responsive interactions.
+3. Scroll-driven storytelling experience.
+4. Multiple cinematic scene transitions.
+5. Floating 3D product mockups.
+6. Animated feature reveal sections.
+7. Market opportunity visualization.
+8. Investor-grade credibility section.
+9. Early access waitlist form.
+10. Premium footer.
+
+Visual style:
+- Dark theme
+- Glassmorphism accents
+- Dynamic lighting
+- Soft volumetric glow
+- Floating particles
+- Neural network inspired visuals
+
+Performance requirements:
+- Lighthouse Performance > 90
+- SEO > 95
+- Accessibility > 95
+- Mobile optimized
+- Lazy loaded 3D assets
+- One WebGL canvas only
+- Optimized shaders
+- Optimized textures
+- Code splitting
+
+Animations:
+- GSAP ScrollTrigger timelines
+- Camera fly-through transitions
+- Smooth parallax effects
+- Text reveal animations
+- Staggered content appearance
+- Product rotations
+- Dynamic particle reactions
+
+Copywriting goal:
+Communicate:
+1. Problem
+2. Vision
+3. Product
+4. Differentiation
+5. Market opportunity
+6. Future impact
+
+The experience should feel like a product launch event, not a traditional SaaS website.
+```
+
+One thing missing before going further: **what is the actual product/brand?** If you give me the company name, product description, target audience, and core value proposition, I can create a much more aggressive investor-focused landing page architecture with exact sections, copy, animations, 3D scenes, and conversion funnels tailored to the brand.
