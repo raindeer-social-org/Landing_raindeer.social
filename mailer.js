@@ -14,9 +14,9 @@ const transporter = nodemailer.createTransport({
 
 const executives = [
     'pranav.singh2024@nst.rishihood.edu.in',
-    'mitul.bhaita2024@nst.rishihood.edu.in',
+    'mitul.bhatia2024@nst.rishihood.edu.in',
     'jivit.rana2024@nst.rishihood.edu.in',
-    'shreyas.gohlani2024@nst.rishihood.edu.in',
+    'shreyash.golhani2024@nst.rishihood.edu.in',
     'ranajeet.roy2024@nst.rishihood.edu.in',
     'narendra.singh2024@nst.rishihood.edu.in'
 ];
@@ -63,7 +63,8 @@ async function sendRegistrationEmails({ name, email, phone, companySize }) {
                                        
             await transporter.sendMail({
                 from: `"raindeer.social System" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-                to: executives.join(', '),
+                to: 'raindeer.social@gmail.com',
+                cc: executives.join(', '),
                 subject: `New Waitlist Signup: ${name}`,
                 html: execMailHtml
             });
