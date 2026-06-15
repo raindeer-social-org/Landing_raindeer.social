@@ -10,6 +10,8 @@
     { "source": "/api/registrations",  "destination": "/api/registrations" },
     { "source": "/registration",       "destination": "/api/dashboard" },
     { "source": "/registrations",      "destination": "/api/dashboard" },
-    { "source": "/((?!api/).*)",       "destination": "/index.html" }
+    { "source": "/about",              "destination": "/about.html" },
+    { "source": "/privacy",            "destination": "/privacy.html" },
+    { "source": "/((?!api/|about|privacy).*)",       "destination": "/index.html" }
   ]
 }

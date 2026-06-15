@@ -278,6 +278,14 @@ app.get('/registrations', (req, res) => {
     res.send(html);
 });
 
+app.get(['/about', '/about.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'about.html'));
+});
+
+app.get(['/privacy', '/privacy.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'privacy.html'));
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });

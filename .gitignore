@@ -42,3 +42,6 @@ Thumbs.db
 
 # Temporary scripts
 modify_privacy.py
+
+# Temp Context
+temp_context/
