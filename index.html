@@ -2759,7 +2759,19 @@
         .faq-item:hover {
             border-color: rgba(255, 255, 255, 0.1);
         }
+        .faq-item h3 {
+            margin: 0;
+            padding: 0;
+            font-size: inherit;
+            font-weight: inherit;
+            line-height: inherit;
+        }
         .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            font-family: inherit;
             padding: 24px;
             cursor: pointer;
             display: flex;
@@ -2792,7 +2804,7 @@
         }
         .faq-answer-inner {
             padding: 0 24px 24px;
-            color: var(--text-gray);
+            color: var(--text-muted);
             line-height: 1.6;
         }
     </style>
@@ -3824,58 +3836,66 @@
             </div>
             
             <div class="faq-container">
-                <div class="faq-item scroll-reveal">
-                    <div class="faq-question">
-                        What exactly does raindeer.social do?
-                        <div class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </div>
-                    </div>
-                    <div class="faq-answer">
+                <div class="faq-item scroll-reveal" id="faq-what-does-raindeer-do">
+                    <h3>
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1" id="faq-question-1">
+                            What exactly does raindeer.social do?
+                            <span class="faq-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-question-1">
                         <div class="faq-answer-inner">
-                            We provide you with 10 specialized AI agents that act as your dedicated social media team. They handle everything from content planning and copywriting to design, publishing, and trend analysis.
+                            We provide you with <a href="#agents" style="color: var(--raindeer-blue); text-decoration: underline;">10 specialized AI agents</a> that act as your dedicated social media team. They handle everything from content planning and copywriting to design, publishing, and trend analysis.
                         </div>
                     </div>
                 </div>
 
-                <div class="faq-item scroll-reveal">
-                    <div class="faq-question">
-                        How much does it cost?
-                        <div class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </div>
-                    </div>
-                    <div class="faq-answer">
+                <div class="faq-item scroll-reveal" id="faq-how-much-does-it-cost">
+                    <h3>
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-question-2">
+                            How much does it cost?
+                            <span class="faq-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-question-2">
                         <div class="faq-answer-inner">
-                            Our plans start at just ₹999/month, making it an incredibly cost-effective way to manage your brand's presence compared to hiring a traditional agency.
+                            Our <a href="#pricing" style="color: var(--raindeer-blue); text-decoration: underline;">pricing plans</a> start at just ₹999/month, making it an incredibly cost-effective way to manage your brand's presence compared to hiring a traditional agency.
                         </div>
                     </div>
                 </div>
 
-                <div class="faq-item scroll-reveal">
-                    <div class="faq-question">
-                        Do I need any technical skills to use this?
-                        <div class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </div>
-                    </div>
-                    <div class="faq-answer">
+                <div class="faq-item scroll-reveal" id="faq-do-i-need-technical-skills">
+                    <h3>
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-question-3">
+                            Do I need any technical skills to use this?
+                            <span class="faq-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-question-3">
                         <div class="faq-answer-inner">
-                            Not at all! The platform is designed for founders, creators, and SMBs. You simply provide your brand guidelines, and our AI agents take care of the heavy lifting.
+                            Not at all! The platform is designed for founders, creators, and SMBs. Simply <a href="#waitlist" style="color: var(--raindeer-blue); text-decoration: underline;">join the waitlist</a>, provide your brand guidelines, and our AI agents will take care of the heavy lifting.
                         </div>
                     </div>
                 </div>
 
-                <div class="faq-item scroll-reveal">
-                    <div class="faq-question">
-                        What social media platforms do you support?
-                        <div class="faq-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </div>
-                    </div>
-                    <div class="faq-answer">
+                <div class="faq-item scroll-reveal" id="faq-what-platforms-are-supported">
+                    <h3>
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-question-4">
+                            What social media platforms do you support?
+                            <span class="faq-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-answer-4" role="region" aria-labelledby="faq-question-4">
                         <div class="faq-answer-inner">
-                            Our AI agents are optimized to create and schedule content across major platforms including LinkedIn, Twitter/X, Instagram, Facebook, and YouTube.
+                            Our AI agents are optimized to create, schedule, and publish content across major platforms including LinkedIn, Twitter/X, Instagram, Facebook, and YouTube. Learn more about <a href="#how-it-works" style="color: var(--raindeer-blue); text-decoration: underline;">how it works</a>.
                         </div>
                     </div>
                 </div>
@@ -4944,6 +4964,10 @@
                     // Close all other items
                     faqItems.forEach(otherItem => {
                         otherItem.classList.remove('active');
+                        const otherQuestion = otherItem.querySelector('.faq-question');
+                        if (otherQuestion) {
+                            otherQuestion.setAttribute('aria-expanded', 'false');
+                        }
                         const otherAnswer = otherItem.querySelector('.faq-answer');
                         if (otherAnswer) otherAnswer.style.maxHeight = null;
                     });
@@ -4951,6 +4975,7 @@
                     // Toggle current item
                     if (!isActive) {
                         item.classList.add('active');
+                        question.setAttribute('aria-expanded', 'true');
                         const answer = item.querySelector('.faq-answer');
                         if (answer) {
                             answer.style.maxHeight = answer.scrollHeight + "px";
@@ -4959,6 +4984,21 @@
                 });
             }
         });
+
+        // Handle deep-linked FAQ items on page load
+        const hash = window.location.hash;
+        if (hash) {
+            const targetFaq = document.querySelector(hash);
+            if (targetFaq && targetFaq.classList.contains('faq-item')) {
+                const question = targetFaq.querySelector('.faq-question');
+                if (question) {
+                    setTimeout(() => {
+                        question.click();
+                        targetFaq.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                }
+            }
+        }
     });
     </script>
 </body>

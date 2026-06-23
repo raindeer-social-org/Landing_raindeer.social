@@ -20,6 +20,46 @@ def generate_page(source_file, output_file, title, section_content):
     content = re.sub(r'<link rel="canonical" href=".*?">', f'<link rel="canonical" href="{canonical_url}">', content)
     content = re.sub(r'<meta property="og:url" content=".*?">', f'<meta property="og:url" content="{canonical_url}">', content)
 
+    # Process JSON-LD Schema on subpages (remove FAQPage, add BreadcrumbList)
+    if output_file != 'index.html':
+        import json
+        json_ld_match = re.search(r'<script type="application/ld\+json">(.*?)</script>', content, re.DOTALL)
+        if json_ld_match:
+            try:
+                schema_list = json.loads(json_ld_match.group(1).strip())
+                # Filter out FAQPage
+                filtered_schema = [item for item in schema_list if item.get('@type') != 'FAQPage']
+                
+                # Create Breadcrumb Schema
+                page_name = "About Us" if "about" in clean_name else "Privacy Policy"
+                breadcrumb_schema = {
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Home",
+                            "item": "https://raindeer.social"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": page_name,
+                            "item": canonical_url
+                        }
+                    ]
+                }
+                filtered_schema.append(breadcrumb_schema)
+                
+                # Replace back
+                content = content.replace(
+                    json_ld_match.group(0),
+                    f'<script type="application/ld+json">\n{json.dumps(filtered_schema, indent=2)}\n</script>'
+                )
+            except Exception as e:
+                print(f"Error parsing/modifying JSON-LD in {output_file}: {e}")
+
     # Find the injection points
     header_start = content.find('<header class="hero" id="hero-header">')
     footer_start = content.find('<footer class="footer">')
