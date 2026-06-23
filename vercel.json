@@ -11,6 +11,6 @@
     { "source": "/admin-dashboard",    "destination": "/api/dashboard" },
     { "source": "/about",              "destination": "/about.html" },
     { "source": "/privacy",            "destination": "/privacy.html" },
-    { "source": "/((?!api/|about|privacy|admin-dashboard).*)",       "destination": "/index.html" }
+    { "source": "/((?!api/|about|privacy|admin-dashboard|sitemap\\.xml|robots\\.txt).*)",       "destination": "/index.html" }
   ]
 }
