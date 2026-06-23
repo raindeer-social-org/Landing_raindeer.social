@@ -33,7 +33,7 @@ export default async function handler(req, res) {
             <div class="auth-card">
                 <h2>Access Dashboard</h2>
                 <form method="GET">
-                    <input type="password" name="passcode" required autofocus placeholder="------" maxlength="6" />
+                    <input type="text" name="passcode" required autofocus placeholder="------" maxlength="6" style="-webkit-text-security: disc; text-align: center; font-family: monospace;" />
                     <br>
                     <button type="submit">Unlock</button>
                     ${req.query.passcode ? '<div style="color: #ff4a4a; font-size: 0.85rem; margin-top: 15px;">Incorrect passcode</div>' : ''}
@@ -399,7 +399,7 @@ export default async function handler(req, res) {
         </div>
         <div class="header-right">
             <span class="stat-chip">${totalCount} total signup${totalCount !== 1 ? 's' : ''}</span>
-            <a href="/registration" class="refresh-btn">↻ Refresh</a>
+            <a href="/admin-dashboard" class="refresh-btn">↻ Refresh</a>
         </div>
     </div>
 

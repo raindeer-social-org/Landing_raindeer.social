@@ -8,10 +8,9 @@
   "rewrites": [
     { "source": "/api/register",       "destination": "/api/register" },
     { "source": "/api/registrations",  "destination": "/api/registrations" },
-    { "source": "/registration",       "destination": "/api/dashboard" },
-    { "source": "/registrations",      "destination": "/api/dashboard" },
+    { "source": "/admin-dashboard",    "destination": "/api/dashboard" },
     { "source": "/about",              "destination": "/about.html" },
     { "source": "/privacy",            "destination": "/privacy.html" },
-    { "source": "/((?!api/|about|privacy).*)",       "destination": "/index.html" }
+    { "source": "/((?!api/|about|privacy|admin-dashboard).*)",       "destination": "/index.html" }
   ]
 }

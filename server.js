@@ -99,7 +99,7 @@ app.get('/api/registrations', (req, res) => {
 });
 
 // Serve landing page by default
-app.get('/registrations', (req, res) => {
+app.get('/admin-dashboard', (req, res) => {
     if (req.query.passcode !== '123321') {
         return res.send(`
         <!DOCTYPE html>
@@ -123,7 +123,7 @@ app.get('/registrations', (req, res) => {
             <div class="auth-card">
                 <h2>Access Dashboard</h2>
                 <form method="GET">
-                    <input type="password" name="passcode" required autofocus placeholder="------" maxlength="6" />
+                    <input type="text" name="passcode" required autofocus placeholder="------" maxlength="6" style="-webkit-text-security: disc; text-align: center; font-family: monospace;" />
                     <br>
                     <button type="submit">Unlock</button>
                     ${req.query.passcode ? '<div style="color: #ff4a4a; font-size: 0.85rem; margin-top: 15px;">Incorrect passcode</div>' : ''}
