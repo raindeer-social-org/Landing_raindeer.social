@@ -951,6 +951,23 @@
       .plan.featured{animation:none!important}
     }
 
+    /* Lenis smooth scroll structural styles */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+
     /* Continuous breathing glow for Featured pricing card */
     @keyframes border-breath {
       0% {
@@ -1603,11 +1620,11 @@ const fine    = matchMedia('(pointer: fine)').matches;
 const ease    = t => 1 - Math.pow(1-t, 3);
 const clamp   = (v,a,b) => Math.min(b, Math.max(a, v));
 
-/* ══ LENIS — smooth scroll (buttery manual RAF) ══ */
+/* ══ LENIS — smooth scroll (buttery manual RAF with easeOutExpo) ══ */
 if (window.Lenis && !reduced) {
   const lenis = new Lenis({
-    lerp: 0.08,
-    wheelMultiplier: 1.0,
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     infinite: false,
     anchors: true
   });
