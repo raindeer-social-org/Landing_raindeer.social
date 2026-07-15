@@ -132,7 +132,8 @@
 
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{overflow-x:clip}
-    html{scroll-behavior:auto!important}
+    html{scroll-behavior:smooth}
+    html.lenis{scroll-behavior:auto!important}
     body{
       background:var(--snow-canvas); color:var(--ink-2);
       font-family:var(--font-sans); font-size:1rem; line-height:1.65;
@@ -907,7 +908,7 @@
     .socials svg{width:15px;height:15px;fill:currentColor}
 
     /* Reveals & motion states */
-    .rv{opacity:0;transform:translateY(18px);transition:opacity .62s var(--ease-cinema),transform .62s var(--ease-cinema)}
+    .rv{opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease-cinema),transform .45s var(--ease-cinema)}
     .rv.in{opacity:1;transform:none}
     .rv-clip{clip-path:inset(12% 0 0 0);transform:scale(1.03);opacity:0;
       transition:clip-path .7s var(--ease-cinema),transform .7s var(--ease-cinema),opacity .5s var(--ease-out)}
@@ -1253,9 +1254,10 @@ const fine    = matchMedia('(pointer: fine)').matches;
 const ease    = t => 1 - Math.pow(1-t, 3);
 const clamp   = (v,a,b) => Math.min(b, Math.max(a, v));
 
+let lenis = null;
 /* ══ LENIS — smooth scroll (buttery manual RAF with easeOutExpo) ══ */
 if (window.Lenis && !reduced) {
-  const lenis = new Lenis({
+  lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     infinite: false,
@@ -1656,24 +1658,26 @@ if(!reduced && matchMedia('(min-width:1024px)').matches && stage && desk){
   };
   addEventListener('resize', updateRect);
   
-  let tick=false;
   const onScroll=()=>{
-    if(tick) return; tick=true;
-    requestAnimationFrame(()=>{
-      if (stageTopDoc === null) {
-        updateRect();
-      }
-      const top = stageTopDoc - window.scrollY;
-      const p = clamp((innerHeight*0.82 - top) / (innerHeight*0.62), 0, 1);
-      const e = ease(p);
-      desk.style.transform = `rotateX(${12*(1-e)}deg) scale(${.945 + .055*e}) translateY(${-6*(1-e)}px)`;
-      desk.style.boxShadow = `0 ${40+26*e}px ${70+30*e}px -30px rgba(14,27,58,${.28+.06*e}),
-                              0 8px 18px -8px rgba(14,27,58,.14)`;
-      if(glow) glow.style.opacity = .3 + .5*e;
-      tick=false;
-    });
+    if (stageTopDoc === null) {
+      updateRect();
+    }
+    const currentScroll = lenis ? lenis.scroll : window.scrollY;
+    const top = stageTopDoc - currentScroll;
+    const p = clamp((innerHeight*0.82 - top) / (innerHeight*0.62), 0, 1);
+    const e = ease(p);
+    desk.style.transform = `rotateX(${12*(1-e)}deg) scale(${.945 + .055*e}) translateY(${-6*(1-e)}px)`;
+    desk.style.boxShadow = `0 ${40+26*e}px ${70+30*e}px -30px rgba(14,27,58,${.28+.06*e}),
+                            0 8px 18px -8px rgba(14,27,58,.14)`;
+    if(glow) glow.style.opacity = .3 + .5*e;
   };
-  addEventListener('scroll', onScroll, {passive:true});
+  
+  if (lenis) {
+    lenis.on('scroll', onScroll);
+  } else {
+    addEventListener('scroll', onScroll, {passive:true});
+  }
+  
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
     setTimeout(updateRect, 100);
   });
