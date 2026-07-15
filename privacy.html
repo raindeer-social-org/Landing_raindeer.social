@@ -132,7 +132,7 @@
 
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{overflow-x:clip}
-    html{scroll-behavior:smooth}
+    html{scroll-behavior:auto!important}
     body{
       background:var(--snow-canvas); color:var(--ink-2);
       font-family:var(--font-sans); font-size:1rem; line-height:1.65;
@@ -1237,10 +1237,19 @@ const fine    = matchMedia('(pointer: fine)').matches;
 const ease    = t => 1 - Math.pow(1-t, 3);
 const clamp   = (v,a,b) => Math.min(b, Math.max(a, v));
 
-/* ══ LENIS — smooth scroll (lerp 0.1) ══ */
+/* ══ LENIS — smooth scroll (buttery manual RAF) ══ */
 if (window.Lenis && !reduced) {
-  new Lenis({ lerp: 0.1, wheelMultiplier: 0.95, anchors: true, autoRaf: true });
-  document.documentElement.style.scrollBehavior = 'auto';
+  const lenis = new Lenis({
+    lerp: 0.08,
+    wheelMultiplier: 1.0,
+    infinite: false,
+    anchors: true
+  });
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
 }
 
 /* ══ SINGLE SOURCE OF TRUTH: the mesh geometry ══ */
