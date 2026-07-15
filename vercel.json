@@ -12,6 +12,7 @@
     { "source": "/about",              "destination": "/about.html" },
     { "source": "/privacy",            "destination": "/privacy.html" },
     { "source": "/sitemap.xml",        "destination": "/public/sitemap.xml" },
+    { "source": "/sitemap.xsl",        "destination": "/public/sitemap.xsl" },
     { "source": "/robots.txt",         "destination": "/public/robots.txt" },
     { "source": "/:path((?!api/|about|privacy|admin-dashboard|sitemap|robots).*)",       "destination": "/index.html" }
   ]
