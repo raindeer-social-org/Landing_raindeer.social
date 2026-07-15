@@ -220,7 +220,7 @@
     .nav.small .brand{transform:scale(.93);transform-origin:left center}
     .brand-word{font-weight:600;font-size:1.2rem;color:var(--ink);letter-spacing:-.015em}
     .brand-word em{font-style:normal;color:var(--cobalt-600)}
-    .brand-suffix{font-family:var(--font-mono);font-size:.6875rem;color:var(--ink-3);letter-spacing:.1em}
+    .brand-suffix{font-family:var(--font-mono);font-size:.6875rem;color:var(--ink-2);letter-spacing:.1em}
     .nav-links{display:flex;gap:26px;list-style:none}
     .nav-links a{color:var(--ink-2);text-decoration:none;font-size:.9375rem;font-weight:500;position:relative;padding:6px 0;
       transition:color .12s var(--ease-out)}
@@ -231,26 +231,72 @@
     @media(max-width:900px){.nav-links{display:none}}
 
     /* ══════════ THE DESK HERO SYSTEM ══════════ */
-    .hero{position:relative;padding:calc(74px + clamp(44px,5vw,76px)) 0 clamp(56px,6vw,96px)}
+    .hero{position:relative;padding:calc(74px + clamp(56px,6vw,96px)) 0 clamp(64px,7vw,110px)}
     .hero .wrap{position:relative;z-index:2}
-    .hero-top{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,3vw,48px);align-items:end;
-      margin-bottom:clamp(40px,5vw,64px)}
+    .hero-top{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,3vw,48px);align-items:center;
+      margin-bottom:0}
     .hero-copy{grid-column:1/9;position:relative}
     .antler-hero-bg{position:absolute;top:-40px;left:-60px;width:240px;height:240px;opacity:0.18;pointer-events:none;z-index:-1}
-    .hero-side{grid-column:10/13;padding-bottom:6px}
+    .hero-side{
+      grid-column:9/13;
+      padding:24px 22px 20px;
+      background:var(--snow-card);
+      border:1px solid var(--hairline);
+      border-radius:18px;
+      box-shadow:0 2px 6px rgba(14,27,58,.04), 0 12px 32px -8px rgba(14,27,58,.08);
+      height:fit-content;
+      align-self:center;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      backdrop-filter:blur(6px);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-side::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:3px;
+      background:var(--grad-antler);border-radius:18px 18px 0 0;
+    }
     
     .flipwrap{position:relative;display:inline-block;vertical-align:baseline;transition:width .52s var(--ease-cinema)}
     .flip{display:block;overflow:hidden;perspective:660px;padding-bottom:.1em;margin-bottom:-.1em}
-    .flip-word{display:inline-block;transform-origin:50% 0%;white-space:pre;
+    .flip-word{display:inline-block;transform-origin:50% 50%;white-space:pre;
+      font-family:var(--font-serif);font-style:italic;font-weight:500;text-transform:lowercase;
       background:var(--grad-antler);-webkit-background-clip:text;background-clip:text;color:transparent}
     .mark{position:absolute;left:0;bottom:-.03em;width:100%;height:.2em;overflow:visible}
     .mark path{stroke:var(--cobalt-500);stroke-width:2.4;fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
 
-    .ctas{display:flex;gap:12px;flex-wrap:wrap}
-    .side-row{display:flex;flex-direction:column;gap:2px;padding:12px 0;border-top:1px solid var(--hairline)}
-    .side-row:last-child{border-bottom:1px solid var(--hairline)}
-    .side-row .k{font-family:var(--font-mono);font-size:1.15rem;color:var(--ink);letter-spacing:-.01em}
-    .side-row .v{font-family:var(--font-mono);font-size:.625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+    .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+
+    /* Proof strip — inline social proof under CTA */
+    .proof-strip{
+      display:flex;gap:32px;flex-wrap:wrap;
+      padding-top:24px;border-top:1px solid var(--hairline);
+    }
+    .proof-item{
+      display:flex;flex-direction:column;gap:1px;
+    }
+    .proof-item .proof-n{
+      font-family:var(--font-mono);font-size:1.15rem;font-weight:600;color:var(--ink);line-height:1.2;letter-spacing:-.02em
+    }
+    .proof-item .proof-l{
+      font-family:var(--font-mono);font-size:.5625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)
+    }
+
+    .side-row{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      padding-block:10px;
+      border-bottom:1px solid var(--hairline);
+    }
+    .side-row:first-of-type{padding-top:0}
+    .side-row:last-child{
+      border-bottom:none;
+      padding-bottom:0;
+    }
+    .side-row .k{font-family:var(--font-mono);font-size:1.5rem;font-weight:600;color:var(--cobalt-600);line-height:1.15;letter-spacing:-.02em}
+    .side-row .v{font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
     
     .live-pip{width:6px;height:6px;border-radius:999px;background:var(--positive);display:inline-block;position:relative;margin-right:6px}
     .live-pip::after{content:"";position:absolute;inset:-4px;border-radius:999px;border:1.5px solid var(--positive);
@@ -260,8 +306,31 @@
     @media(max-width:1023px){
       .hero-top{grid-template-columns:1fr}
       .hero-copy,.hero-side{grid-column:1}
-      .hero-side{display:flex;gap:24px;flex-wrap:wrap;padding-bottom:0}
-      .side-row{flex:1;min-width:120px;border-bottom:1px solid var(--hairline)}
+      .hero-side{
+        display:flex;
+        gap:12px;
+        flex-wrap:wrap;
+        margin-top:32px;
+        padding:20px;
+        border:1px solid var(--hairline);
+        border-radius:14px;
+        box-shadow:var(--shadow-sm);
+        background:var(--snow-card);
+      }
+      .hero-side::before{border-radius:14px 14px 0 0}
+      .hero-side .side-header{display:none!important}
+      .side-row{
+        flex:1;
+        min-width:120px;
+        border-bottom:1px solid var(--hairline);
+        padding-bottom:8px;
+        padding-top:4px;
+      }
+      .side-row:last-child{
+        border-bottom:none;
+        padding-bottom:0;
+      }
+      .proof-strip{gap:24px}
     }
 
     /* The Desk Window Transform Stage */
@@ -340,11 +409,51 @@
     .pbody{font-size:.75rem;line-height:1.6;color:var(--ink-2);opacity:0;transition:opacity .5s var(--ease-out)}
     .pbody.in{opacity:1}
     .slides{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:11px 0}
-    .slides i{aspect-ratio:3/4;border-radius:4px;background:var(--snow-3);border:1px solid var(--hairline);
-      opacity:0;transform:scale(.8)}
+    .slides i{
+      aspect-ratio:3/4;border-radius:4px;background:var(--snow-3);border:1px solid var(--hairline);
+      opacity:0;transform:scale(.8);
+      position:relative;overflow:hidden;padding:5px;display:flex;flex-direction:column;gap:3px;
+    }
     .slides i.in{opacity:1;transform:none;transition:opacity .3s var(--ease-out),transform .34s var(--ease-out)}
+    
+    /* Micro-UI mockup for carousel slides */
+    .slides i::before {
+      content:""; display:block; width:100%; height:2px; background:var(--hairline-bold); border-radius:1px;
+    }
+    .slides i::after {
+      content:""; display:block; flex:1;
+      background:linear-gradient(180deg, var(--hairline-bold) 20%, transparent 20%, transparent 40%, var(--hairline-bold) 40%, var(--hairline-bold) 60%, transparent 60%);
+      background-size:100% 5px; opacity:.4;
+    }
     .slides i:nth-child(odd).in{background:var(--cobalt-50);border-color:var(--cobalt-200)}
-    .post-meta{display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--hairline)}
+    .slides i:nth-child(odd).in::before{background:var(--cobalt-300)}
+    .slides i:nth-child(odd).in::after{background:linear-gradient(180deg, var(--cobalt-200) 20%, transparent 20%, transparent 40%, var(--cobalt-200) 40%, var(--cobalt-200) 60%, transparent 60%); background-size:100% 5px}
+    
+    /* Hero/Cover Slide (Slide 1) */
+    .slides i:nth-child(1).in {
+      background:var(--grad-antler); border-color:transparent;
+    }
+    .slides i:nth-child(1).in::before {
+      background:rgba(255,255,255,0.4);
+    }
+    .slides i:nth-child(1).in::after {
+      background:linear-gradient(180deg, #fff 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.6) 75%, transparent 75%);
+      background-size:100% 6px; opacity:.95;
+    }
+    
+    /* CTA Slide (Slide 6) */
+    .slides i:nth-child(6).in {
+      background:var(--snow-2); border-color:var(--hairline-bold);
+    }
+    .slides i:nth-child(6).in::before {
+      background:var(--cobalt-400); width:60%; margin-inline:auto;
+    }
+    .slides i:nth-child(6).in::after {
+      background:radial-gradient(circle, var(--cobalt-600) 30%, transparent 35%);
+      background-size:10px 10px; background-repeat:no-repeat; background-position:center; opacity:.85;
+    }
+
+    .post-meta{display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--hairline);margin-bottom:8px}
     .mchip{display:inline-flex;align-items:center;gap:5px;height:21px;padding:0 8px;border-radius:999px;
       font-family:var(--font-mono);font-size:.5625rem;letter-spacing:.06em;background:var(--snow-2);
       border:1px solid var(--hairline);color:var(--ink-2);opacity:0;transform:translateY(4px)}
@@ -352,7 +461,7 @@
     .mchip b{width:5px;height:5px;border-radius:999px;background:var(--cobalt-600);font-weight:400}
     .mchip.peak{background:var(--cobalt-50);border-color:var(--cobalt-200);color:var(--cobalt-700)}
     .mchip.reach b{background:var(--positive)}
-    .approve{width:100%;margin-top:12px;height:38px;border-radius:10px;border:0;cursor:pointer;
+    .approve{width:100%;margin-top:18px;height:38px;border-radius:10px;border:0;cursor:pointer;
       background:var(--cobalt-600);color:#fff;font-family:var(--font-sans);font-weight:500;font-size:.8125rem;
       display:inline-flex;align-items:center;justify-content:center;gap:7px;
       opacity:0;transform:translateY(6px);transition:opacity .34s var(--ease-out),transform .34s var(--ease-out),background .12s}
@@ -363,11 +472,11 @@
     .out-skel i:nth-child(2){width:80%}.out-skel i:nth-child(3){width:60%}
 
     /* Driver Bar */
-    .desk-foot{display:flex;align-items:center;gap:12px;padding:13px 16px;border-top:1px solid var(--hairline);
+    .desk-foot{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--hairline);
       background:var(--snow-card);flex-wrap:wrap;position:relative;z-index:2}
     .desk-foot .q{font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;
       color:var(--ink-3);flex:none}
-    .topics{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
+    .topics{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
     .topic{height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--hairline-bold);
       background:var(--snow-card);color:var(--ink-2);font-family:var(--font-sans);font-size:.75rem;cursor:pointer;
       white-space:nowrap;transition:background .14s,border-color .14s,color .14s,transform .14s}
@@ -396,23 +505,7 @@
       .desk-bar .path{display:none}
     }
 
-    /* Metrics Stat Row */
-    .metrics{background:var(--snow-2);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
-      position:relative;overflow:hidden}
-    .metrics::before{content:"";position:absolute;inset:0;pointer-events:none;
-      background:radial-gradient(70% 120% at 50% 100%,rgba(36,112,234,.04),transparent 70%)}
-    .metrics .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-block:clamp(36px,4vw,56px)}
-    .metric{background:var(--snow-card);border:1px solid var(--hairline);border-radius:16px;padding:clamp(20px,2.5vw,32px);
-      text-align:center;position:relative;overflow:hidden;
-      box-shadow:var(--shadow-sm);transition:transform .2s var(--ease-out),box-shadow .2s var(--ease-out),border-color .2s var(--ease-out)}
-    .metric:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--cobalt-200)}
-    .metric::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;
-      background:var(--grad-antler);border-radius:16px 16px 0 0;opacity:.7}
-    .metric .n{font-family:var(--font-mono);font-size:clamp(1.75rem,1.3rem + 1.2vw,2.6rem);color:var(--ink);
-      line-height:1.05;font-weight:500;letter-spacing:-.02em}
-    .metric .l{font-family:var(--font-mono);font-size:.5625rem;letter-spacing:.14em;text-transform:uppercase;
-      color:var(--ink-3);margin-top:10px;line-height:1.5}
-    @media(max-width:768px){.metrics .wrap{grid-template-columns:1fr 1fr;gap:16px}}
+    /* (metrics section removed — proof points now inline in hero) */
 
     /* ══════════ PARTNERS MARQUEE ══════════ */
     .marquee-container {
@@ -785,8 +878,6 @@
     .mid-foot{position:relative;border-top:1px solid rgba(36,51,107,.5);padding:clamp(40px,5vw,64px) 0 32px}
     .fgrid{display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:clamp(20px,3vw,40px);margin-bottom:40px}
     .fbrand{font-size:.9375rem}
-    .fbrand .brand-word{color:var(--midnight-ink);font-family:var(--font-serif);font-size:1.25rem;
-      font-weight:450;display:block;margin-top:6px}
     .fbrand p{max-width:32ch;margin-top:12px;color:var(--midnight-ink-2);line-height:1.6}
     
     .fcol h5{font-family:var(--font-mono);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;
@@ -812,7 +903,6 @@
     .rv-clip.in{clip-path:inset(0 0 0 0);transform:none;opacity:1}
 
     @media(max-width:1023px){
-      .metrics .wrap{grid-template-columns:1fr 1fr;gap:28px}
       .mesh-grid{grid-template-columns:1fr;gap:36px}
       .plans{grid-template-columns:1fr;max-width:440px}
       .quotes-2{grid-template-columns:1fr;gap:28px}
@@ -857,7 +947,13 @@
         <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
-    <a class="btn btn-primary btn-sm" href="#waitlist">Join waitlist</a>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a class="btn btn-secondary btn-sm" href="https://github.com/raindeer-social-org/Landing_raindeer.social" target="_blank" rel="noopener" aria-label="Fork raindeer.social on GitHub" style="display:inline-flex;align-items:center;gap:6px;padding:0 12px;height:38px;">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" style="display:inline-block;vertical-align:middle;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span>Fork</span>
+      </a>
+      <a class="btn btn-primary btn-sm" href="#waitlist">Join waitlist</a>
+    </div>
   </div>
 </header>
 
@@ -870,7 +966,7 @@
 
   <div class="wrap">
     <!-- HERO COPY & SIDE STATS -->
-    <div class="hero-top" style="margin-bottom:0">
+    <div class="hero-top">
       <div class="hero-copy">
         <p class="eyebrow" id="eb"><span class="rule"></span>Ten agents · One orchestrator</p>
         <svg class="mesh antler-hero-bg" id="meshHeroBg" viewBox="-80 0 680 500" aria-hidden="true"></svg>
@@ -883,9 +979,19 @@
         <div class="ctas" id="ctas">
           <a class="btn btn-primary btn-hero" id="magnetic" href="#waitlist">Join the waitlist <span class="arr">→</span></a>
         </div>
+        <div class="proof-strip">
+          <div class="proof-item"><span class="proof-n"><span data-count="1248" data-comma>0</span>+</span><span class="proof-l">Builders waiting</span></div>
+          <div class="proof-item"><span class="proof-n">+<span data-count="248">0</span>%</span><span class="proof-l">Engagement lift</span></div>
+          <div class="proof-item"><span class="proof-n"><span data-count="8.2" data-dec="1">0</span>s</span><span class="proof-l">Idea → post</span></div>
+          <div class="proof-item"><span class="proof-n">₹<span data-count="3999" data-comma>0</span></span><span class="proof-l">vs ₹60k agency</span></div>
+        </div>
       </div>
 
       <aside class="hero-side" id="side">
+        <div class="side-header" style="display:flex; align-items:center; gap:8px; margin-bottom:4px; border-bottom:1px solid var(--hairline); padding-bottom:12px;">
+          <img src="public/logo-mark.png" alt="raindeer Logo" width="20" height="20" style="object-fit:contain; mix-blend-mode:multiply;">
+          <span style="font-family:var(--font-mono); font-size:.625rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-3);">Live network stats</span>
+        </div>
         <div class="side-row"><span class="k"><span data-count="1248" data-comma>0</span></span><span class="v"><span class="live-pip"></span>Builders in queue</span></div>
         <div class="side-row"><span class="k">10<span style="color:var(--ink-4)">/</span>1</span><span class="v">Agents per orchestrator</span></div>
         <div class="side-row"><span class="k"><span data-count="8.2" data-dec="1">0</span>s</span><span class="v">Idea → scheduled post</span></div>
@@ -894,15 +1000,7 @@
   </div>
 </header>
 
-<!-- ══════════ CORE METRICS ══════════ -->
-<section class="metrics">
-  <div class="wrap">
-    <div class="metric rv" style="transition-delay: 0ms;"><div class="n"><span data-count="1248" data-comma>0</span>+</div><div class="l">Builders on the waitlist</div></div>
-    <div class="metric rv" style="transition-delay: 80ms;"><div class="n">+<span data-count="248">0</span>%</div><div class="l">Median engagement lift</div></div>
-    <div class="metric rv" style="transition-delay: 160ms;"><div class="n"><span data-count="8.2" data-dec="1">0</span>s</div><div class="l">Idea to scheduled post</div></div>
-    <div class="metric rv" style="transition-delay: 240ms;"><div class="n">₹<span data-count="3999" data-comma>0</span></div><div class="l">vs ₹60,000 agency retainer</div></div>
-  </div>
-</section>
+<!-- metrics section moved inline into hero proof-strip -->
 
 <!-- ══════════ PARTNERS MARQUEE ══════════ -->
 <div class="marquee-container">
@@ -949,10 +1047,17 @@
           </span>
         </div>
 
+        <!-- Working Driver Tray -->
+        <div class="desk-foot">
+          <span class="q">What should raindeer post about?</span>
+          <div class="topics" id="topics"></div>
+          <button class="run" id="run">▸ Run the mesh</button>
+        </div>
+
         <div class="desk-body">
           <!-- Pane 1: Mesh Visualizer -->
           <div class="pane pane-mesh">
-            <div class="pane-h"><span>The mesh</span><span id="meshCount">0/11</span></div>
+            <div class="pane-h"><span>The mesh</span><span id="meshCount">0/14</span></div>
             <div class="holder"><svg class="mesh" id="mesh" viewBox="0 0 520 500" aria-label="Agent mesh; nodes light as each agent runs"></svg></div>
             <div class="mesh-cap" id="meshCap"><b style="opacity:0"></b><span>awaiting a topic</span></div>
           </div>
@@ -986,13 +1091,6 @@
               <button class="approve" id="approve">Approve &amp; schedule <span class="arr">→</span></button>
             </div>
           </div>
-        </div>
-
-        <!-- Working Driver Tray -->
-        <div class="desk-foot">
-          <span class="q">What should raindeer post about?</span>
-          <div class="topics" id="topics"></div>
-          <button class="run" id="run">▸ Run the mesh</button>
         </div>
       </div>
     </div>
@@ -1338,8 +1436,11 @@
         <div class="wrap">
           <div class="fgrid">
             <div class="fbrand">
-              <img src="public/logo-mark.png" alt="raindeer.social Logo" width="30" height="30" style="object-fit:contain; filter:invert(1) hue-rotate(180deg) brightness(1.2); mix-blend-mode:screen; display:block; margin-bottom:8px;">
-              <span class="brand-word">raindeer<em style="color:var(--cobalt-300);font-style:normal">.</em></span>
+              <a class="brand" href="#top" aria-label="raindeer.social home" style="display:inline-flex; align-items:center; gap:9px; text-decoration:none; pointer-events:none; margin-bottom:8px;">
+                <img src="public/logo-mark.png" alt="raindeer.social Logo" width="30" height="30" style="object-fit:contain; filter:invert(1) hue-rotate(180deg) brightness(1.2); mix-blend-mode:screen;">
+                <span class="brand-word" style="color:var(--midnight-ink); font-family:var(--font-sans); font-weight:600; font-size:1.2rem; letter-spacing:-.015em;">raindeer<em style="color:var(--cobalt-300); font-style:normal;">.</em></span>
+                <span class="brand-suffix" style="color:var(--midnight-ink-2); font-family:var(--font-mono); font-size:.6875rem; letter-spacing:.1em;">social</span>
+              </a>
               <p>Ten specialized agents and one orchestrator, running social for founders who'd rather be building.</p>
             </div>
             <div class="fcol"><h5>Product</h5>
@@ -1355,6 +1456,7 @@
               <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zm1.8 13H3.6V9h3.5v11.4z"/></svg></a>
               <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M17.5 3h3l-6.6 7.5L21.8 21h-6l-4.7-6.1L5.6 21h-3l7-8-6.9-10h6.2l4.2 5.6L17.5 3zm-1 16.2h1.6L7.6 4.7H5.8l10.7 14.5z"/></svg></a>
               <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2 0 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 5.8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 6.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2zm5.1-6.7a.94.94 0 1 1-1.9 0 .94.94 0 0 1 1.9 0z"/></svg></a>
+              <a href="https://github.com/raindeer-social-org/Landing_raindeer.social" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg></a>
             </div>
             <span>STATUS · ALL AGENTS NOMINAL</span>
           </div>
@@ -1377,6 +1479,7 @@ const clamp   = (v,a,b) => Math.min(b, Math.max(a, v));
 /* ══ LENIS — smooth scroll (lerp 0.1) ══ */
 if (window.Lenis && !reduced) {
   new Lenis({ lerp: 0.1, wheelMultiplier: 0.95, anchors: true, autoRaf: true });
+  document.documentElement.style.scrollBehavior = 'auto';
 }
 
 /* ══ SINGLE SOURCE OF TRUTH: the mesh geometry ══ */
@@ -1617,7 +1720,7 @@ function reset(){
     meshHero.querySelectorAll('.edge').forEach(e=>e.classList.remove('on'));
     prime(meshHero);
   }
-  if(meshCount) meshCount.textContent='0/11';
+  if(meshCount) meshCount.textContent='0/14';
   if(logCount) logCount.textContent='—';
   if(outState) outState.textContent='—';
   if(desk) desk.dataset.run='idle';
@@ -1654,7 +1757,7 @@ function lightNode(id){
       }
     }
   });
-  if(meshCount) meshCount.textContent = meshHero.querySelectorAll('.g-node.on').length + '/11';
+  if(meshCount) meshCount.textContent = meshHero.querySelectorAll('.g-node.on').length + '/14';
 }
 
 async function run(){
@@ -1812,10 +1915,60 @@ function drawMark(){
   if(reduced){ mp.style.strokeDashoffset=0; return; }
   mp.animate([{strokeDashoffset:L},{strokeDashoffset:0}],{duration:500,easing:'ease-out',fill:'both'});
 }
+
+const WORDS = ['deployed', 'optimized', 'orchestrated', 'on autopilot'];
+let wordIdx = 0;
+
+function flipToNextWord() {
+  if (!word || !wrap) return;
+  if (reduced) {
+    wordIdx = (wordIdx + 1) % WORDS.length;
+    word.textContent = WORDS[wordIdx];
+    wrap.style.width = measure(WORDS[wordIdx]) + 'px';
+    return;
+  }
+  
+  // 1. Fade out old word
+  const fadeOut = word.animate([
+    { transform: 'translateY(0)', opacity: 1 },
+    { transform: 'translateY(-15px)', opacity: 0 }
+  ], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' });
+  
+  fadeOut.onfinish = () => {
+    // 2. Switch to next word
+    wordIdx = (wordIdx + 1) % WORDS.length;
+    const nextWord = WORDS[wordIdx];
+    word.textContent = nextWord;
+    
+    // 3. Measure & animate container width
+    const targetWidth = measure(nextWord);
+    const widthAnim = wrap.animate([
+      { width: wrap.getBoundingClientRect().width + 'px' },
+      { width: targetWidth + 'px' }
+    ], { duration: 350, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' });
+    
+    widthAnim.onfinish = () => {
+      wrap.style.width = targetWidth + 'px';
+      
+      // 4. Fade in new word
+      const fadeIn = word.animate([
+        { transform: 'translateY(15px)', opacity: 0 },
+        { transform: 'translateY(0)', opacity: 1 }
+      ], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' });
+      
+      fadeIn.onfinish = () => {
+        // 5. Draw underline
+        drawMark();
+      };
+    };
+  };
+}
+
 if(wrap && word) {
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>{
     wrap.style.width=measure('deployed')+'px';
     setTimeout(drawMark, reduced?0:1400);
+    setInterval(flipToNextWord, 4000);
   });
 }
 
