@@ -245,6 +245,14 @@
       background:var(--grad-antler);border-radius:18px 18px 0 0;
     }
     
+    #h1 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: var(--text-h1);
+      line-height: 1.02;
+      letter-spacing: -.018em;
+    }
+
     .flipwrap{position:relative;display:inline-block;vertical-align:baseline;transition:width .52s var(--ease-cinema)}
     .flip{display:block;overflow:hidden;perspective:660px;padding-bottom:.1em;margin-bottom:-.1em}
     .flip-word{display:inline-block;transform-origin:50% 50%;white-space:pre;
@@ -262,9 +270,15 @@
     }
     .proof-item{
       display:flex;flex-direction:column;gap:1px;
+      transition:transform 0.2s var(--ease-out);
+      cursor:default;
+    }
+    .proof-item:hover{
+      transform:translateY(-3px);
     }
     .proof-item .proof-n{
-      font-family:var(--font-mono);font-size:1.15rem;font-weight:600;color:var(--ink);line-height:1.2;letter-spacing:-.02em
+      font-family:var(--font-mono);font-size:1.15rem;font-weight:600;color:var(--ink);line-height:1.2;
+      letter-spacing:-.02em;font-variant-numeric:tabular-nums;
     }
     .proof-item .proof-l{
       font-family:var(--font-mono);font-size:.5625rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)
@@ -282,7 +296,10 @@
       border-bottom:none;
       padding-bottom:0;
     }
-    .side-row .k{font-family:var(--font-mono);font-size:1.5rem;font-weight:600;color:var(--cobalt-600);line-height:1.15;letter-spacing:-.02em}
+    .side-row .k{
+      font-family:var(--font-mono);font-size:1.5rem;font-weight:600;color:var(--cobalt-600);line-height:1.15;
+      letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+    }
     .side-row .v{font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
     
     .live-pip{width:6px;height:6px;border-radius:999px;background:var(--positive);display:inline-block;position:relative;margin-right:6px}
@@ -546,7 +563,7 @@
     }
     @keyframes scroll-marquee {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-33.333%); }
+      100% { transform: translateX(-50%); }
     }
 
     /* ══════════ HOW IT WORKS (Edge Trace Timeline) ══════════ */
@@ -554,7 +571,9 @@
     .trace{position:relative}
     .trace svg{position:sticky;top:120px;width:64px;height:420px;overflow:visible}
     .trace .rail{stroke:var(--hairline);stroke-width:2;fill:none}
-    .trace .lit{stroke:var(--cobalt-600);stroke-width:2;fill:none;stroke-linecap:round}
+    .trace .lit-seg{stroke:var(--cobalt-600);stroke-width:2;fill:none;stroke-linecap:round;
+      stroke-dasharray: 132; stroke-dashoffset: 132; transition: stroke-dashoffset 0.8s var(--ease-cinema)}
+    .trace .lit-seg.active{stroke-dashoffset:0}
     .trace .tnode{fill:#fff;stroke:var(--hairline-bold);stroke-width:2;transition:stroke .4s var(--ease-out),fill .4s var(--ease-out)}
     .trace .tnode.on{stroke:var(--cobalt-600);fill:var(--cobalt-100)}
     
@@ -565,7 +584,8 @@
     .step p{max-width:60ch;margin-bottom:14px}
     .step .chip{display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 11px;border-radius:999px;
       background:var(--snow-2);border:1px solid var(--hairline);font-family:var(--font-mono);font-size:.625rem;
-      letter-spacing:.08em;color:var(--ink-2)}
+      letter-spacing:.08em;color:var(--ink-2);transition:background-color .2s var(--ease-out),border-color .2s var(--ease-out);cursor:pointer}
+    .step .chip:hover{background-color:var(--snow-3);border-color:var(--hairline-bold)}
     .step .chip b{width:6px;height:6px;border-radius:999px;background:var(--cobalt-600);font-weight:400}
 
     /* ══════════ THE AGENTS MESH ══════════ */
@@ -580,28 +600,30 @@
     .roster{display:grid;gap:2px}
     .agent-row{display:grid;grid-template-columns:16px 1fr auto;align-items:center;gap:12px;padding:11px 12px;
       border-radius:10px;background:transparent;border:1px solid transparent;cursor:default;text-align:left;width:100%;
-      font-family:inherit;transition:background .18s var(--ease-out),border-color .18s var(--ease-out)}
+      font-family:inherit;transition:background .2s var(--ease-out),border-color .2s var(--ease-out)}
     .agent-row .bullet{width:9px;height:9px;border-radius:999px;border:1.5px solid var(--ink-4);background:transparent;
       transition:border-color .18s,background .18s}
     .agent-row .code{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.06em;color:var(--ink);
       text-transform:uppercase}
     .agent-row .role{font-size:.8125rem;color:var(--ink-3);justify-self:end;text-align:right}
-    .agent-row:hover,.agent-row:focus-visible,.agent-row.active{background:var(--snow-card);border-color:var(--hairline)}
+    .agent-row:hover,.agent-row:focus-visible,.agent-row.active{background:rgba(36,112,234,.05);border-color:var(--cobalt-200)}
     .agent-row:hover .bullet,.agent-row:focus-visible .bullet,.agent-row.active .bullet{border-color:var(--cobalt-600);background:var(--cobalt-600)}
     .agent-row:hover .role,.agent-row.active .role{color:var(--ink-2)}
     
     .mesh-stage{background:var(--snow-card);border:1px solid var(--hairline);border-radius:24px;padding:20px;
       box-shadow:var(--shadow-sm)}
     .mesh-stage svg{width:100%;height:auto}
-    .mesh-lg{overflow:visible}
+    .mesh-lg{overflow:visible;transition:opacity .2s var(--ease-out)}
     .mesh-lg .label{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.08em;fill:var(--ink-3);
-      text-transform:uppercase;transition:fill .2s,opacity .2s;opacity:.85}
-    .mesh-lg .g-node.dim{opacity:.28;transition:opacity .25s var(--ease-out)}
-    .mesh-lg .g-node{transition:opacity .25s var(--ease-out)}
-    .mesh-lg .edge.dim{opacity:.16;transition:opacity .25s var(--ease-out)}
-    .mesh-lg .edge{transition:opacity .25s var(--ease-out)}
-    .mesh-lg .g-node.on .label{fill:var(--cobalt-700);opacity:1}
-    .mesh-lg .g-node.on .node{stroke:var(--cobalt-600);fill:var(--cobalt-100)}
+      text-transform:uppercase;transition:fill .2s,opacity .2s,font-weight .2s;opacity:.85}
+    .mesh-lg .g-node{transition:opacity .2s var(--ease-out)}
+    .mesh-lg .edge{transition:opacity .2s var(--ease-out)}
+    .mesh-lg.has-hover .g-node:not(.highlighted){opacity:.3}
+    .mesh-lg.has-hover .edge:not(.highlighted){opacity:.15}
+    .mesh-lg .g-node.highlighted .node{stroke:var(--cobalt-600);stroke-width:2.5px;fill:var(--cobalt-100)}
+    .mesh-lg .g-node.highlighted .label{fill:var(--cobalt-700);opacity:1;font-weight:600}
+    .mesh-lg .edge.highlighted{stroke:var(--cobalt-600);stroke-width:2.5px;opacity:.95}
+    .travel-dot{pointer-events:none}
     .mesh-note{margin-top:16px;font-family:var(--font-mono);font-size:.625rem;letter-spacing:.08em;
       text-transform:uppercase;color:var(--ink-3);display:flex;gap:8px;align-items:center}
     .node-live{width:8px;height:8px;border-radius:999px;background:var(--cobalt-500);position:relative;flex:none}
@@ -732,7 +754,7 @@
     .mid-stat:hover{border-color:rgba(85,144,243,.35);background:linear-gradient(135deg,rgba(255,255,255,.07) 0%,rgba(255,255,255,.02) 100%);
       transform:translateY(-2px)}
     .mid-stat .n{font-family:var(--font-mono);font-size:clamp(1.4rem,1.1rem + .9vw,2rem);
-      color:#fff;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+      color:#fff;font-weight:600;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
     .mid-stat .l{font-family:var(--font-mono);font-size:.5625rem;letter-spacing:.12em;text-transform:uppercase;
       color:var(--midnight-ink-2);margin-top:6px;line-height:1.4;opacity:.85}
     @media(max-width:900px){
@@ -910,6 +932,112 @@
       .sweep{display:none}
       .desk{transform:none!important}
       .rv,.rv-clip{opacity:1;transform:none;clip-path:none}
+      .marquee-track{animation:none!important;transform:none!important}
+      .plan.featured{animation:none!important}
+    }
+
+    /* Continuous breathing glow for Featured pricing card */
+    @keyframes border-breath {
+      0% {
+        box-shadow: 0 4px 20px rgba(168,123,46,.12), 0 0 0 1px rgba(168,123,46,.25);
+        border-color: rgba(168,123,46,.25);
+      }
+      50% {
+        box-shadow: 0 4px 32px rgba(168,123,46,.28), 0 0 0 2px rgba(168,123,46,.6);
+        border-color: rgba(168,123,46,.6);
+      }
+      100% {
+        box-shadow: 0 4px 20px rgba(168,123,46,.12), 0 0 0 1px rgba(168,123,46,.25);
+        border-color: rgba(168,123,46,.25);
+      }
+    }
+    .plan.featured {
+      animation: border-breath 3s ease-in-out infinite;
+    }
+    .plan.featured:hover {
+      animation-play-state: paused;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Bento Card Eyebrow pulse-once animation on hover */
+    @keyframes tag-pulse-once {
+      0% { transform: scale(1); }
+      50% { transform: scale(2.2); box-shadow: 0 0 8px rgba(36,112,234,.6); }
+      100% { transform: scale(1); }
+    }
+    .bcard:hover .tag b {
+      animation: tag-pulse-once 0.4s ease-out 1;
+    }
+
+    /* Table row hover deepening for raindeer.social column */
+    .cmp tbody tr {
+      transition: background-color 0.2s var(--ease-out);
+    }
+    .cmp tbody tr td.us {
+      transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+    }
+    .cmp tbody tr:hover td.us {
+      background: rgba(36,112,234,.10) !important;
+      color: var(--cobalt-950) !important;
+    }
+
+    /* Waitlist Input Focus Soft Glow and Custom Checkboxes */
+    .wait input, .wait select {
+      transition: border-color .2s var(--ease-out), background .2s var(--ease-out), box-shadow .2s var(--ease-out);
+    }
+    .wait input:focus, .wait select:focus {
+      border-color: var(--cobalt-500) !important;
+      box-shadow: 0 0 0 4px rgba(36,112,234,.22) !important;
+    }
+
+    /* Custom Checkbox styles */
+    .wait-checkboxes input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 17px;
+      height: 17px;
+      border: 1.5px solid rgba(255,255,255,.2);
+      border-radius: 4px;
+      background: rgba(255,255,255,.03);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: background .2s, border-color .2s, box-shadow .2s;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .wait-checkboxes input[type="checkbox"]:hover {
+      border-color: rgba(255,255,255,.4);
+      background: rgba(255,255,255,.06);
+    }
+    .wait-checkboxes input[type="checkbox"]:checked {
+      background: var(--cobalt-600);
+      border-color: var(--cobalt-600);
+      box-shadow: 0 0 8px rgba(36,112,234,.35);
+    }
+    .wait-checkboxes input[type="checkbox"]::after {
+      content: "";
+      width: 5px;
+      height: 9px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) scale(0);
+      transition: transform .2s cubic-bezier(.34,1.56,.64,1);
+      margin-bottom: 2px;
+    }
+    .wait-checkboxes input[type="checkbox"]:checked::after {
+      transform: rotate(45deg) scale(1);
+    }
+
+    /* Run the mesh button arrow hover transition */
+    .run .run-arr {
+      display: inline-block;
+      transition: transform 0.2s var(--ease-out);
+    }
+    .run:hover .run-arr {
+      transform: translateX(4px);
     }
     </style>
 </head>
@@ -921,7 +1049,7 @@
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="raindeer.social home">
-      <img src="https://raw.githubusercontent.com/raindeer-social-org/Landing_raindeer.social/main/public/logo-mark.png" alt="raindeer.social Logo" width="30" height="30" style="object-fit:contain; mix-blend-mode:multiply; vertical-align:middle; margin-right:4px;">
+      <img id="navLogo" src="https://raw.githubusercontent.com/raindeer-social-org/Landing_raindeer.social/main/public/logo-mark.png" crossOrigin="anonymous" alt="raindeer.social Logo" width="30" height="30" style="object-fit:contain; vertical-align:middle; margin-right:4px;">
       <span class="brand-word">raindeer<em>.</em></span>
       <span class="brand-suffix">social</span>
     </a>
@@ -1632,15 +1760,65 @@ if(roster) {
 }
 function focusAgent(id){
   if(!meshLg) return;
-  const nodes=[...meshLg.querySelectorAll('.g-node')], edges=[...meshLg.querySelectorAll('.edge')];
-  if(!id){ nodes.forEach(n=>n.classList.remove('dim','on')); edges.forEach(e=>e.classList.remove('dim')); return; }
-  const linked=new Set([id]);
-  edges.forEach(e=>{ const {a,b}=e.dataset;
-    if(a===id||b===id){ linked.add(a); linked.add(b); e.classList.remove('dim'); } else e.classList.add('dim'); });
+  // Clear any existing travel dots
+  meshLg.querySelectorAll('.travel-dot').forEach(d=>d.remove());
+  
+  const nodes = [...meshLg.querySelectorAll('.g-node')];
+  const edges = [...meshLg.querySelectorAll('.edge')];
+  
+  if(!id){
+    meshLg.classList.remove('has-hover');
+    nodes.forEach(n=>n.classList.remove('highlighted'));
+    edges.forEach(e=>e.classList.remove('highlighted'));
+    return;
+  }
+  
+  meshLg.classList.add('has-hover');
+  
+  const linked = new Set([id]);
+  edges.forEach(e=>{
+    const {a, b} = e.dataset;
+    if(a===id || b===id){
+      linked.add(a);
+      linked.add(b);
+      e.classList.add('highlighted');
+      
+      // Spawn travel dot
+      const p1 = PT(a);
+      const p2 = PT(b);
+      if (p1 && p2 && !reduced) {
+        const dist1 = Math.pow(p1.x - 260, 2) + Math.pow(p1.y - 310, 2);
+        const dist2 = Math.pow(p2.x - 260, 2) + Math.pow(p2.y - 310, 2);
+        const xStart = dist1 > dist2 ? p1.x : p2.x;
+        const yStart = dist1 > dist2 ? p1.y : p2.y;
+        const xEnd = dist1 > dist2 ? p2.x : p1.x;
+        const yEnd = dist1 > dist2 ? p2.y : p1.y;
+        
+        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dot.setAttribute('r', '3.5');
+        dot.setAttribute('fill', 'var(--cobalt-500)');
+        dot.setAttribute('class', 'travel-dot');
+        meshLg.appendChild(dot);
+        
+        dot.animate([
+          { cx: xStart, cy: yStart, opacity: 0 },
+          { cx: xStart, cy: yStart, opacity: 1, offset: 0.15 },
+          { cx: xEnd, cy: yEnd, opacity: 1, offset: 0.85 },
+          { cx: xEnd, cy: yEnd, opacity: 0 }
+        ], {
+          duration: 900,
+          iterations: Infinity,
+          easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        });
+      }
+    } else {
+      e.classList.remove('highlighted');
+    }
+  });
+  
   nodes.forEach(n=>{
-    const on = n.dataset.id===id;
-    n.classList.toggle('on', on);
-    n.classList.toggle('dim', !linked.has(n.dataset.id));
+    const isHighlighted = linked.has(n.dataset.id);
+    n.classList.toggle('highlighted', isHighlighted);
   });
 }
 if(roster) {
@@ -1671,25 +1849,45 @@ if(meshLg) {
   mio.observe(meshLg);
 }
 
-/* ═══ SCROLL LINKED EDGE TRACE ═══ */
-const lit=document.getElementById('traceLit'), tnodes=[...document.querySelectorAll('.tnode')];
-if(lit){
-  const L=lit.getTotalLength(); lit.style.strokeDasharray=L; lit.style.strokeDashoffset=L;
-  const steps=[...document.querySelectorAll('.step')];
-  let ticking=false;
-  const onScroll=()=>{
-    if(ticking) return; ticking=true;
-    requestAnimationFrame(()=>{
-      if(steps.length === 0) { ticking=false; return; }
-      const first=steps[0].getBoundingClientRect(), last=steps[steps.length-1].getBoundingClientRect();
-      const total=last.bottom-first.top;
-      const p=Math.min(1, Math.max(0, (innerHeight*0.55 - first.top)/total));
-      lit.style.strokeDashoffset = L*(1-p);
-      tnodes.forEach((n,i)=> n.classList.toggle('on', p >= i/(tnodes.length-1) - .04));
-      ticking=false;
-    });
-  };
-  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+/* ═══ PIPELINE EDGE TRACE VIA INTERSECTION OBSERVER ═══ */
+const tnodes = [...document.querySelectorAll('.tnode')];
+const segs = [
+  document.getElementById('seg0'),
+  document.getElementById('seg1'),
+  document.getElementById('seg2')
+];
+const steps = [...document.querySelectorAll('.step')];
+
+if (steps.length > 0) {
+  if (reduced) {
+    tnodes.forEach(n => n.classList.add('on'));
+    segs.forEach(s => { if(s) s.classList.add('active'); });
+  } else {
+    const stepObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = steps.indexOf(entry.target);
+          if (idx !== -1) {
+            // Fill in node circle
+            if (tnodes[idx]) tnodes[idx].classList.add('on');
+            
+            // Draw connecting line segment to next node
+            if (idx > 0 && segs[idx - 1]) {
+              segs[idx - 1].classList.add('active');
+            }
+            
+            // Prevent re-triggering (run once, not looping)
+            stepObserver.unobserve(entry.target);
+          }
+        }
+      });
+    }, { threshold: 0.45, rootMargin: '0px 0px -10% 0px' });
+    
+    steps.forEach(step => stepObserver.observe(step));
+    
+    // Set initial state: first node is active immediately on load if visible
+    if (tnodes[0]) tnodes[0].classList.add('on');
+  }
 }
 
 /* ═══ FAQ ACCORDION ═══ */
@@ -1784,6 +1982,37 @@ if(form && wbtn) {
       wbtn.removeAttribute('aria-busy');
     }
   });
+  });
+}
+
+/* Make nav logo transparent dynamically via canvas to fix transparent nav background blend */
+const navLogo = document.getElementById('navLogo');
+if (navLogo) {
+  const makeTransparent = () => {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = navLogo.naturalWidth || navLogo.width;
+      canvas.height = navLogo.naturalHeight || navLogo.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(navLogo, 0, 0);
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imgData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        if (data[i] > 240 && data[i+1] > 240 && data[i+2] > 240) {
+          data[i+3] = 0;
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      navLogo.src = canvas.toDataURL();
+    } catch (e) {
+      console.error("Failed to make logo transparent via canvas:", e);
+    }
+  };
+  if (navLogo.complete) {
+    makeTransparent();
+  } else {
+    navLogo.addEventListener('load', makeTransparent);
+  }
 }
 })();
 </script>
