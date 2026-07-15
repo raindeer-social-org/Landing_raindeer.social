@@ -2000,11 +2000,20 @@ if(document.getElementById('mesh')) {
 /* ═══ SCROLL FLATTEN (rotateX GPU Transform) ═══ */
 const stage=document.getElementById('stage'), glow=document.getElementById('glow');
 if(!reduced && matchMedia('(min-width:1024px)').matches && stage && desk){
+  let stageTopDoc = null;
+  const updateRect = () => {
+    stageTopDoc = stage.getBoundingClientRect().top + window.scrollY;
+  };
+  addEventListener('resize', updateRect);
+  
   let tick=false;
   const onScroll=()=>{
     if(tick) return; tick=true;
     requestAnimationFrame(()=>{
-      const top = stage.getBoundingClientRect().top;
+      if (stageTopDoc === null) {
+        updateRect();
+      }
+      const top = stageTopDoc - window.scrollY;
       const p = clamp((innerHeight*0.82 - top) / (innerHeight*0.62), 0, 1);
       const e = ease(p);
       desk.style.transform = `rotateX(${12*(1-e)}deg) scale(${.945 + .055*e}) translateY(${-6*(1-e)}px)`;
@@ -2014,7 +2023,11 @@ if(!reduced && matchMedia('(min-width:1024px)').matches && stage && desk){
       tick=false;
     });
   };
-  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  addEventListener('scroll', onScroll, {passive:true});
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    setTimeout(updateRect, 100);
+  });
+  onScroll();
 }
 
 /* ═══ AURORA DRIFT ═══ */
@@ -2276,21 +2289,28 @@ faqs.forEach(f=>f.addEventListener('toggle',()=>{
 
 /* ═══ ICE EDGE ACCENT FOR FEATURED CARD ═══ */
 const feat=document.getElementById('planFeatured');
-if(feat && fine) feat.addEventListener('pointermove', e=>{
-  const r=feat.getBoundingClientRect();
-  feat.style.setProperty('--mx', (e.clientX-r.left)+'px');
-  feat.style.setProperty('--my', (e.clientY-r.top)+'px');
-},{passive:true});
+if(feat && fine) {
+  let featRect = null;
+  feat.addEventListener('pointerenter', () => { featRect = feat.getBoundingClientRect(); });
+  feat.addEventListener('pointermove', e => {
+    if(!featRect) featRect = feat.getBoundingClientRect();
+    feat.style.setProperty('--mx', (e.clientX - featRect.left) + 'px');
+    feat.style.setProperty('--my', (e.clientY - featRect.top) + 'px');
+  }, {passive:true});
+  feat.addEventListener('pointerleave', () => { featRect = null; });
+}
 
 /* ═══ MAGNETIC CTA ═══ */
 if(fine && !reduced){
   const m=document.getElementById('magnetic');
   if(m) {
-    m.addEventListener('pointermove',e=>{
-      const r=m.getBoundingClientRect();
-      m.style.transform=`translate(${clamp((e.clientX-(r.left+r.width/2))*.16,-6,6)}px,${clamp((e.clientY-(r.top+r.height/2))*.16,-6,6)}px)`;
-    },{passive:true});
-    m.addEventListener('pointerleave',()=>{ m.style.transform=''; });
+    let magRect = null;
+    m.addEventListener('pointerenter', () => { magRect = m.getBoundingClientRect(); });
+    m.addEventListener('pointermove', e => {
+      if(!magRect) magRect = m.getBoundingClientRect();
+      m.style.transform = `translate(${clamp((e.clientX - (magRect.left + magRect.width/2))*.16, -6, 6)}px, ${clamp((e.clientY - (magRect.top + magRect.height/2))*.16, -6, 6)}px)`;
+    }, {passive:true});
+    m.addEventListener('pointerleave', () => { magRect = null; m.style.transform = ''; });
   }
 }
 
