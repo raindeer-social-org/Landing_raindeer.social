@@ -110,8 +110,9 @@ p{text-wrap:pretty}
 
 /* ════════ ATMOSPHERE — guide 06 §3 (Aurora Drift). NO constellation here:
    the hero already has a node-graph (the mesh). Two graphs = mush. ════════ */
-.atmos{position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--grad-dawn);overflow:hidden}
-.bloom{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform}
+.atmos{position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--grad-dawn);overflow:hidden;contain:strict}
+.bloom{position:absolute;border-radius:50%;filter:blur(90px);transform:translateZ(0)}
+.hero.is-visible .bloom{will-change:transform}
 .b1{width:700px;height:700px;top:-18%;right:-8%;background:radial-gradient(closest-side,rgba(36,112,234,.17),transparent 70%)}
 .b2{width:560px;height:560px;bottom:-26%;left:-10%;background:radial-gradient(closest-side,rgba(21,154,140,.10),transparent 70%)}
 .b3{width:420px;height:420px;top:44%;left:46%;background:radial-gradient(closest-side,rgba(168,123,46,.06),transparent 70%)}
@@ -199,7 +200,7 @@ p{text-wrap:pretty}
 .mesh .halo{fill:none;stroke:var(--cobalt-300);stroke-width:1.5;opacity:0}
 
 /* ════════ METRICS ════════ */
-.metrics{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);background:var(--snow-canvas)}
+.metrics{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);background:var(--snow-canvas);contain:layout style}
 .metrics .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-block:40px}
 .metric .n{font-family:var(--font-mono);font-size:clamp(1.6rem,1.2rem + 1.1vw,2.35rem);line-height:1.05;
   letter-spacing:-.01em;color:var(--ink)}
@@ -226,7 +227,7 @@ p{text-wrap:pretty}
 
 /* ════════ AGENT MESH — the signature ════════ */
 .agents{background:var(--snow-2);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
-  position:relative;overflow:hidden}
+  position:relative;overflow:hidden;contain:layout style}
 .agents::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
   background-image:radial-gradient(var(--hairline-bold) 1px,transparent 1px);background-size:26px 26px;
   -webkit-mask-image:radial-gradient(70% 60% at 50% 45%,#000 20%,transparent 100%);
@@ -400,11 +401,11 @@ p{text-wrap:pretty}
 .socials svg{width:15px;height:15px;fill:currentColor}
 
 /* ════════ REVEAL (IntersectionObserver) ════════ */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .62s var(--ease-cinema),transform .62s var(--ease-cinema)}
-.rv.in{opacity:1;transform:none}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .62s var(--ease-cinema),transform .62s var(--ease-cinema);will-change:opacity,transform}
+.rv.in{opacity:1;transform:none;will-change:auto}
 .rv-clip{clip-path:inset(12% 0 0 0);transform:scale(1.03);opacity:0;
-  transition:clip-path .7s var(--ease-cinema),transform .7s var(--ease-cinema),opacity .5s var(--ease-out)}
-.rv-clip.in{clip-path:inset(0 0 0 0);transform:none;opacity:1}
+  transition:clip-path .7s var(--ease-cinema),transform .7s var(--ease-cinema),opacity .5s var(--ease-out);will-change:clip-path,transform,opacity}
+.rv-clip.in{clip-path:inset(0 0 0 0);transform:none;opacity:1;will-change:auto}
 
 /* ════════ RESPONSIVE ════════ */
 @media(max-width:1023px){
@@ -833,7 +834,7 @@ p{text-wrap:pretty}
 
 <!-- Optional: Lenis. Guarded — page is fully functional without it.
      Production (Next.js): npm i lenis  →  import { ReactLenis } from "lenis/react" -->
-<script src="https://unpkg.com/lenis@1.3.25/dist/lenis.min.js" onerror="window.__noLenis=1"></script>
+<script src="public/lenis.min.js" onerror="window.__noLenis=1"></script>
 <script>
 (function(){
 'use strict';
@@ -957,17 +958,26 @@ function activate(svg, { stagger=110, onDone } = {}){
 prime(meshSm); prime(meshLg);
 meshMid.querySelectorAll('.edge').forEach(l=>{ l.style.strokeDasharray='none'; });   // footer mark: static
 
-/* ══ AURORA DRIFT — guide 06 §3 ══ */
+/* ══ AURORA DRIFT — guide 06 §3 — pauses when hero is off-screen ══ */
 if(!reduced){
   const b1=document.getElementById('b1'), b2=document.getElementById('b2'), b3=document.getElementById('b3');
+  const heroEl=document.getElementById('top');
   const t0=performance.now();
-  (function drift(now){
+  let driftRunning=false, driftRAF=0;
+  function drift(now){
     const t=(now-t0)/1000;
     b1.style.transform=`translate3d(${Math.sin(t/9.4)*34}px,${Math.cos(t/12.7)*26}px,0)`;
     b2.style.transform=`translate3d(${Math.cos(t/11.1)*-28}px,${Math.sin(t/8.3)*30}px,0)`;
     b3.style.transform=`translate3d(${Math.sin(t/14.2)*22}px,${Math.cos(t/10.6)*-18}px,0)`;
-    requestAnimationFrame(drift);
-  })(t0);
+    if(driftRunning) driftRAF=requestAnimationFrame(drift);
+  }
+  const heroObs=new IntersectionObserver(es=>{
+    const vis=es[0].isIntersecting;
+    heroEl.classList.toggle('is-visible',vis);
+    if(vis&&!driftRunning){ driftRunning=true; driftRAF=requestAnimationFrame(drift); }
+    else if(!vis&&driftRunning){ driftRunning=false; cancelAnimationFrame(driftRAF); }
+  },{threshold:0});
+  heroObs.observe(heroEl);
 }
 const sweep=document.getElementById('sweep');
 sweep.addEventListener('animationend',()=>sweep.remove());
@@ -1091,24 +1101,32 @@ const mio = new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.35});
 mio.observe(meshLg);
 
-/* ══ EDGE TRACE — scroll-linked, guide 06 §7 ══ */
+/* ══ EDGE TRACE — scroll-linked, guide 06 §7 — only runs when section is near viewport ══ */
 const lit=document.getElementById('traceLit'), tnodes=[...document.querySelectorAll('.tnode')];
 if(lit){
   const L=lit.getTotalLength(); lit.style.strokeDasharray=L; lit.style.strokeDashoffset=L;
   const steps=[...document.querySelectorAll('.step')];
-  let ticking=false;
-  const onScroll=()=>{
-    if(ticking) return; ticking=true;
+  const howSection=document.getElementById('how');
+  let traceActive=false, traceTicking=false;
+  const onTraceScroll=()=>{
+    if(!traceActive||traceTicking) return; traceTicking=true;
     requestAnimationFrame(()=>{
       const first=steps[0].getBoundingClientRect(), last=steps[steps.length-1].getBoundingClientRect();
       const total=last.bottom-first.top;
       const p=Math.min(1, Math.max(0, (innerHeight*0.55 - first.top)/total));
       lit.style.strokeDashoffset = L*(1-p);
       tnodes.forEach((n,i)=> n.classList.toggle('on', p >= i/(tnodes.length-1) - .04));
-      ticking=false;
+      traceTicking=false;
     });
   };
-  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  if(howSection){
+    const traceObs=new IntersectionObserver(es=>{
+      traceActive=es[0].isIntersecting;
+      if(traceActive) onTraceScroll();
+    },{rootMargin:'200px 0px'});
+    traceObs.observe(howSection);
+  }
+  addEventListener('scroll', onTraceScroll, {passive:true}); onTraceScroll();
 }
 
 /* ══ FAQ — one open at a time ══ */
@@ -1137,9 +1155,13 @@ if(fine && !reduced){
   m.addEventListener('pointerleave',()=>{ m.style.transform=''; });
 }
 
-/* ══ NAV CONDENSE ══ */
+/* ══ NAV CONDENSE — rAF-gated to avoid layout thrashing ══ */
 const nav=document.getElementById('nav');
-const navScroll=()=> nav.classList.toggle('small', scrollY>80);
+let navTicking=false;
+const navScroll=()=>{
+  if(navTicking) return; navTicking=true;
+  requestAnimationFrame(()=>{ nav.classList.toggle('small', scrollY>80); navTicking=false; });
+};
 addEventListener('scroll', navScroll, {passive:true}); navScroll();
 
 /* ══ WAITLIST — Press Button (guide 07 §5.3) ══ */
