@@ -200,9 +200,16 @@
     /* Coded Atmosphere (No Raster) */
     .atmos{position:absolute;inset:0;z-index:0;pointer-events:none;background:transparent;overflow:hidden}
     .bloom{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform}
-    .b1{width:760px;height:760px;top:-22%;right:-8%;background:radial-gradient(closest-side,rgba(36,112,234,.18),transparent 70%)}
-    .b2{width:600px;height:600px;bottom:-20%;left:-10%;background:radial-gradient(closest-side,rgba(21,154,140,.10),transparent 70%)}
-    .b3{width:440px;height:440px;top:46%;left:44%;background:radial-gradient(closest-side,rgba(168,123,46,.07),transparent 70%)}
+    .b1{width:760px;height:760px;top:-22%;right:-8%;background:radial-gradient(closest-side,rgba(36,112,234,.18),transparent 70%);
+      animation:drift-b1 28s ease-in-out infinite}
+    .b2{width:600px;height:600px;bottom:-20%;left:-10%;background:radial-gradient(closest-side,rgba(21,154,140,.10),transparent 70%);
+      animation:drift-b2 24s ease-in-out infinite}
+    .b3{width:440px;height:440px;top:46%;left:44%;background:radial-gradient(closest-side,rgba(168,123,46,.07),transparent 70%);
+      animation:drift-b3 32s ease-in-out infinite}
+    @keyframes drift-b1{0%,100%{transform:translate3d(0,0,0)}25%{transform:translate3d(34px,-26px,0)}50%{transform:translate3d(-20px,20px,0)}75%{transform:translate3d(-34px,26px,0)}}
+    @keyframes drift-b2{0%,100%{transform:translate3d(0,0,0)}25%{transform:translate3d(-28px,30px,0)}50%{transform:translate3d(20px,-22px,0)}75%{transform:translate3d(28px,-30px,0)}}
+    @keyframes drift-b3{0%,100%{transform:translate3d(0,0,0)}25%{transform:translate3d(22px,-18px,0)}50%{transform:translate3d(-16px,14px,0)}75%{transform:translate3d(-22px,18px,0)}}
+    @media(prefers-reduced-motion:reduce){.b1,.b2,.b3{animation:none}}
     .grain{position:absolute;inset:0;opacity:.038;mix-blend-mode:multiply;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
     .sweep{position:fixed;inset:0;z-index:90;pointer-events:none;
@@ -2127,18 +2134,7 @@ if(!reduced && matchMedia('(min-width:1024px)').matches && stage && desk){
   onScroll();
 }
 
-/* ═══ AURORA DRIFT ═══ */
-const b1=document.getElementById('b1'),b2=document.getElementById('b2'),b3=document.getElementById('b3');
-if(!reduced && b1 && b2 && b3){
-  const t0=performance.now();
-  (function drift(now){
-    const t=(now-t0)/1000;
-    b1.style.transform=`translate3d(${Math.sin(t/9.4)*34}px,${Math.cos(t/12.7)*26}px,0)`;
-    b2.style.transform=`translate3d(${Math.cos(t/11.1)*-28}px,${Math.sin(t/8.3)*30}px,0)`;
-    b3.style.transform=`translate3d(${Math.sin(t/14.2)*22}px,${Math.cos(t/10.6)*-18}px,0)`;
-    requestAnimationFrame(drift);
-  })(t0);
-}
+/* ═══ AURORA DRIFT — now CSS-only, see @keyframes drift-b1/b2/b3 above ═══ */
 const sweep=document.getElementById('sweep');
 if(sweep) sweep.addEventListener('animationend',()=>sweep.remove());
 
@@ -2152,18 +2148,27 @@ tw(document.getElementById('ctas'), {opacity:0,transform:'translateY(12px)'},{op
 tw(document.getElementById('side'), {opacity:0,transform:'translateY(12px)'},{opacity:1,transform:'none'},560,660);
 /* ═══ DEPARTURE FLIP + PROOFREADER MARK ═══ */
 const wrap=document.getElementById('flipwrap'), word=document.getElementById('word'), mp=document.getElementById('markPath');
-const measure=t=>{const g=document.createElement('span');
+
+/* Pre-calculate word widths once after fonts load instead of creating/destroying DOM nodes every 4s */
+const WORDS = ['deployed', 'optimized', 'orchestrated', 'on autopilot'];
+let wordIdx = 0;
+const _wordWidths = {};
+function _measureAll(){
+  if(!wrap) return;
+  const g=document.createElement('span');
   g.style.cssText='position:absolute;visibility:hidden;white-space:pre;font:inherit;letter-spacing:inherit';
-  g.textContent=t; wrap.appendChild(g); const w=g.getBoundingClientRect().width; g.remove(); return w;};
+  wrap.appendChild(g);
+  WORDS.forEach(w=>{ g.textContent=w; _wordWidths[w]=g.getBoundingClientRect().width; });
+  g.remove();
+}
+const measure=t=> _wordWidths[t] || 0;
+
 function drawMark(){
   if(!mp) return;
   const L=mp.getTotalLength(); mp.style.strokeDasharray=L; mp.style.strokeDashoffset=L;
   if(reduced){ mp.style.strokeDashoffset=0; return; }
   mp.animate([{strokeDashoffset:L},{strokeDashoffset:0}],{duration:500,easing:'ease-out',fill:'both'});
 }
-
-const WORDS = ['deployed', 'optimized', 'orchestrated', 'on autopilot'];
-let wordIdx = 0;
 
 function flipToNextWord() {
   if (!word || !wrap) return;
@@ -2186,7 +2191,7 @@ function flipToNextWord() {
     const nextWord = WORDS[wordIdx];
     word.textContent = nextWord;
     
-    // 3. Measure & animate container width
+    // 3. Use pre-calculated width
     const targetWidth = measure(nextWord);
     const widthAnim = wrap.animate([
       { width: wrap.getBoundingClientRect().width + 'px' },
@@ -2212,6 +2217,7 @@ function flipToNextWord() {
 
 if(wrap && word) {
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>{
+    _measureAll();
     wrap.style.width=measure('deployed')+'px';
     setTimeout(drawMark, reduced?0:1400);
     setInterval(flipToNextWord, 4000);
@@ -2246,8 +2252,12 @@ if(roster) {
     roster.appendChild(b);
   });
 }
+let _activeTravelAnims = [];
 function focusAgent(id){
   if(!meshLg) return;
+  // Cancel running infinite animations to prevent memory leaks
+  _activeTravelAnims.forEach(a => a.cancel());
+  _activeTravelAnims = [];
   // Clear any existing travel dots
   meshLg.querySelectorAll('.travel-dot').forEach(d=>d.remove());
   
@@ -2288,7 +2298,7 @@ function focusAgent(id){
         dot.setAttribute('class', 'travel-dot');
         meshLg.appendChild(dot);
         
-        dot.animate([
+        const anim = dot.animate([
           { cx: xStart, cy: yStart, opacity: 0 },
           { cx: xStart, cy: yStart, opacity: 1, offset: 0.15 },
           { cx: xEnd, cy: yEnd, opacity: 1, offset: 0.85 },
@@ -2298,6 +2308,7 @@ function focusAgent(id){
           iterations: Infinity,
           easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
         });
+        _activeTravelAnims.push(anim);
       }
     } else {
       e.classList.remove('highlighted');
@@ -2384,28 +2395,36 @@ faqs.forEach(f=>f.addEventListener('toggle',()=>{
   if(f.open) faqs.forEach(o=>{ if(o!==f) o.open=false; });
 }));
 
-/* ═══ ICE EDGE ACCENT FOR FEATURED CARD ═══ */
+/* ═══ ICE EDGE ACCENT FOR FEATURED CARD (RAF-throttled) ═══ */
 const feat=document.getElementById('planFeatured');
 if(feat && fine) {
-  let featRect = null;
+  let featRect = null, _featRaf = 0;
   feat.addEventListener('pointerenter', () => { featRect = feat.getBoundingClientRect(); });
   feat.addEventListener('pointermove', e => {
-    if(!featRect) featRect = feat.getBoundingClientRect();
-    feat.style.setProperty('--mx', (e.clientX - featRect.left) + 'px');
-    feat.style.setProperty('--my', (e.clientY - featRect.top) + 'px');
+    if(_featRaf) return;
+    _featRaf = requestAnimationFrame(() => {
+      _featRaf = 0;
+      if(!featRect) featRect = feat.getBoundingClientRect();
+      feat.style.setProperty('--mx', (e.clientX - featRect.left) + 'px');
+      feat.style.setProperty('--my', (e.clientY - featRect.top) + 'px');
+    });
   }, {passive:true});
   feat.addEventListener('pointerleave', () => { featRect = null; });
 }
 
-/* ═══ MAGNETIC CTA ═══ */
+/* ═══ MAGNETIC CTA (RAF-throttled) ═══ */
 if(fine && !reduced){
   const m=document.getElementById('magnetic');
   if(m) {
-    let magRect = null;
+    let magRect = null, _magRaf = 0;
     m.addEventListener('pointerenter', () => { magRect = m.getBoundingClientRect(); });
     m.addEventListener('pointermove', e => {
-      if(!magRect) magRect = m.getBoundingClientRect();
-      m.style.transform = `translate(${clamp((e.clientX - (magRect.left + magRect.width/2))*.16, -6, 6)}px, ${clamp((e.clientY - (magRect.top + magRect.height/2))*.16, -6, 6)}px)`;
+      if(_magRaf) return;
+      _magRaf = requestAnimationFrame(() => {
+        _magRaf = 0;
+        if(!magRect) magRect = m.getBoundingClientRect();
+        m.style.transform = `translate(${clamp((e.clientX - (magRect.left + magRect.width/2))*.16, -6, 6)}px, ${clamp((e.clientY - (magRect.top + magRect.height/2))*.16, -6, 6)}px)`;
+      });
     }, {passive:true});
     m.addEventListener('pointerleave', () => { magRect = null; m.style.transform = ''; });
   }
@@ -2479,34 +2498,11 @@ if(form && wbtn) {
   });
 }
 
-/* Make nav logo transparent dynamically via canvas to fix transparent nav background blend */
+/* Nav logo white-removal: use CSS mix-blend-mode instead of runtime canvas pixel loop.
+   mix-blend-mode:multiply makes white pixels transparent against any background. */
 const navLogo = document.getElementById('navLogo');
 if (navLogo) {
-  const makeTransparent = () => {
-    try {
-      const canvas = document.createElement('canvas');
-      canvas.width = navLogo.naturalWidth || navLogo.width;
-      canvas.height = navLogo.naturalHeight || navLogo.height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(navLogo, 0, 0);
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imgData.data;
-      for (let i = 0; i < data.length; i += 4) {
-        if (data[i] > 240 && data[i+1] > 240 && data[i+2] > 240) {
-          data[i+3] = 0;
-        }
-      }
-      ctx.putImageData(imgData, 0, 0);
-      navLogo.src = canvas.toDataURL();
-    } catch (e) {
-      console.error("Failed to make logo transparent via canvas:", e);
-    }
-  };
-  if (navLogo.complete) {
-    makeTransparent();
-  } else {
-    navLogo.addEventListener('load', makeTransparent);
-  }
+  navLogo.style.mixBlendMode = 'multiply';
 }
 })();
 </script>

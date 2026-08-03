@@ -27,8 +27,22 @@ app.use((req, res, next) => {
 // Serve static files from the project root
 app.use(express.static(__dirname));
 
+// Helper for reading registrations asynchronously
+async function getRegistrations() {
+    try {
+        await fs.promises.access(DB_FILE);
+        const data = await fs.promises.readFile(DB_FILE, 'utf8');
+        return JSON.parse(data || '[]');
+    } catch (err) {
+        if (err.code !== 'ENOENT') {
+            console.error('Error reading registrations file:', err);
+        }
+        return [];
+    }
+}
+
 // Route to register a user
-app.post('/api/register', (req, res) => {
+app.post('/api/register', async (req, res) => {
     const { name, email, phone, companySize, consentMandatory, consentMarketing } = req.body;
 
     if (!name || !email) {
@@ -36,15 +50,7 @@ app.post('/api/register', (req, res) => {
     }
 
     // Read current registrations
-    let registrations = [];
-    if (fs.existsSync(DB_FILE)) {
-        try {
-            const data = fs.readFileSync(DB_FILE, 'utf8');
-            registrations = JSON.parse(data || '[]');
-        } catch (err) {
-            console.error('Error reading registrations file:', err);
-        }
-    }
+    let registrations = await getRegistrations();
 
     // Add new registration with timestamp
     const newRegistration = {
@@ -60,7 +66,7 @@ app.post('/api/register', (req, res) => {
 
     // Save back to JSON file
     try {
-        fs.writeFileSync(DB_FILE, JSON.stringify(registrations, null, 2), 'utf8');
+        await fs.promises.writeFile(DB_FILE, JSON.stringify(registrations, null, 2), 'utf8');
     } catch (err) {
         console.error('Error writing to registrations file:', err);
         return res.status(500).json({ error: 'Failed to save registration' });
@@ -84,22 +90,13 @@ app.post('/api/register', (req, res) => {
 });
 
 // Endpoint to view all registrations
-app.get('/api/registrations', (req, res) => {
-    let registrations = [];
-    if (fs.existsSync(DB_FILE)) {
-        try {
-            const data = fs.readFileSync(DB_FILE, 'utf8');
-            registrations = JSON.parse(data || '[]');
-        } catch (err) {
-            console.error('Error reading registrations file:', err);
-            return res.status(500).json({ error: 'Failed to retrieve registrations' });
-        }
-    }
+app.get('/api/registrations', async (req, res) => {
+    const registrations = await getRegistrations();
     res.json(registrations);
 });
 
 // Serve landing page by default
-app.get('/admin-dashboard', (req, res) => {
+app.get('/admin-dashboard', async (req, res) => {
     if (req.query.passcode !== '123321') {
         return res.send(`
         <!DOCTYPE html>
@@ -134,15 +131,7 @@ app.get('/admin-dashboard', (req, res) => {
         `);
     }
 
-    let registrations = [];
-    if (fs.existsSync(DB_FILE)) {
-        try {
-            const data = fs.readFileSync(DB_FILE, 'utf8');
-            registrations = JSON.parse(data || '[]');
-        } catch (err) {
-            console.error('Error reading registrations file:', err);
-        }
-    }
+    let registrations = await getRegistrations();
     
     // Sort registrations: newest first
     registrations.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));

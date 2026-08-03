@@ -45,3 +45,4 @@ modify_privacy.py
 
 # Temp Context
 temp_context/
+node_modules/
